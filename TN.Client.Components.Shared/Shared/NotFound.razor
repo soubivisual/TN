@@ -1,0 +1,127 @@
+﻿<style>
+    * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    #error-page {
+        position: relative;
+        height: 100vh;
+    }
+
+        #error-page .error-page-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+            #error-page .error-page-bg:after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+        #error-page .error-page {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+    .error-page {
+        max-width: 910px;
+        width: 100%;
+        line-height: 1.4;
+        text-align: center;
+    }
+
+        .error-page .error-page-code {
+            position: relative;
+            height: 200px;
+        }
+
+            .error-page .error-page-code h1 {
+                font-family: 'Montserrat', sans-serif;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                font-size: 220px;
+                font-weight: 900;
+                margin: 0px;
+                color: #fff;
+                text-transform: uppercase;
+                letter-spacing: 10px;
+            }
+
+        .error-page h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .error-page .home-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 13px 25px;
+            margin: 7px;
+        }
+
+            .error-page .home-btn:hover {
+                opacity: 0.9;
+            }
+
+        .error-page .home-btn {
+            border: 2px solid rgba(255, 255, 255, 0.9);
+        }
+
+    @@media only screen and (max-width: 767px) {
+        .error-page .error-page-code h1 {
+            font-size: 182px;
+        }
+    }
+
+    @@media only screen and (max-width: 480px) {
+        .error-page .error-page-code {
+            height: 146px;
+        }
+
+            .error-page .error-page-code h1 {
+                font-size: 146px;
+            }
+
+        .error-page h2 {
+            font-size: 16px;
+        }
+
+        .error-page .home-btn {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div id="error-page">
+    <div class="error-page-bg theme-bg"></div>
+    <div class="error-page">
+        <div class="error-page-code">
+            <h1>404</h1>
+        </div>
+        <h2>Lo sentimos, no fue posible encontrar la página solicitada</h2>
+        <a href="/dashboard" class="btn btn-rounded btn-outline-light home-btn">Volver a Inicio</a>
+    </div>
+</div>

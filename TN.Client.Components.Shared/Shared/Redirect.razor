@@ -1,0 +1,21 @@
+﻿@page "/redirect/{Url}"
+<text>Redireccionando...</text>
+
+@code {
+    [Parameter] public string Url { get; set; }
+
+    // Este componente se creó para volver a inicializar los componentes cuando se seleccionan desde el menú
+    // Anteriormente, si se llenaba un formulario en un componente y luego se volvía a dar clic en el menú, la información seguía cargada
+    // Por lo que este componente permite que el componente a redireccionar vuelva a entrar en su ciclo de vida de OnInitialize
+    protected override async Task OnParametersSetAsync()
+    {
+        //// Se remueve cualquier PNotify que siga visualizándose al momento de redireccionar a otra página
+        //await JSRuntime.PNotifyRemoveAll();
+
+        //if (!NavigationManager.Uri.Contains("redirect")) // A este método ingresa 2 veces, así que solo se le indica al menú que se actualice cuando el url está en la página solicitada
+        //    // Se notifica al menú que debe ser actualizado, para aquellos casos donde se redirecciona a una página diferente a la que estaba
+        //    await NotifyPropertyChanged.OnMenuChanged();
+
+        //NavigationManager.NavigateTo(Url);
+    }
+}

@@ -1,0 +1,14 @@
+﻿using TN.Modules.Building.Domain.ValueObjects;
+
+namespace TN.Modules.Identity.Domain.Users.ValueObjects
+{
+    public sealed class UserId : ValueObjectBase<int>
+    {
+        public UserId(int value) : base(value)
+        {
+
+        }
+
+        public static implicit operator UserId(int value) => new(value);
+    }
+}

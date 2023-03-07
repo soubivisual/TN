@@ -1,0 +1,33 @@
+# Comando para subir todos los contenedores: docker-compose up -d
+
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    shm_size: '4gb'
+    container_name: tn-postgres
+    restart: unless-stopped # Esto indica que el contenedor debe reiniciarse siempre, excepto si se detiene de forma explícita.
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/C/Users/diego/postgres-data
+  redis:
+    image: redis
+    container_name: tn-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+  rabbitmq:
+    image: rabbitmq
+    container_name: tn-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  postgres:
+    driver: local

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Extensions.cs~RF4d86822d.TMP" />
+    <None Remove="Users\Queries\GetUser\GetUserQuery.cs~RF58f5d2d0.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TN.Modules.Building.Application\TN.Modules.Building.Application.csproj" />
+    <ProjectReference Include="..\TN.Modules.Identity.Domain\TN.Modules.Identity.Domain.csproj" />
+    <ProjectReference Include="..\TN.Modules.Identity.Shared\TN.Modules.Identity.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\ExternalEvents\" />
+    <Folder Include="Users\Exceptions\" />
+  </ItemGroup>
+
+</Project>

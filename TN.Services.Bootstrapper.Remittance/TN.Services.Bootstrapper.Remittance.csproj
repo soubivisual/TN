@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json~RF4df79ded.TMP" />
+    <None Remove="appsettings.json~RF4ea90ce6.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TN.Modules.Building.API\TN.Modules.Building.API.csproj" />
+    <ProjectReference Include="..\TN.Modules.Logger.API\TN.Modules.Logger.API.csproj" />
+  </ItemGroup>
+
+</Project>

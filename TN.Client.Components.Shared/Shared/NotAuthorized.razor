@@ -1,0 +1,19 @@
+﻿@page "/not-authorized"
+@layout EmptyLayout
+@inject NavigationManager NavigationManager
+
+<text>No estás autorizado para ver este contenido</text>
+
+@code {
+    //[CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    //protected async override Task OnInitializedAsync()
+    //{
+    //    base.OnInitialized();
+
+    //    var authState = await AuthenticationStateTask;
+
+    //    if (!authState.User.Identity.IsAuthenticated)
+    //        NavigationManager.NavigateTo($"{RouteName.Login}?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}", true);
+    //}
+}
