@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TN.Modules.Building.Infrastructure\TN.Modules.Building.Infrastructure.csproj" />
+    <ProjectReference Include="..\TN.Modules.Logger.Application\TN.Modules.Logger.Application.csproj" />
   </ItemGroup>
 
 </Project>
