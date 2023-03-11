@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\Migrations\" />
+    <Compile Remove="DataAccess\Migrations\**" />
+    <EmbeddedResource Remove="DataAccess\Migrations\**" />
+    <None Remove="DataAccess\Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>

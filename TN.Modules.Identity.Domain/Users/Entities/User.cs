@@ -1,11 +1,10 @@
-﻿using TN.Modules.Identity.Domain.Users.ValueObjects;
+﻿using TN.Modules.Building.Domain.Entities;
+using TN.Modules.Identity.Domain.Users.ValueObjects;
 
 namespace TN.Modules.Identity.Domain.Users.Aggregates
 {
-    public sealed class User
+    public sealed class User : EntityBase<UserId>
     {
-        public UserId Id { get; private set; }
-
         public Guid IdentificationTypeId { get; private set; }
 
         public string Identification { get; private set; }
@@ -30,7 +29,7 @@ namespace TN.Modules.Identity.Domain.Users.Aggregates
 
         public DateTime? EditedDate { get; private set; }
 
-        public User(UserId id, Guid identificationTypeId, string identification, Name name, string username, string email, string phone, Guid typeId, Guid statusId, int? addedUserId, DateTime? addedDate)
+        public User(UserId id, Guid identificationTypeId, string identification, Name name, string username, string email, string phone, Guid typeId, Guid statusId, int? addedUserId, DateTime? addedDate) : base(id)
         {
             Id = id;
             IdentificationTypeId = identificationTypeId;

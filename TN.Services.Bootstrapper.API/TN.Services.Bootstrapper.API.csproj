@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TN.Modules.Building.API\TN.Modules.Building.API.csproj" />
+    <ProjectReference Include="..\TN.Modules.Configuration.API\TN.Modules.Configuration.API.csproj" />
     <ProjectReference Include="..\TN.Modules.Identity.API\TN.Modules.Identity.API.csproj" />
     <ProjectReference Include="..\TN.Modules.Logger.API\TN.Modules.Logger.API.csproj" />
     <ProjectReference Include="..\TN.Modules.Notification.API\TN.Modules.Notification.API.csproj" />

@@ -14,5 +14,7 @@ namespace TN.Modules.Identity.Domain.Users.ValueObjects
         }
 
         public static implicit operator Name(string value) => new(value);
+
+        public static implicit operator string(Name value) => value.Value;
     }
 }

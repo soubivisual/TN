@@ -16,12 +16,12 @@ namespace TN.Modules.Logger.API.Controllers
             _loggerAccessModule = loggerAccessModule;
         }
 
-        [HttpGet("{applicationLogId:long}")]
+        [HttpGet("{id:long}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ApplicationLogDto>> Get(long applicationLogId)
+        public async Task<ActionResult<ApplicationLogDto>> Get(long id)
         {
-            var applicationLog = await _loggerAccessModule.ExecuteQueryAsync(new GetApplicationLogQuery(applicationLogId));
+            var applicationLog = await _loggerAccessModule.ExecuteQueryAsync(new GetApplicationLogQuery(id));
             if (applicationLog is not null)
             {
                 return Ok(applicationLog);

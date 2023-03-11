@@ -30,8 +30,6 @@
 
         public static bool operator !=(ValueObjectBase<TValue> obj1, ValueObjectBase<TValue> obj2) => !obj1.Equals(obj2);
 
-        public static implicit operator TValue(ValueObjectBase<TValue> value) => value.Value;
-
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => Value.ToString();

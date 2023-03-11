@@ -1,4 +1,4 @@
-﻿using TN.Modules.Logger.Domain.ApplicationLogs.ValueObjects;
+﻿using TN.Modules.Logger.Domain.ApplicationLogs.Enums;
 
 namespace TN.Modules.Logger.Application.ApplicationLogs.Queries.GetApplicationLog
 {

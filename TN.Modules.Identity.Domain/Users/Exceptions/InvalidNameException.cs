@@ -2,7 +2,7 @@
 
 namespace TN.Modules.Identity.Domain.Users.Exceptions
 {
-    internal class InvalidNameException : BaseException
+    internal sealed class InvalidNameException : BaseException
     {
         public string Name { get; }
 

@@ -1,11 +1,11 @@
-﻿using TN.Modules.Logger.Domain.ApplicationLogs.ValueObjects;
+﻿using TN.Modules.Building.Domain.Entities;
+using TN.Modules.Logger.Domain.ApplicationLogs.Enums;
+using TN.Modules.Logger.Domain.ApplicationLogs.ValueObjects;
 
 namespace TN.Modules.Logger.Domain.ApplicationLogs.Entities
 {
-    public sealed class ApplicationLog
+    public sealed class ApplicationLog : EntityBase<ApplicationLogId>
     {
-        public long Id { get; set; }
-
         public int? TenantId { get; set; }
 
         public int? UserId { get; set; }
@@ -30,7 +30,7 @@ namespace TN.Modules.Logger.Domain.ApplicationLogs.Entities
 
         public string Message { get; set; }
 
-        public ApplicationLog(long id, int? tenantId, int? userId, string channel, ApplicationLogType type, string className, string methodName, string key, string value, DateTime date, string ip, Guid? coreProcessId, string message)
+        public ApplicationLog(ApplicationLogId id, int? tenantId, int? userId, string channel, ApplicationLogType type, string className, string methodName, string key, string value, DateTime date, string ip, Guid? coreProcessId, string message) : base(id)
         {
             Id = id;
             TenantId = tenantId;

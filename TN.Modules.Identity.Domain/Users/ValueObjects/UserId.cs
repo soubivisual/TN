@@ -10,5 +10,7 @@ namespace TN.Modules.Identity.Domain.Users.ValueObjects
         }
 
         public static implicit operator UserId(int value) => new(value);
+
+        public static implicit operator int(UserId value) => value.Value;
     }
 }

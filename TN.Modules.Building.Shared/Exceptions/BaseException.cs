@@ -9,12 +9,7 @@
             HttpStatus = httpStatus;
             Errors = new List<Error>()
             {
-                new Error()
-                {
-                    Code = code,
-                    Message = message,
-                    Type = GetType().Name
-                }
+                new Error(code, message, GetType().Name)
             };
         }
 
@@ -22,24 +17,10 @@
 
         public List<Error> Errors { get; private set; }
 
-        public class Error
-        {
-            public string Code { get; set; }
-
-            public string Message { get; set; }
-
-            public string Type { get; set; }
-        }
+        public record Error(string Code, string Message, string Type);
 
         public void Add(string code, string message)
-        {
-            Errors.Add(new Error()
-            {
-                Code = code,
-                Message = message,
-                Type = GetType().Name
-            });
-        }
+            => Errors.Add(new Error(code, message, GetType().Name));
 
         public override string ToString()
         {

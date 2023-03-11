@@ -18,4 +18,8 @@
     <ProjectReference Include="..\TN.Modules.Building.Shared\TN.Modules.Building.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApplicationLogs\Exceptions\" />
+  </ItemGroup>
+
 </Project>
