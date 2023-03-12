@@ -1,7 +1,7 @@
-using TN.Modules.Building.API;
-using TN.Modules.Configuration.API;
-using TN.Modules.Identity.API;
-using TN.Modules.Logger.API;
+using TN.Modules.Buildings.API;
+using TN.Modules.Configurations.API;
+using TN.Modules.IdentitiesAPI;
+using TN.Modules.Loggers.API;
 
 var builder = WebApplication.CreateBuilder(args);
 

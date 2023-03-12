@@ -16,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Building.API\TN.Modules.Building.API.csproj" />
-    <ProjectReference Include="..\TN.Modules.Logger.API\TN.Modules.Logger.API.csproj" />
+    <ProjectReference Include="..\TN.Modules.Loggers.API\TN.Modules.Loggers.API.csproj" />
   </ItemGroup>
 
 </Project>

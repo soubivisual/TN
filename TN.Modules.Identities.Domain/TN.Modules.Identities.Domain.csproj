@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Users\Enums\**" />
+    <EmbeddedResource Remove="Users\Enums\**" />
+    <None Remove="Users\Enums\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\Aggregates\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TN.Modules.Buildings.Domain\TN.Modules.Buildings.Domain.csproj" />
+    <ProjectReference Include="..\TN.Modules.Buildings.Shared\TN.Modules.Buildings.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

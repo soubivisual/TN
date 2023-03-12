@@ -1,5 +1,5 @@
-using TN.Modules.Building.API;
-using TN.Modules.Logger.API;
+using TN.Modules.Buildings.API;
+using TN.Modules.Loggers.API;
 
 var builder = WebApplication.CreateBuilder(args);
 

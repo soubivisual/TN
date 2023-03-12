@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Extensions.cs~RF58f11224.TMP" />
+    <None Remove="Extensions.cs~RF58f2fa2d.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TN.Modules.Buildings.Application\TN.Modules.Buildings.Application.csproj" />
+    <ProjectReference Include="..\TN.Modules.Loggers.Domain\TN.Modules.Loggers.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
