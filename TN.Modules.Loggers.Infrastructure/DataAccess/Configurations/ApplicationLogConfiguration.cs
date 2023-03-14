@@ -13,7 +13,7 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess.Configurations
 
             builder.HasKey(q => q.Id);
 
-            builder.Property(q => q.Id).HasConversion(q => q.Value, q => new(q));
+            builder.Property(q => q.Id).ValueGeneratedOnAdd().HasConversion(q => q.Value, q => new(q));
             builder.Property(q => q.TenantId);
             builder.Property(q => q.UserId);
             builder.Property(q => q.Channel).HasMaxLength(128);

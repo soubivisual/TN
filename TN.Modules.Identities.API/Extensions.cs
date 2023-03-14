@@ -9,7 +9,7 @@ namespace TN.Modules.IdentitiesAPI
 {
     public static class Extensions
     {
-        public static IServiceCollection AddIdentityModule(this IServiceCollection services)
+        public static IServiceCollection AddIdentitiesModule(this IServiceCollection services)
         {
             services.AddDomainLayer();
             services.AddApplicationLayer();
@@ -20,7 +20,7 @@ namespace TN.Modules.IdentitiesAPI
             return services;
         }
 
-        public static IApplicationBuilder UseIdentityModule(this IApplicationBuilder app)
+        public static IApplicationBuilder UseIdentitiesModule(this IApplicationBuilder app)
         {
             return app;
         }

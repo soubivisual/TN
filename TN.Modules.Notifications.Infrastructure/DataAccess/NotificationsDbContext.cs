@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using TN.Modules.Notifications.Domain.Notifications.Entities;
 
 namespace TN.Modules.Notifications.Infrastructure.DataAccess
 {
-    internal class NotificationsDbContext
+    internal class NotificationsDbContext : DbContext
     {
+        public DbSet<Notification> Notifications { get; set; }
+
+        public NotificationsDbContext(DbContextOptions<NotificationsDbContext> options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            base.ConfigureConventions(configurationBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDefaultSchema("notifications");
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
     }
 }

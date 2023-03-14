@@ -8,7 +8,7 @@ namespace TN.Modules.Configurations.API
 {
     public static class Extensions
     {
-        public static IServiceCollection AddConfigurationModule(this IServiceCollection services)
+        public static IServiceCollection AddConfigurationsModule(this IServiceCollection services)
         {
             services.AddDomainLayer();
             services.AddApplicationLayer();
@@ -17,7 +17,7 @@ namespace TN.Modules.Configurations.API
             return services;
         }
 
-        public static IApplicationBuilder UseConfigurationModule(this IApplicationBuilder app)
+        public static IApplicationBuilder UseConfigurationsModule(this IApplicationBuilder app)
         {
             return app;
         }

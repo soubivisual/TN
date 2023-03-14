@@ -8,7 +8,7 @@ namespace TN.Modules.Loggers.API
 {
     public static class Extensions
     {
-        public static IServiceCollection AddLoggerModule(this IServiceCollection services)
+        public static IServiceCollection AddLoggersModule(this IServiceCollection services)
         {
             services.AddDomainLayer();
             services.AddApplicationLayer();
@@ -17,7 +17,7 @@ namespace TN.Modules.Loggers.API
             return services;
         }
 
-        public static IApplicationBuilder UseLoggerModule(this IApplicationBuilder app)
+        public static IApplicationBuilder UseLoggersModule(this IApplicationBuilder app)
         {
             return app;
         }

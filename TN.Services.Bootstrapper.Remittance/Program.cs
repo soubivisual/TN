@@ -1,15 +1,15 @@
 using TN.Modules.Buildings.API;
-using TN.Modules.Loggers.API;
+using TN.Modules.Remittances.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLoggerModule();
+builder.Services.AddRemittancesModule();
 builder.Services.AddSharedFramework(builder.Configuration);
 
 var app = builder.Build();
 
 app.UseSharedFramework();
-app.UseLoggerModule();
+app.UseRemittancesModule();
 
 app.MapControllers();
 

@@ -9,11 +9,11 @@ namespace TN.Modules.Loggers.API.Controllers
     [Route("[controller]")]
     public class ApplicationLogController : ControllerBase
     {
-        private readonly ILoggersAccessModule _loggerAccessModule;
+        private readonly ILoggersAccessModule _loggersAccessModule;
 
         public ApplicationLogController(ILoggersAccessModule loggerAccessModule)
         {
-            _loggerAccessModule = loggerAccessModule;
+            _loggersAccessModule = loggerAccessModule;
         }
 
         [HttpGet("{id:long}")]
@@ -21,7 +21,7 @@ namespace TN.Modules.Loggers.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ApplicationLogDto>> Get(long id)
         {
-            var applicationLog = await _loggerAccessModule.ExecuteQueryAsync(new GetApplicationLogQuery(id));
+            var applicationLog = await _loggersAccessModule.ExecuteQueryAsync(new GetApplicationLogQuery(id));
             if (applicationLog is not null)
             {
                 return Ok(applicationLog);

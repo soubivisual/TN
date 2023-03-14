@@ -21,11 +21,11 @@ namespace TN.Modules.Configurations.Infrastructure.Repositories
                 .FirstOrDefaultAsync(q => q.Id == id);
 
         public Task<Catalog> FindAsync(Expression<Func<Catalog, bool>> expression)
-        => _context.Catalogs
-            .AsNoTracking()
-            //.AsQueryable()
-            .Where(expression)
-            .SingleOrDefaultAsync();
+            => _context.Catalogs
+                .AsNoTracking()
+                //.AsQueryable()
+                .Where(expression)
+                .SingleOrDefaultAsync();
 
         public async Task AddAsync(Catalog user)
         {

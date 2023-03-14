@@ -10,14 +10,14 @@ namespace TN.Modules.Configurations.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CatalogController : ControllerBase
+    public sealed class CatalogController : ControllerBase
     {
-        private readonly IConfigurationsAccessModule _configurationAccessModule;
+        private readonly IConfigurationsAccessModule _configurationsAccessModule;
         private readonly IMapping _mapping;
 
         public CatalogController(IConfigurationsAccessModule configurationAccessModule, IMapping mapping)
         {
-            _configurationAccessModule = configurationAccessModule;
+            _configurationsAccessModule = configurationAccessModule;
             _mapping = mapping;
         }
 
@@ -26,7 +26,7 @@ namespace TN.Modules.Configurations.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<dynamic>> Get(Guid id)
         {
-            var catalog = await _configurationAccessModule.ExecuteQueryAsync(new GetCatalogQuery(id));
+            var catalog = await _configurationsAccessModule.ExecuteQueryAsync(new GetCatalogQuery(id));
             if (catalog is not null)
             {
                 return Ok(catalog);
@@ -41,7 +41,7 @@ namespace TN.Modules.Configurations.API.Controllers
         public async Task<ActionResult> Post(AddCatalogRequest request)
         {
             var command = _mapping.Map<AddCatalogCommand>(request);
-            await _configurationAccessModule.ExecuteCommandAsync(command);
+            await _configurationsAccessModule.ExecuteCommandAsync(command);
 
             return NoContent();
         }

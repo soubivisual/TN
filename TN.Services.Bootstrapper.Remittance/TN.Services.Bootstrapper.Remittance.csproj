@@ -12,11 +12,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Loggers.API\TN.Modules.Loggers.API.csproj" />
+    <ProjectReference Include="..\TN.Modules.Remittances.API\TN.Modules.Remittances.API.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,23 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using TN.Modules.Notifications.Domain.Notifications.Entities;
 using TN.Modules.Notifications.Domain.Notifications.Repositories;
+using TN.Modules.Notifications.Infrastructure.DataAccess;
 
 namespace TN.Modules.Notifications.Infrastructure.Repositories
 {
     internal class NotificationRepository : INotificationRepository
     {
-        public Task AddAsync(Notification notification)
+        private readonly NotificationsDbContext _context;
+
+        public NotificationRepository(NotificationsDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
         public Task<Notification> GetAsync(long id)
+            => _context.Notifications
+                .AsNoTracking()
+                .FirstOrDefaultAsync(q => q.Id == id);
+
+        public async Task AddAsync(Notification notification)
         {
-            throw new NotImplementedException();
+            await _context.Notifications.AddAsync(notification);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -25,9 +25,9 @@ namespace TN.Modules.Notifications.Domain.Notifications.Entities
 
         public DateTime Date { get; private set; }
 
-        public DateTime ReadDate { get; private set; }
+        public DateTime? ReadDate { get; private set; }
 
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
 
         public Guid CoreProcessId { get; set; }
 
