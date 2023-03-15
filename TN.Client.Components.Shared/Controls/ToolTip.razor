@@ -1,0 +1,30 @@
+﻿<span class="@Class" tabindex="0" title="@Text" data-placement="@Position" disabled="disabled">
+    @ChildContent
+</span>        
+
+@code {
+    [Parameter] public string Class { get; set; }
+    [Parameter] public string Text { get; set; }
+    [Parameter] public string Position { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Class += " d-inline-block";
+
+        if (!string.IsNullOrEmpty(Text))
+            Class += " toggleTooltip";
+
+        if (string.IsNullOrEmpty(Position))
+            Position = "top";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!string.IsNullOrEmpty(Text))
+            await JSRuntime.LoadTooltip();
+    }
+}

@@ -1,0 +1,56 @@
+﻿<label class="@cssClass"><span>@Status.Value</span></label>
+
+@code {
+    [Parameter] public CatalogEntity Status { get; set; }
+
+    private string cssClass;
+
+    protected override void OnParametersSet()
+    {
+        this.cssClass = Status.Id switch
+        {
+            var _ when Status.Id == TransactionStatus.Registered => "badge badge-warning",
+            var _ when Status.Id == TransactionStatus.Pending => "badge badge-warning",
+            var _ when Status.Id == TransactionStatus.Success => "badge badge-success",
+            var _ when Status.Id == TransactionStatus.Error => "badge badge-danger",
+
+            var _ when Status.Id == TransactionAuthorizationStatus.ByAuthorize => "badge badge-warning",
+            var _ when Status.Id == TransactionAuthorizationStatus.Approved => "badge badge-success",
+            var _ when Status.Id == TransactionAuthorizationStatus.Denied => "badge badge-danger",
+            var _ when Status.Id == TransactionAuthorizationStatus.Expired => "badge badge-danger",
+
+            var _ when Status.Id == TransactionStatus.Confirmed => "badge badge-success",
+            var _ when Status.Id == TransactionStatus.Reversed => "badge badge-danger",
+            var _ when Status.Id == TransactionStatus.Cancelled => "badge badge-danger",
+            var _ when Status.Id == TransactionStatus.AwaitingConfirmation => "badge badge-warning",
+
+            var _ when Status.Id == RipplePaymentStatus.Created => "badge badge-warning",
+            var _ when Status.Id == RipplePaymentStatus.Accepted => "badge badge-warning",
+            var _ when Status.Id == RipplePaymentStatus.Locked => "badge badge-warning",
+            var _ when Status.Id == RipplePaymentStatus.LockDeclined => "badge badge-warning",
+            var _ when Status.Id == RipplePaymentStatus.Settled => "badge badge-warning",
+            var _ when Status.Id == RipplePaymentStatus.Executed => "badge badge-warning",
+            var _ when Status.Id == RipplePaymentStatus.Completed => "badge badge-success",
+            var _ when Status.Id == RipplePaymentStatus.Failed => "badge badge-danger",
+            var _ when Status.Id == RipplePaymentStatus.Returned => "badge badge-danger",
+
+            var _ when Status.Id == PEXTransactionStatus.Registered => "badge badge-warning",
+            var _ when Status.Id == PEXTransactionStatus.Pending => "badge badge-warning",
+            var _ when Status.Id == PEXTransactionStatus.Completed => "badge badge-success",
+            var _ when Status.Id == PEXTransactionStatus.ByAuthorize => "badge badge-warning",
+            var _ when Status.Id == PEXTransactionStatus.Approved => "badge badge-warning",
+            var _ when Status.Id == PEXTransactionStatus.Denied => "badge badge-danger",
+            var _ when Status.Id == PEXTransactionStatus.Rejected => "badge badge-danger",
+            var _ when Status.Id == PEXTransactionStatus.Error => "badge badge-danger",
+
+            var _ when Status.Id == VISAB2BTransactionStatus.Registered => "badge badge-warning",
+            var _ when Status.Id == VISAB2BTransactionStatus.Pending => "badge badge-warning",
+            var _ when Status.Id == VISAB2BTransactionStatus.Completed => "badge badge-success",
+            var _ when Status.Id == VISAB2BTransactionStatus.Rejected => "badge badge-danger",
+            var _ when Status.Id == VISAB2BTransactionStatus.Error => "badge badge-danger",
+            var _ when Status.Id == VISAB2BTransactionStatus.Returned => "badge badge-danger",
+
+            _ => "badge badge-light"
+        };
+    }
+}

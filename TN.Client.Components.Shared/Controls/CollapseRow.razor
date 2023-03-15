@@ -1,0 +1,15 @@
+﻿<LinkButton Class="color-primary" Tooltip="@(Collapsed ? "Más Información" : "Menos Información")" Url="@Url" OnClick="@(() => Collapsed = !Collapsed)" data-toggle="collapse">
+    @if (Collapsed)
+    {
+        <i class="fas fa-plus"></i>
+    }
+    else
+    {
+        <i class="fas fa-minus"></i>
+    }
+</LinkButton>
+
+@code {
+    [Parameter] public string Url { get; set; }
+    [Parameter] public bool Collapsed { get; set; } = true;
+}

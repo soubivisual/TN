@@ -1,0 +1,20 @@
+﻿<CascadingValue Value="this">
+    <DefaultButton Class="@Class" Icon="@Icon" Tooltip="@Tooltip" data-toggle="dropdown" />
+    <ul class="list-unstyled dropdown-menu dropdown-menu-right">
+        @ChildContent
+    </ul>
+</CascadingValue>
+
+@code {
+    [Parameter] public string Class { get; set; } = "btn btn-option dropdown-toggle";
+    [Parameter] public string Icon { get; set; } = "feather icon-more-horizontal";
+    [Parameter] public string Tooltip { get; set; } = "Más Opciones";
+    [Parameter] public bool Hidden { get; set; } = false;
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Hidden)
+            Class += " d-none";
+    }
+}

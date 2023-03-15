@@ -1,0 +1,87 @@
+﻿<CascadingValue Value="this">
+    <div class="row">
+        <div class="col-12">
+            <div class="wizard-control">
+                @foreach (var wizardStep in WizardSteps)
+                {
+                    <div class="wizard-step @GetStepClass(wizardStep)">
+                        <a href="" @onclick:preventDefault @onclick=@(() => OnClick(wizardStep))>
+                            @wizardStep.Title
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @ChildContent
+</CascadingValue>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public WizardStep ActiveWizardStep { get; set; }
+    private List<WizardStep> WizardSteps = new List<WizardStep>();
+
+    internal void AddPage(WizardStep wizardStep)
+    {
+        WizardSteps.Add(wizardStep);
+
+        if (WizardSteps.Count == 1)
+            ActiveWizardStep = wizardStep;
+
+        StateHasChanged();
+    }
+
+    protected string GetStepClass(WizardStep wizardStep)
+    {
+        var activeWizardStep = WizardSteps.IndexOf(ActiveWizardStep);
+        var currentWizardStep = WizardSteps.IndexOf(wizardStep);
+
+        if (activeWizardStep > currentWizardStep)
+            return "inactive";
+        else if (activeWizardStep < currentWizardStep)
+            return "disabled";
+        else
+            return "active";
+    }
+
+    protected void OnClick(WizardStep wizardStep)
+    {
+        ActiveWizardStep = wizardStep;
+    }
+
+    public bool DisableButton(WizardStep wizardStep, string button, bool disabled)
+    {
+        var index = WizardSteps.IndexOf(wizardStep);
+
+        if (button == "back" && index == 0)
+            return true;
+
+        //if (button == "next" && index == WizardSteps.Count - 1)
+        //    return true;
+
+        return disabled;
+    }
+
+    public void Back(WizardStep wizardStep)
+    {
+        var index = WizardSteps.IndexOf(wizardStep) - 1;
+
+        if (index >= 0)
+            ActiveWizardStep = WizardSteps[index];
+
+        this.StateHasChanged();
+    }
+
+    public void Next(WizardStep wizardStep)
+    {
+        var index = WizardSteps.IndexOf(wizardStep) + 1;
+
+        if (index < WizardSteps.Count)
+            ActiveWizardStep = WizardSteps[index];
+
+        this.StateHasChanged();
+    }
+}

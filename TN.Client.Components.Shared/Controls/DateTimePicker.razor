@@ -1,0 +1,57 @@
+﻿@inherits InputBase<DateTime?>
+
+@* Se agrega position-relative para que al desplegar el componente se ubique correctamente *@
+<div class="position-relative">
+    <label class="form-label" for="@Id" field-required="@ValidationFor.Body.IsRequired()">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+    <input @bind="CurrentValueAsString" class="form-control" autocomplete="off" id="@Id" disabled="@Disabled" placeholder="@(Placeholder ?? ValidationFor.Body.GetDisplayPrompt())" />
+    <ValidationMessage For="@ValidationFor" />
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public object CollectionId { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public DateTime? MinDate { get; set; } = DateTime.MinValue;
+    [Parameter] public DateTime? MaxDate { get; set; } = DateTime.MaxValue;
+    [Parameter] public Expression<Func<DateTime?>> ValidationFor { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string Id;
+
+    protected override void OnParametersSet()
+    {
+        Id = CollectionId == null ? FieldIdentifier.GetName() : $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+    }
+
+    protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
+    {
+        DateTime.TryParse(value, out var parsedValue);
+        result = parsedValue;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    protected override string FormatValueAsString(DateTime? value)
+    {
+        return value.HasValue ? value.Value.ToString(ApplicationConstant.DateTimeFormat) : null;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await JSRuntime.BootstrapDateTimePicker(Id, ApplicationConstant.BootstrapDateTimeFormat, MinDate.Value, MaxDate.Value, this, nameof(SetValue));
+
+        await JSRuntime.BootstrapDateTimePickerMinDate(Id, MinDate.Value);
+        await JSRuntime.BootstrapDateTimePickerMaxDate(Id, MaxDate.Value);
+    }
+
+    [JSInvokable]
+    public Task SetValue(string dateTime)
+    {
+        CurrentValueAsString = dateTime;
+
+        return Task.CompletedTask;
+    }
+}

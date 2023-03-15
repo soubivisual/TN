@@ -1,0 +1,171 @@
+﻿@using System.Linq.Expressions
+@using System.Globalization;
+
+@typeparam T
+@inherits InputBase<T>
+
+<div class="form-control-wrapper">
+    <label class="form-label" for="@Id" field-required="@(Required ?? ValidationFor.Body.IsRequired())">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+    <select @bind="CurrentValueAsString" class="form-control" id="@Id" name="@(Name ?? Id)" disabled="@(Disabled || Data == null)" data-size="@ApplicationConstant.ComboBoxSearch" data-live-search="@(Data?.Count() > ApplicationConstant.ComboBoxSearch ? "true" : "false")" @attributes="AdditionalAttributes">
+        <option value="@(default(T) == null ? "" : default(T).ToString())" selected disabled>@(Placeholder ?? ValidationFor.Body.GetDisplayPrompt())</option>
+        @if (Data != null)
+        {
+            @foreach (var item in Data)
+            {
+                <option value="@item.GetPropertyValue(ValueField)">@item.GetPropertyValue(TextField)</option>
+            }
+        }
+    </select>
+    @if (!string.IsNullOrEmpty(Instruction))
+    {
+        <p class="input-instruction">@Instruction</p>
+    }
+    <ValidationMessage For="@ValidationFor" />
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public string Id { get; set; }
+    [Parameter] public string Name { get; set; }
+    [Parameter] public object CollectionId { get; set; }
+    [Parameter] public bool? Required { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public IEnumerable<object> Data { get; set; }
+    [Parameter] public string OrderBy { get; set; } = "asc";
+    [Parameter] public string ValueField { get; set; }
+    [Parameter] public string TextField { get; set; }
+    [Parameter] public string Instruction { get; set; }
+    [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Id ??= CollectionId == null ? FieldIdentifier.GetName() : $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+
+        if (OrderBy == "asc")
+            Data = Data?.OrderBy(q => q.GetPropertyValue(TextField));
+        else if (OrderBy == "desc")
+            Data = Data?.OrderByDescending(q => q.GetPropertyValue(TextField));
+    }
+
+    protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+    {
+        if (typeof(T) == typeof(string))
+        {
+            result = (T)(object)value;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(long))
+        {
+            long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(long?))
+        {
+            if (long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(int))
+        {
+            int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(int?))
+        {
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(short))
+        {
+            short.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(short?))
+        {
+            if (short.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(Guid))
+        {
+            Guid.TryParse(value, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(Guid?))
+        {
+            if (Guid.TryParse(value, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T).IsEnum)
+        {
+            // There's no non-generic Enum.TryParse (https://github.com/dotnet/corefx/issues/692)
+            try
+            {
+                result = (T)Enum.Parse(typeof(T), value);
+                validationErrorMessage = null;
+
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                result = default;
+                validationErrorMessage = $"The {FieldIdentifier.FieldName} field is not valid.";
+
+                return false;
+            }
+        }
+
+        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(T)}'.");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var isMobile = await JSRuntime.IsMobile();
+
+        if (!isMobile && Data != default)
+            await JSRuntime.BootstrapSelect(Id);
+
+        // Como no es posible agregar el onchange como atributo ya que Blazor lo utiliza para hacer el Bind de las propiedades, se opta por usar un event listener para solucionarlo
+        if (AdditionalAttributes != null && AdditionalAttributes.ContainsKey("onchange"))
+            await JSRuntime.AddEventListener(Id, "change", AdditionalAttributes.GetValueOrDefault("onchange")?.ToString());
+    }
+}

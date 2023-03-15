@@ -7,7 +7,7 @@ using TN.Client.Components.Shared.Helpers;
 using TN.Client.Components.Shared.Attributes;
 using TN.Shared.Utils.Misc;
 
-namespace TN.Client.Web.BlazorShared.Helpers
+namespace TN.Client.Components.Shared.Helpers
 {
     public static class Extensions
     {

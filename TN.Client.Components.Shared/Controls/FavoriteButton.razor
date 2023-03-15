@@ -1,0 +1,14 @@
+﻿<a class="@(Checked ? "color-primary" : "color-gray")" href="" @onclick:preventDefault @onclick="Change" disabled="@Disabled"><i class="fas fa-star"></i></a>
+
+@code {
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool Checked { get; set; }
+    [Parameter] public Func<bool, Task<bool>> OnChange { get; set; }
+
+    private async Task Change()
+    {
+        var result = await OnChange.Invoke(Checked);
+
+        Checked = result ? !Checked : Checked;
+    }
+}

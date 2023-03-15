@@ -1,0 +1,99 @@
+﻿@using FTPymes.Core.Models.Objects.Entities;
+
+@inherits InputBase<AccountEntity>
+
+<label class="form-label" for="@FieldIdentifier.GetName()" field-required="@ValidationFor.Body.IsRequired()">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+<div class="input-group">
+    <input type="text" @bind="@CurrentValueAsString" class="form-control" id="@FieldIdentifier.GetName()" placeholder="@(Placeholder ?? ValidationFor.Body.GetDisplayPrompt())" data-toggle="modal" data-target="#modal_@FieldIdentifier.GetName()" readonly />
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal_@FieldIdentifier.GetName()"><i class="fas fa-credit-card"></i></button>
+    </div>
+</div>
+<ValidationMessage For="@ValidationFor" />
+
+<div id="modal_@FieldIdentifier.GetName()" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seleccione una Cuenta Origen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                @if (Accounts == null)
+                {
+                    @ApplicationConstant.Loading
+                }
+                else if (!Accounts.Any())
+                {
+                    <text>No hay cuentas para mostrar</text>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                @foreach (var account in Accounts)
+                                {
+                                    <tr @onclick="@(() => SelectAccount(account))" style="cursor:pointer">
+                                        @*<td>
+                                    @if (account.Currency.Id == Currency.Colones)
+                                    {
+                                        <img alt="CR" src="_content/FTPymes.Client.Web.BlazorShared/assets/images/famfamfam-flags/png/cr.png" width="16" height="11">
+                                    }
+                                    else
+                                    {
+                                        <img alt="US" src="_content/FTPymes.Client.Web.BlazorShared/assets/images/famfamfam-flags/png/us.png" width="16" height="11">
+                                    }
+                                    <RadioButton Id="@account.Id.ToString()"
+                                                    Name="Account_Selection"
+                                                    Value="@account.Id.ToString()"
+                                                    Checked="@account.Selected">
+                                    </RadioButton>
+                                </td>*@
+                                        <td>
+                                            <h6>@account.AccountReference</h6>
+                                            <p class="text-muted mb-0">@account.Description</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-right mb-0">@account.Balance.FormattedMain @account.Currency.Nvarchar1</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public Expression<Func<AccountEntity>> ValidationFor { get; set; }
+    [Parameter] public List<MonisAccountEntity> Accounts { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    protected override bool TryParseValueFromString(string value, out AccountEntity result, out string validationErrorMessage)
+    {
+        result = null;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    protected override string FormatValueAsString(AccountEntity value)
+    {
+        return value == null ? null : $"{value.AccountReference} - {value.Currency.Nvarchar1}";
+    }
+
+    protected async Task SelectAccount(AccountEntity account)
+    {
+        this.CurrentValue = account;
+        await JSRuntime.HideModal($"#modal_{FieldIdentifier.GetName()}");
+    }
+}

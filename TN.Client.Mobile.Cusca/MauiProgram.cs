@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using TN.Client.Mobile.Cusca.Data;
 
 namespace TN.Client.Mobile.Cusca
 {
@@ -21,8 +20,6 @@ namespace TN.Client.Mobile.Cusca
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
-
-            builder.Services.AddSingleton<WeatherForecastService>();
 
             return builder.Build();
         }

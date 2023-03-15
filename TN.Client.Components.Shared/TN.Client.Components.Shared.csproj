@@ -5,6 +5,49 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Controls\Alert.razor" />
+    <Content Remove="Controls\Amount.razor" />
+    <Content Remove="Controls\Card.razor" />
+    <Content Remove="Controls\Carousel.razor" />
+    <Content Remove="Controls\Checkbox.razor" />
+    <Content Remove="Controls\CollapseRow.razor" />
+    <Content Remove="Controls\ComboBox.razor" />
+    <Content Remove="Controls\ComboBoxMultiple.razor" />
+    <Content Remove="Controls\CurrencyPicker.razor" />
+    <Content Remove="Controls\DatePicker.razor" />
+    <Content Remove="Controls\DateTimePicker.razor" />
+    <Content Remove="Controls\DefaultButton.razor" />
+    <Content Remove="Controls\DestinationAccount.razor" />
+    <Content Remove="Controls\DropdownButton.razor" />
+    <Content Remove="Controls\DropdownItem.razor" />
+    <Content Remove="Controls\FavoriteButton.razor" />
+    <Content Remove="Controls\LinkButton.razor" />
+    <Content Remove="Controls\MoreInformation.razor" />
+    <Content Remove="Controls\NavCustomer.razor" />
+    <Content Remove="Controls\NavMenuExchangeRate.razor" />
+    <Content Remove="Controls\NavMenuItem.razor" />
+    <Content Remove="Controls\NavSeparator.razor" />
+    <Content Remove="Controls\Page.razor" />
+    <Content Remove="Controls\PageSize.razor" />
+    <Content Remove="Controls\Pagination.razor" />
+    <Content Remove="Controls\RadioButton.razor" />
+    <Content Remove="Controls\RadioButtonGroup.razor" />
+    <Content Remove="Controls\Receipt.razor" />
+    <Content Remove="Controls\SourceAccount.razor" />
+    <Content Remove="Controls\Spinner.razor" />
+    <Content Remove="Controls\StatusLabel.razor" />
+    <Content Remove="Controls\Switch.razor" />
+    <Content Remove="Controls\TabControl.razor" />
+    <Content Remove="Controls\TabPage.razor" />
+    <Content Remove="Controls\TextArea.razor" />
+    <Content Remove="Controls\TimePicker.razor" />
+    <Content Remove="Controls\ToolTip.razor" />
+    <Content Remove="Controls\TwoFactor.razor" />
+    <Content Remove="Controls\WizardControl.razor" />
+    <Content Remove="Controls\WizardStep.razor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -16,6 +59,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TN.Shared.Utils.Misc\TN.Shared.Utils.Misc.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\fonts\" />
   </ItemGroup>
 
 </Project>

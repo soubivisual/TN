@@ -1,0 +1,45 @@
+﻿@inherits InputBase<CatalogEntity>
+
+<label class="form-label" style="display:block" for="@FieldIdentifier.GetName()" field-required="@ValidationFor.Body.IsRequired()">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+@if (Currencies == null)
+{
+    @ApplicationConstant.Loading
+}
+else if (!Currencies.Any())
+{
+    <text>No hay monedas para mostrar</text>
+}
+else
+{
+    <div class="form-group">
+        @foreach (var currency in Currencies.OrderBy(q => q.Int1))
+        {
+            <div class="d-inline-block">
+                <div class="radio radio-primary d-inline">
+                    <input type="radio" name="@FieldIdentifier.GetName()" id="@FieldIdentifier.GetName()_@currency.Id" disabled="@Disabled" checked="@(CurrentValue?.Id == currency.Id)" @onchange="@(() => OnChange(currency))">
+                    <label for="@FieldIdentifier.GetName()_@currency.Id" class="cr">@currency.Value</label>
+                </div>
+            </div>
+        }
+    </div>
+}
+<ValidationMessage For="@ValidationFor" />
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public List<CatalogEntity> Currencies { get; set; }
+    [Parameter] public Expression<Func<CatalogEntity>> ValidationFor { get; set; }
+
+    protected override bool TryParseValueFromString(string value, out CatalogEntity result, out string validationErrorMessage)
+    {
+        result = null;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    protected void OnChange(CatalogEntity currency)
+    {
+        this.CurrentValue = currency;
+    }
+}

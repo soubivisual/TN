@@ -1,0 +1,17 @@
+﻿<div class="text-right @(!ShowMore ? "block" : "d-none")">
+    <a class="text-uppercase" style="font-size: 12px" href="" @onclick:preventDefault @onclick="@(() => ShowMore = true)">Ver más</a>
+</div>
+
+<div class="@(ShowMore ? "block" : "d-none")">
+    @ChildContent
+
+    <div class="text-right">
+        <a class="text-uppercase" style="font-size: 12px" href="" @onclick:preventDefault @onclick="@(() => ShowMore = false)">Ver menos</a>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    protected bool ShowMore { get; set; }
+}

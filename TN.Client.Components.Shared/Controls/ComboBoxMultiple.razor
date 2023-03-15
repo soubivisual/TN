@@ -1,0 +1,164 @@
+﻿@using System.Linq.Expressions
+@using System.Globalization;
+
+@typeparam T
+@inherits InputBase<T>
+
+@if (Data == null)
+{
+    @ApplicationConstant.Loading
+}
+else
+{
+    <div class="form-control-wrapper">
+        <label class="form-label" for="@Id" field-required="@ValidationFor.Body.IsRequired()">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+        <select class="form-control"
+                id="@Id"
+                @bind="CurrentValueAsString"
+                disabled="@Disabled"
+                multiple="multiple"
+                data-live-search="@(Data.Count() > ApplicationConstant.ComboBoxSearch ? "true" : "false")"
+                data-actions-box="@(Data.Count() > 10 ? "true" : "false")"
+                data-selected-text-format="count > 3">
+            @foreach (var item in Data)
+            {
+                <option value="@item.GetPropertyValue(ValueField)">@item.GetPropertyValue(TextField)</option>
+            }
+        </select>
+    </div>
+}
+
+@code {
+    [Parameter] public string Label { get; set; }
+    //[Parameter] public string Placeholder { get; set; }
+    [Parameter] public object CollectionId { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public IEnumerable<object> Data { get; set; }
+    [Parameter] public string ValueField { get; set; }
+    [Parameter] public string TextField { get; set; }
+    [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string Id;
+
+    protected override void OnParametersSet()
+    {
+        Id = CollectionId == null ? FieldIdentifier.GetName() : $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+    }
+
+    protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+    {
+        if (typeof(T) == typeof(string))
+        {
+            result = (T)(object)value;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(long))
+        {
+            long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(long?))
+        {
+            if (long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(int))
+        {
+            int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(int?))
+        {
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(short))
+        {
+            short.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(short?))
+        {
+            if (short.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(Guid))
+        {
+            Guid.TryParse(value, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T) == typeof(Guid?))
+        {
+            if (Guid.TryParse(value, out var parsedValue))
+                result = (T)(object)parsedValue;
+            else
+                result = default(T);
+
+            validationErrorMessage = null;
+
+            return true;
+        }
+        else if (typeof(T).IsEnum)
+        {
+            // There's no non-generic Enum.TryParse (https://github.com/dotnet/corefx/issues/692)
+            try
+            {
+                result = (T)Enum.Parse(typeof(T), value);
+                validationErrorMessage = null;
+
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                result = default;
+                validationErrorMessage = $"The {FieldIdentifier.FieldName} field is not valid.";
+
+                return false;
+            }
+        }
+
+        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(T)}'.");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var isMobile = await JSRuntime.IsMobile();
+
+        if (!isMobile)
+            await JSRuntime.BootstrapSelect(Id);
+    }
+}

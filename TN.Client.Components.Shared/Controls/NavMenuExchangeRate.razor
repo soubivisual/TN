@@ -1,0 +1,177 @@
+﻿@using FTPymes.Client.Web.BlazorShared.Models.Misc
+@using FTPymes.Core.Models.Objects.Params.In
+@using FTPymes.Core.Utils.Exceptions
+
+@inherits AuthComponentBase
+
+<div class="navbar-exchange-rate">
+    <div class="pr-4 pl-4"><hr /></div>
+    <div class="color-secondary text-center text-uppercase font-weight-bold">Tipo de Cambio Dólares</div>
+    <div class="row p-3">
+        <div class="col-6 text-center" style="border-right: 1px solid lightgray;">
+            @if (Model.BuyAmount == default)
+            {
+                <Spinner />
+            }
+            else
+            {
+                <span class="text-uppercase">Compra: @Model.BuyAmount</span>
+            }
+        </div>
+        <div class="col-6 text-center">
+            @if (Model.SellAmount == default)
+            {
+                <Spinner />
+            }
+            else
+            {
+                <span class="text-uppercase">Venta: @Model.SellAmount</span>
+            }
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-6">
+            <select class="form-control" @onchange="OnFromCurrencyChange">
+                @foreach (var item in Currencies?.OrderBy(q => q.Int1))
+                {
+                    <option value="@item.Id" selected="@(Model.FromCurrencyId == item.Id)">@item.Value</option>
+                }
+            </select>
+        </div>
+        <div class="col-6">
+            <input type="text" value="@(Model.SourceAmount.To2DecimalString())" @onchange="@(e => Model.SourceAmount = e.Value.ToString().ToDecimal())" class="form-control text-right" onclick="this.setSelectionRange(0, this.value.length)" />
+        </div>
+    </div>
+    <div class="row pl-3 pr-3">
+        <div class="col-6">
+            <select class="form-control" @onchange="OnToCurrencyChange" disabled>
+                @foreach (var item in Currencies?.OrderBy(q => q.Int1))
+                {
+                    <option value="@item.Id" selected="@(Model.ToCurrencyId == item.Id)">@item.Value</option>
+                }
+            </select>
+        </div>
+        <div class="col-6">
+            <input type="text" value="@(Model.TargetAmount.To2DecimalString())" class="form-control text-right" onclick="this.setSelectionRange(0, this.value.length)" disabled />
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12 text-right">
+            <DefaultButton Value="Calcular" Class="btn btn-light text-uppercase" OnClick="ConvertExchangeRate" Processing="Processing" />
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject] protected ICatalogService CatalogService { get; set; }
+    [Inject] protected IExchangeRateService ExchangeRateService { get; set; }
+
+    protected ExchangeRateModel Model = new ExchangeRateModel();
+
+    protected List<CatalogEntity> Currencies = new List<CatalogEntity>();
+
+    private bool Processing;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var currentUser = await GetCurrentUser();
+
+            var request = new BaseParamsIn(currentUser, CoreProcessId);
+            request.QueryParams = new Dictionary<string, object> { { QueryParam.CatalogType, CatalogType.Currency } };
+            Currencies = (await CatalogService.GetCatalogByType(request)).Payload.Catalogs;
+        }
+        catch { }
+        finally
+        {
+            Model.FromCurrencyId = Currency.Colones;
+            Model.ToCurrencyId = Currency.Dollars;
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            InvokeAsync(async () =>
+            {
+                //await Task.Factory.StartNew(async () =>
+                //{
+                try
+                {
+                    var currentUser = await GetCurrentUser();
+
+                    var exchangeRateRequest = new ExchangeRateParamsIn(currentUser, CoreProcessId)
+                        {
+                            FromCurrencyId = Currency.Dollars,
+                            ToCurrencyId = Currency.Colones
+                        };
+
+                    var result = await ExchangeRateService.GetExchangeRate(exchangeRateRequest);
+
+                    Model.BuyAmount = result.Payload.ExchangeRate.FormattedBidAmount;
+                    Model.SellAmount = result.Payload.ExchangeRate.FormattedAskAmount;
+                }
+                catch
+                {
+                    Model.BuyAmount = "error";
+                    Model.SellAmount = "error";
+                }
+                finally
+                {
+                    this.StateHasChanged(); // For Blazor Wasm
+                }
+                //});
+
+                //this.StateHasChanged(); // For Blazor Server
+            });
+        }
+    }
+
+    protected void OnFromCurrencyChange(ChangeEventArgs e)
+    {
+        Model.FromCurrencyId = e.Value.ToString().ToGuid();
+        Model.ToCurrencyId = Model.FromCurrencyId == Currency.Colones ? Currency.Dollars : Currency.Colones;
+        Model.SourceAmount = 0;
+        Model.TargetAmount = 0;
+    }
+
+    protected void OnToCurrencyChange(ChangeEventArgs e)
+    {
+        Model.ToCurrencyId = e.Value.ToString().ToGuid();
+        Model.SourceAmount = 0;
+        Model.TargetAmount = 0;
+    }
+
+    protected async Task ConvertExchangeRate()
+    {
+        try
+        {
+            Processing = true;
+
+            var currentUser = await GetCurrentUser();
+
+            var request = new ConvertExchangeRateParamsIn(currentUser, CoreProcessId)
+                {
+                    FromCurrencyId = Model.FromCurrencyId,
+                    ToCurrencyId = Model.ToCurrencyId,
+                    Amount = Model.SourceAmount
+                };
+
+            var result = await ExchangeRateService.ConvertExchangeRate(request);
+
+            Model.TargetAmount = result.Payload.ConvertedAmount;
+
+            Processing = false;
+        }
+        catch (BaseException bex)
+        {
+            AlertMessage.Warning = bex.ToString();
+        }
+        catch (Exception ex)
+        {
+            AlertMessage.Error = ex.ToCustomString();
+        }
+    }
+}

@@ -1,0 +1,93 @@
+﻿<AuthorizeView Policy="@Policy">
+    <Authorized>
+        @if (Processing)
+        {
+            <Spinner/>
+        }
+        else if (!string.IsNullOrEmpty(Url) && OnClick.HasDelegate)
+        {
+            <a class="@Class" href="@Url" title="@(Tooltip ?? PopoverTitle)" data-placement="@(TooltipPosition ?? PopoverPosition)" data-trigger="@PopoverTrigger" data-content="@Popover" data-html="@PopoverHtml.ToString().ToLower()" disabled="@Disabled" @onclick="OnClick" @attributes="AdditionalAttributes">
+                @ChildContent
+            </a>
+        }
+        else if (!string.IsNullOrEmpty(Url))
+        {
+            <a class="@Class" href="@Url" title="@(Tooltip ?? PopoverTitle)" data-placement="@(TooltipPosition ?? PopoverPosition)" data-trigger="@PopoverTrigger" data-content="@Popover" data-html="@PopoverHtml.ToString().ToLower()" disabled="@Disabled" @attributes="AdditionalAttributes">
+                @ChildContent
+            </a>
+        }
+        else if (OnClick.HasDelegate)
+        {
+            <a class="@Class" href="" title="@(Tooltip ?? PopoverTitle)" data-placement="@(TooltipPosition ?? PopoverPosition)" data-trigger="@PopoverTrigger" data-content="@Popover" data-html="@PopoverHtml.ToString().ToLower()" disabled="@Disabled" @onclick:preventDefault @onclick="OnClick" @attributes="AdditionalAttributes">
+                @ChildContent
+            </a>
+        }
+        else
+        {
+            <a class="@Class" href="" title="@(Tooltip ?? PopoverTitle)" data-placement="@(TooltipPosition ?? PopoverPosition)" data-trigger="@PopoverTrigger" data-content="@Popover" data-html="@PopoverHtml.ToString().ToLower()" disabled="@Disabled" @onclick:preventDefault @attributes="AdditionalAttributes">
+                @ChildContent
+            </a>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <span style="cursor:not-allowed" class="d-inline-block toggleErrorTooltip" tabindex="0" title="@ApplicationConstant.NotAllowedText" data-placement="@TooltipPosition">
+            <a style="pointer-events: none" class="@Class" href="" disabled @onclick:preventDefault @attributes="AdditionalAttributes">
+                @ChildContent
+            </a>
+        </span>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [Parameter] public string Policy { get; set; }
+    [Parameter] public string Class { get; set; }
+    [Parameter] public string Url { get; set; }
+    [Parameter] public string Tooltip { get; set; }
+    [Parameter] public string TooltipPosition { get; set; }
+    [Parameter] public string Popover { get; set; }
+    [Parameter] public string PopoverTitle { get; set; }
+    [Parameter] public string PopoverPosition { get; set; }
+    [Parameter] public string PopoverTrigger { get; set; }
+    [Parameter] public bool PopoverHtml { get; set; }
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public bool Invisible { get; set; } = false;
+    [Parameter] public bool Processing { get; set; } = false;
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Invisible)
+            Class += " invisible";
+
+        if (!string.IsNullOrEmpty(Tooltip))
+            Class += " toggleTooltip";
+
+        if (!string.IsNullOrEmpty(Popover))
+            Class += " togglePopover";
+
+        if (!string.IsNullOrEmpty(Tooltip) && string.IsNullOrEmpty(TooltipPosition))
+            TooltipPosition = "top";
+
+        if (!string.IsNullOrEmpty(Popover) && string.IsNullOrEmpty(PopoverPosition))
+            PopoverPosition = "top";
+
+        if (!string.IsNullOrEmpty(Popover) && string.IsNullOrEmpty(PopoverTrigger))
+            PopoverTrigger = "focus";
+
+        if (!string.IsNullOrEmpty(Tooltip) && !string.IsNullOrEmpty(Popover))
+            throw new ArgumentException("You must use just Tooltip or Popover");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!string.IsNullOrEmpty(Tooltip))
+            await JSRuntime.LoadTooltip();
+
+        if (!string.IsNullOrEmpty(Popover))
+            await JSRuntime.LoadPopover();
+    }
+}

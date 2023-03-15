@@ -1,0 +1,27 @@
+﻿<div class="row">
+    <div class="col-12">
+        <Card Title="@Title">
+            <CardOptions>
+                <div class="btn-group">
+                    <DefaultButton Class="btn btn-option" Icon="feather icon-camera" OnClick="TakeScreenshot"></DefaultButton>
+                </div>
+            </CardOptions>
+            <ChildContent>
+                @ChildContent
+            </ChildContent>
+        </Card>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+    [Inject] protected NavigationManager NavigationManager { get; set; }
+
+    protected async Task TakeScreenshot()
+    {
+        await JSRuntime.TakeScreenshot();
+    }
+}

@@ -1,0 +1,32 @@
+﻿@inherits InputBase<bool>
+
+<label class="form-label" for="@Id">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+<div class="switch switch-primary d-inline">
+    <input type="checkbox" @bind="@CurrentValue" id="@Id" name="@Id" disabled="@Disabled">
+    <label for="@Id" class="cr"></label>
+</div>
+<label class="form-label">@(Text ?? ValidationFor.Body.GetDisplayPrompt())</label>
+<ValidationMessage For="@ValidationFor" />
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Text { get; set; }
+    [Parameter] public object CollectionId { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public Expression<Func<bool>> ValidationFor { get; set; }
+
+    private string Id;
+
+    protected override void OnParametersSet()
+    {
+        Id = CollectionId == null ? FieldIdentifier.GetName() : $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+    }
+
+    protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
+    {
+        bool.TryParse(value, out var parsedValue);
+        result = parsedValue;
+        validationErrorMessage = null;
+        return true;
+    }
+}

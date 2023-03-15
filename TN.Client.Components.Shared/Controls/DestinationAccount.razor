@@ -1,0 +1,35 @@
+﻿@inherits InputBase<string>
+
+<label class="form-label" for="@FieldIdentifier.GetName()" field-required="@ValidationFor.Body.IsRequired()">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+<div class="input-group">
+    <input type="text" @bind="@CurrentValue" class="form-control" id="@FieldIdentifier.GetName()" placeholder="@(Placeholder ?? ValidationFor.Body.GetDisplayPrompt())" />
+    <div class="input-group-append">
+        <DefaultButton Icon="fas fa-search" Processing="Processing" OnClick="OnClick" />
+    </div>
+</div>
+<ValidationMessage For="@ValidationFor" />
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public Expression<Func<string>> ValidationFor { get; set; }
+
+    private bool Processing { get; set; }
+
+    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    protected async Task Click()
+    {
+        Processing = true;
+
+        await OnClick.InvokeAsync();
+
+        Processing = false;
+    }
+}

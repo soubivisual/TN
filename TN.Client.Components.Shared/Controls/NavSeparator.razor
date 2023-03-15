@@ -1,0 +1,15 @@
+﻿<li class="nav-item">
+    <a class="nav-separator"><hr></a>
+</li>
+
+@code {
+    [CascadingParameter] private NavMenu NavMenu { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (NavMenu == null)
+            throw new ArgumentNullException(nameof(NavMenu), "NavSeparator must exist within a NavMenu");
+
+        base.OnInitialized();
+    }
+}
