@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TN.Modules.Buildings.Application.Contracts;
 using TN.Modules.Buildings.Infrastructure.Persistance.Database;
 using TN.Modules.Notifications.Application.Contracts;
 using TN.Modules.Notifications.Domain.Notifications.Repositories;

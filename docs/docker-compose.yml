@@ -1,19 +1,33 @@
-# Comando para subir todos los contenedores: docker-compose up -d
+# Comando para la ayuda: docker compose --help
+# Comando para subir todos los contenedores en modo detached: docker-compose --project-name tn-containers up -d
+# Comando para eliminar todos los contenedores y los volúmenes creados: docker-compose --project-name tn-containers down -v
 
-version: '3'
+version: '3.8'
 
 services:
-  postgres:
-    image: postgres
-    shm_size: '4gb'
-    container_name: tn-postgres
-    restart: unless-stopped # Esto indica que el contenedor debe reiniciarse siempre, excepto si se detiene de forma expl�cita.
+  #postgres:
+    #image: postgres
+    #shm_size: '4gb'
+    #container_name: tn-postgres
+    #restart: unless-stopped # Esto indica que el contenedor debe reiniciarse siempre, excepto si se detiene de forma explícita.
+    #environment:
+      #- POSTGRES_HOST_AUTH_METHOD=trust
+    #ports:
+      #- 5432:5432
+    #volumes:
+      #- postgres-data:/var/lib/postgresql/data
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: tn-sqlserver
+    restart: unless-stopped
+    user: root
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Prueba001.
     ports:
-      - 5432:5432
+      - 1433:1433
     volumes:
-      - postgres:/C/Users/diego/postgres-data
+      - sqlserver-data:/var/opt/mssql/data
   redis:
     image: redis
     container_name: tn-redis
@@ -21,7 +35,7 @@ services:
       - "6379:6379"
     restart: unless-stopped
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3-management
     container_name: tn-rabbitmq
     restart: unless-stopped
     ports:
@@ -29,5 +43,6 @@ services:
       - "15672:15672"
 
 volumes:
-  postgres:
-    driver: local
+  #postgres-data:
+    #driver: local
+  sqlserver-data:

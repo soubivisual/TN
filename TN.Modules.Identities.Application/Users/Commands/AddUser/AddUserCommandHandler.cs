@@ -2,17 +2,21 @@
 using TN.Modules.IdentitiesDomain.Users.Repositories;
 using TN.Modules.Buildings.Application.Configuration;
 using TN.Modules.Buildings.Shared.Mapping;
+using TN.Modules.Buildings.API.Messaging;
+using TN.Modules.Identities.Shared.Events;
 
 namespace TN.Modules.Identities.Application.Users.Commands.AddUser
 {
     internal class AddUserCommandHandler : ICommandHandler<AddUserCommand>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMessageBusClient _messageBusClient;
         private readonly IMapping _mapping;
 
-        public AddUserCommandHandler(IUserRepository userRepository, IMapping mapping)
+        public AddUserCommandHandler(IUserRepository userRepository, IMessageBusClient messageBusClient, IMapping mapping)
         {
             _userRepository = userRepository;
+            _messageBusClient = messageBusClient;
             _mapping = mapping;
         }
 
@@ -20,6 +24,7 @@ namespace TN.Modules.Identities.Application.Users.Commands.AddUser
         {
             var user = _mapping.Map<User>(command);
             await _userRepository.AddAsync(user);
+            _messageBusClient.Publish(new UserCreatedEvent(1, 1, user.Email, user.Name));
         }
     }
 }

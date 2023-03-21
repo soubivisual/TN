@@ -33,7 +33,6 @@ namespace TN.Modules.IdentitiesDomain.Users.Entities
 
         public User(UserId id, Guid identificationTypeId, string identification, Name name, string username, string email, string phone, Guid typeId, Guid statusId, int? addedUserId, DateTime? addedDate) : base(id)
         {
-            Id = id;
             IdentificationTypeId = identificationTypeId;
             Identification = identification;
             Name = name;

@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TN.Modules.Buildings.API.Database;
+using TN.Modules.Buildings.API.Events;
 using TN.Modules.Buildings.API.Exceptions;
+using TN.Modules.Buildings.API.Messaging;
 using TN.Shared.Utils.Misc.Time;
 
 namespace TN.Modules.Buildings.API
@@ -14,6 +16,8 @@ namespace TN.Modules.Buildings.API
         {
             services.AddEndpointsApiExplorer();
             services.AddErrorHandling();
+            services.AddEvents();
+            services.AddMessaging();
             services.DatabaseMigration(configuration);
             services.AddControllers();
             services.AddEndpointsApiExplorer();

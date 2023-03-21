@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using TN.Modules.Buildings.Application.Contracts;
 using TN.Modules.Buildings.Shared.Mapping;
+using TN.Modules.Identities.Shared.Events;
 using TN.Modules.Notifications.Application.Contracts;
 using TN.Modules.Notifications.Application.Notifications.Queries.GetNotification;
+using TN.Modules.Notifications.Infrastructure;
 
 namespace TN.Modules.Notifications.API.Controllers
 {
@@ -24,10 +28,10 @@ namespace TN.Modules.Notifications.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<dynamic>> Get(long id)
         {
-            var catalog = await _notificationsAccessModule.ExecuteQueryAsync(new GetNotificationQuery(id));
-            if (catalog is not null)
+            var notification = await _notificationsAccessModule.ExecuteQueryAsync(new GetNotificationQuery(id));
+            if (notification is not null)
             {
-                return Ok(catalog);
+                return Ok(notification);
             }
 
             return NotFound();

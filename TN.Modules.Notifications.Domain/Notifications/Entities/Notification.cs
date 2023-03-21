@@ -33,7 +33,7 @@ namespace TN.Modules.Notifications.Domain.Notifications.Entities
 
         public Notification() : base(default) { }
 
-        public Notification(NotificationId id, int tenantId, int userId, Guid typeId, Guid statusId, short priority, string title, string text, string callbackUrl, bool read, DateTime date, DateTime readDate, DateTime expirationDate, Guid coreProcessId) : base(id)
+        public Notification(NotificationId id, int tenantId, int userId, Guid typeId, Guid statusId, short priority, string title, string text, string callbackUrl, bool read, DateTime date, DateTime? readDate, DateTime? expirationDate, Guid coreProcessId) : base(id)
         {
             TenantId = tenantId;
             UserId = userId;
