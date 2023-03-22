@@ -5,8 +5,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Aggregates\AggregateRootBase.cs~RF5d5aa383.TMP" />
-  </ItemGroup>
-
 </Project>

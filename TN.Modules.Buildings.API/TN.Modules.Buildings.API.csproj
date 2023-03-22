@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Messaging\Extensions.cs~RF151f8be8.TMP" />
-    <None Remove="Messaging\Extensions.cs~RFe5dbe03.TMP" />
-    <None Remove="Messaging\IMessageBusClient.cs~RFe9052fd.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.5.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

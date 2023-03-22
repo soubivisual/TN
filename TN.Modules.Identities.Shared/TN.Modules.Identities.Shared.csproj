@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Events\UserCreatedEvent.cs~RF10899e75.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TN.Modules.Buildings.Application\TN.Modules.Buildings.Application.csproj" />
     <ProjectReference Include="..\TN.Modules.Buildings.Shared\TN.Modules.Buildings.Shared.csproj" />
   </ItemGroup>
