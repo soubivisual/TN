@@ -10,10 +10,10 @@ namespace TN.Modules.Identities.Application.Users.Commands.AddUser
     internal class AddUserCommandHandler : ICommandHandler<AddUserCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMessageBusClient _messageBusClient;
+        private readonly IMessageBusPublisher _messageBusClient;
         private readonly IMapping _mapping;
 
-        public AddUserCommandHandler(IUserRepository userRepository, IMessageBusClient messageBusClient, IMapping mapping)
+        public AddUserCommandHandler(IUserRepository userRepository, IMessageBusPublisher messageBusClient, IMapping mapping)
         {
             _userRepository = userRepository;
             _messageBusClient = messageBusClient;

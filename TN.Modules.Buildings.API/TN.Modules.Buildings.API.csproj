@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Messaging\Extensions.cs~RF151f8be8.TMP" />
     <None Remove="Messaging\Extensions.cs~RFe5dbe03.TMP" />
     <None Remove="Messaging\IMessageBusClient.cs~RFe9052fd.TMP" />
   </ItemGroup>

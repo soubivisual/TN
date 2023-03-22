@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json;
 using TN.Modules.Buildings.Application;
 using TN.Modules.Buildings.API.Events;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace TN.Modules.Buildings.API.Messaging
 {
@@ -16,24 +18,36 @@ namespace TN.Modules.Buildings.API.Messaging
 
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly string _queueName;
 
-        public MessageBusSubscriber(IEventDispatcher eventDispatcher, ILogger<MessageBusSubscriber> logger)
+        private const string ExchangeName = "TNExchange";
+        private const string RoutingKey = "";
+        private const string QueueName = "TNQueue";
+
+        public MessageBusSubscriber(IConfiguration configuration, ILogger<MessageBusSubscriber> logger, IEventDispatcher eventDispatcher)
         {
-            _eventDispatcher = eventDispatcher;
             _logger = logger;
+            _eventDispatcher = eventDispatcher;
 
-            var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672 };
+            try
+            {
+                var factory = new ConnectionFactory();
+                factory.Uri = new Uri(configuration.GetConnectionString("EventBus"));
+                factory.ClientProvidedName = Assembly.GetEntryAssembly().GetName().Name;
 
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
-            _queueName = _channel.QueueDeclare().QueueName;
-            _channel.QueueBind(queue: _queueName, exchange: "trigger", routingKey: "");
+                _connection = factory.CreateConnection();
+                _channel = _connection.CreateModel();
+                _channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Fanout);
+                _channel.QueueDeclare(queue: QueueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                _channel.QueueBind(queue: QueueName, exchange: ExchangeName, routingKey: RoutingKey, arguments: null);
+                _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
 
-            _logger.LogInformation("--> Listenting on the Message Bus...");
-
-            _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+                _logger.LogInformation("--> Listenting on the Message Bus...");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"--> Could not connect to the Message Bus: {ex.Message}");
+            }
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -42,28 +56,28 @@ namespace TN.Modules.Buildings.API.Messaging
 
             var consumer = new EventingBasicConsumer(_channel);
 
-            consumer.Received += (ch, ea) =>
+            consumer.Received += async (ch, ea) =>
             {
                 _logger.LogInformation("--> Event Received!");
 
-                var notificationMessage = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var payload = JsonSerializer.Deserialize<EventBase>(notificationMessage);
+                var message = Encoding.UTF8.GetString(ea.Body.ToArray());
+                var payload = JsonSerializer.Deserialize<EventBase>(message);
                 var type = Type.GetType(payload.Event);
 
                 if (type == null)
                     return;
 
-                //var @event = Activator.CreateInstance(type, parameters) as IEvent;
                 using MemoryStream stream = new(Encoding.UTF8.GetBytes(payload.Data));
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 var @event = (IEvent)JsonSerializer.Deserialize(stream, type, options);
 
-                //_channel.BasicAck(ea.DeliveryTag, false);
+                await _eventDispatcher.PublishAsync(@event, stoppingToken);
 
-                _eventDispatcher.PublishAsync(@event, stoppingToken);
+                _channel.BasicAck(ea.DeliveryTag, multiple: false);
             };
 
-            _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
+            var consumerTag = _channel.BasicConsume(queue: QueueName, autoAck: false, consumer: consumer);
+            //_channel.BasicCancel(consumerTag);
 
             return Task.CompletedTask;
         }

@@ -7,7 +7,7 @@ namespace TN.Modules.Buildings.API.Messaging
         public static IServiceCollection AddMessaging(this IServiceCollection services)
         {
             services.AddHostedService<MessageBusSubscriber>();
-            services.AddSingleton<IMessageBusClient, MessageBusClient>();
+            services.AddSingleton<IMessageBusPublisher, MessageBusPublisher>();
 
             return services;
         }
