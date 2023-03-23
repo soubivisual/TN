@@ -1,0 +1,52 @@
+﻿ <!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar">
+
+        <!-- sidebar menu-->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="treeview active menu-open">
+                <a href="#">
+                    <i class="ti-dashboard"></i>
+                    <span>Dashboard</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active">
+                        <a asp-route="home">
+                            <i class="fa fa-circle-thin"></i>Página Inicio
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="ti-layout-cta-btn-left"></i> <span>Mantenimientos</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Html.IsSelected(controller: "Catalog")">
+                        <a asp-area="Maintenances" asp-controller="Catalog" asp-action="Index">
+                            <i class="fa fa-circle-thin"></i>Catálogos
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @*<li class="treeview">
+                <a href="#">
+                    <i class="ti-signal"></i> <span>Seguridad</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-caret-down pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle"></i>Cambiar contraseña</a></li>
+                </ul>
+            </li>*@
+        </ul>
+    </section>
+</aside>

@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LayoutStyles
+{
+    <!-- Data Table-->
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor_components/datatable/datatables.min.css" />
+}
+
+@RenderBody()
+
+@section LayoutScripts{
+
+    
+	
+	<!-- Bankio admin for Data Table -->
+@*	<script src="../js/pages/data-table.js"></script>
+	<script src="../js/pages/project-table.js"></script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DoAceEditor();
+        });
+    </script>
+
+    @RenderSection("PageScripts", required: false)
+}

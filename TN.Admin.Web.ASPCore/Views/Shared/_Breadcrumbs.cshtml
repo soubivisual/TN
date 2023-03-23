@@ -1,0 +1,15 @@
+﻿@if (ViewBag.Title != null)
+{
+    <h1>
+        @ViewBag.Title
+    </h1>
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i><a asp-route="home">Home</a></a></li>
+    <li class="breadcrumb-item"><a href="#"><a asp-area="@ViewBag.Area" asp-controller="@ViewBag.Controller" asp-action="Index">@ViewBag.Title</a></a></li>
+    @if (ViewBag.Description != null)
+    {
+        <li class="breadcrumb-item active">@ViewBag.Description</li>
+    }
+</ol>

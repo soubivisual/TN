@@ -1,0 +1,113 @@
+﻿@model CatalogDto
+@{
+	ViewBag.QueryType = Html.GetQueryType();
+}
+<div class="col-12">
+	<!-- Basic Forms -->
+	<div class="box">
+		<partial name="_BoxHeaderTitle" />
+		<!-- /.box-header -->
+		<div class="box-body">
+			<div class="row">
+				<div class="col">
+					<form asp-area="@nameof(Constants.Areas.Maintenances)" asp-controller="@nameof(Constants.Controllers.Catalog)" asp-action="@ViewBag.QueryType" asp-route-type="@ViewBag.QueryType" asp-route-description="@ViewBag.Description" method="post" class="form-horizontal">
+						@if (ViewBag.QueryType == Constants.OperationType.UpdateOperation)
+						{
+							<div class="form-group">
+								<label asp-for="Id"></label>
+								<input asp-for="Id" class="form-control" readonly />
+								<span asp-validation-for="Id" class="text-danger"></span>
+							</div>
+						}
+						<div class="row">
+							<div class="col-xl-6 col-12">
+								<div class="form-group">
+									<label asp-for="Type"></label>
+									<input asp-for="Type" class="form-control" required />
+									<span asp-validation-for="Type" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Value"></label>
+									<input asp-for="Value" class="form-control" />
+									<span asp-validation-for="Value" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Int1"></label>
+									<div class="input-group">
+										<span class="input-group-addon">#</span>
+										<input asp-for="Int1" type="number" class="form-control" />
+									</div>
+									<span asp-validation-for="Int1" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Int2"></label>
+									<div class="input-group">
+										<span class="input-group-addon">#</span>
+										<input asp-for="Int2" class="form-control" />
+									</div>
+									<span asp-validation-for="Int2" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Nvarchar1"></label>
+									<input asp-for="Nvarchar1" class="form-control" />
+									<span asp-validation-for="Nvarchar1" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Enabled"></label>
+									<input-checkbox asp-for="Enabled"></input-checkbox>
+									<span asp-validation-for="Enabled" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="col-xl-6 col-12">
+								<div class="form-group">
+									<label asp-for="Nvarchar2"></label>
+									<input asp-for="Nvarchar2" class="form-control" />
+									<span asp-validation-for="Nvarchar2" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Nvarchar3"></label>
+									<input asp-for="Nvarchar3" class="form-control" />
+									<span asp-validation-for="Nvarchar3" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Bool1"></label>
+									<input asp-for="Bool1" class="form-control" />
+									<span asp-validation-for="Bool1" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Float1"></label>
+									<div class="input-group">
+										<input asp-for="Float1" type="number" class="form-control" />
+										<span class="input-group-addon">.00</span>
+									</div>
+									<span asp-validation-for="Float1" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Decimal1"></label>
+									<div class="input-group">
+										<input asp-for="Decimal1" type="number" class="form-control" />
+										<span class="input-group-addon">.00</span>
+									</div>
+									<span asp-validation-for="Decimal1" class="text-danger"></span>
+								</div>
+							</div>
+						</div>
+
+						@Html.HiddenFor(m => m.Editable)
+						@Html.HiddenFor(m => m.AddedUserId)
+						@Html.HiddenFor(m => m.AddedDate)
+
+						<div class="box-footer">
+							<cancel-button url="@Url.Action("Index")"></cancel-button>
+							<save-button></save-button>
+						</div>
+					</form>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</div>

@@ -1,3 +1,5 @@
+using static TN.Admin.Web.ASPCore.Miscellaneous.Constants;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,7 +23,21 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+	name: RouteName.Home,
+	pattern: "Home",
+	defaults: new { controller = "Home", action = "Index" });
+
+app.MapControllerRoute(
+    name: "area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+	name: RouteName.NotFound,
+	pattern: "Miscellaneous/Error/statusCode=404",
+	defaults: new { controller = "Miscellaneous", action = "Error", statusCode = 404 });
 
 app.Run();

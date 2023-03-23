@@ -1,0 +1,23 @@
+﻿@model CatalogModel
+@{
+	ViewBag.Title = "Catálogos";
+	ViewBag.Controller = Html.GetController();
+	ViewBag.QueryType = Html.GetQueryType();
+	ViewBag.Description = Html.GetDescription();
+}
+
+<!-- /.box -->
+<div class="box">
+	<div class="box-header bg-light">
+		<new-button class="pull-right" url="@Url.Action(nameof(Constants.Actions.Create), nameof(Constants.Controllers.Catalog) , new { area = nameof(Constants.Areas.Maintenances), type = Constants.OperationType.CreateOperation })"></new-button>
+	</div>
+	<div class="box-body">
+		@if (ViewBag.QueryType == null)
+		{ }
+			<div id="@ViewBag.Controller">
+				<partial name="_Catalogs" for="Catalogs" />
+			</div>
+	</div>
+	<!-- /.box-body -->
+</div>
+<!-- /.box --> 

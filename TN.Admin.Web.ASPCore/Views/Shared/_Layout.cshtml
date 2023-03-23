@@ -4,46 +4,51 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TN.Admin.Web.ASPCore</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/TN.Admin.Web.ASPCore.styles.css" asp-append-version="true" />
+  <partial name="_ValidationStylesPartial">
+      @if (IsSectionDefined("LayoutStyles"))
+        {
+            @RenderSection("LayoutStyles", required: false)
+        }
+  </partial>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TN.Admin.Web.ASPCore</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<body class="hold-transition skin-black sidebar-mini">
+<div class="wrapper">
+	<!-- Main Header -->
+    <partial name="_Header"/>
+	<!-- Left side column. contains the logo and sidebar -->
+	<partial name="_Navigation"/>
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		 <!-- Content Header (Page header) -->
+		<section class="content-header">
+			<partial name="_Breadcrumbs" />
+		</section>
+		<!-- Main content -->
+		<section class="content">
+				<div class="row">
+					@RenderBody()
+				</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<!-- Footer-->
+	<partial name="_Footer" />
+	<!-- Control SideBar-->
+	<partial name="_ControlSideBar" />
+	<!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+	<div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+	<partial name="_ValidationScriptsPartial">
+	@if (IsSectionDefined("LayoutScripts"))
+	{
+		@RenderSection("LayoutScripts", required: false)
+	}
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - TN.Admin.Web.ASPCore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	@if (IsSectionDefined("PageScripts"))
+	{
+		@RenderSection("PageScripts", required: false)
+	}
 </body>
 </html>
