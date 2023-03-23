@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using TN.Modules.Buildings.Application;
 
-namespace TN.Modules.Buildings.API.Events
+namespace TN.Modules.Buildings.Application.Configuration
 {
     public interface IEventHandler<in TEvent> : INotificationHandler<TEvent> where TEvent : IEvent
         //<in TEvent> where TEvent : class, IEvent

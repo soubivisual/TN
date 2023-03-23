@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using TN.Modules.Buildings.API.Events;
+using TN.Modules.Buildings.Application.Configuration;
 using TN.Modules.Identities.Shared.Events;
 using TN.Modules.Notifications.Domain.Notifications.Entities;
 using TN.Modules.Notifications.Domain.Notifications.Repositories;

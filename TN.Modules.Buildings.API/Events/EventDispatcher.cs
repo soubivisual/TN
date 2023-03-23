@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TN.Modules.Buildings.Application;
-using TN.Modules.Buildings.Application.Contracts;
+using TN.Modules.Buildings.Application.Configuration;
 
 namespace TN.Modules.Buildings.API.Events
 {
