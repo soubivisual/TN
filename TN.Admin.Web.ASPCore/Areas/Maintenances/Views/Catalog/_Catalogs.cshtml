@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CatalogDto>
+
+<div class="table-responsive">
+	<table class="dataTable table table-bordered table-striped display nowrap margin-top-10 w-p100">
+		<thead>
+			<tr>
+				<th>@Html.Raw(Constants.General.Commands)</th>
+				<th>@Html.DisplayNameFor(m => m.Id)</th>
+				<th>@Html.DisplayNameFor(m => m.Type)</th>
+				<th>@Html.DisplayNameFor(m => m.Value)</th>
+				<th>@Html.DisplayNameFor(m => m.Editable)</th>
+				<th>@Html.DisplayNameFor(m => m.Enabled)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model ?? Enumerable.Empty<CatalogDto>())
+			{
+				<tr>
+					<td>
+						<table-details-button url="@Url.Action(nameof(Constants.Actions.Detail), nameof(Constants.Controllers.Catalog), new { area = nameof(Constants.Areas.Maintenances), id = item.Id, description = item.Value, type = Constants.OperationType.DetailsOperation })"></table-details-button>
+						<table-edit-button url="@Url.Action(nameof(Constants.Actions.Update), nameof(Constants.Controllers.Catalog), new { area = nameof(Constants.Areas.Maintenances), id = item.Id, description = item.Value, type = Constants.OperationType.UpdateOperation })"></table-edit-button>
+						<table-delete-button url="@Url.Action(nameof(Constants.Actions.Delete), nameof(Constants.Controllers.Catalog), new { area = nameof(Constants.Areas.Maintenances), id = item.Id, description = item.Value, type = Constants.OperationType.DeleteOperation })"></table-delete-button>
+					</td>
+					<td>@Html.DisplayFor(m => item.Id)</td>
+					<td>@Html.DisplayFor(m => item.Type)</td>
+					<td>@Html.DisplayFor(m => item.Value)</td>
+					<td><input-checkbox asp-for="@item.Editable" disabled></input-checkbox> </td>
+					<td><input-checkbox asp-for="@item.Enabled" disabled></input-checkbox></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
