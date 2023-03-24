@@ -1,5 +1,5 @@
-﻿using TN.Modules.Buildings.Application.Configuration;
-using TN.Modules.Buildings.Shared.Mapping;
+﻿using TN.Modules.Buildings.Shared.Mapper;
+using TN.Modules.Buildings.Shared.Queries;
 using TN.Modules.Remittances.Domain.Remittances.Repositories;
 
 namespace TN.Modules.Remittances.Application.Remittances.Queries.GetRemittance

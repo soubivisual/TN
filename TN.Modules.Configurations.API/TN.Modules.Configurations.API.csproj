@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Buildings.API\TN.Modules.Buildings.API.csproj" />
     <ProjectReference Include="..\TN.Modules.Configurations.Infrastructure\TN.Modules.Configurations.Infrastructure.csproj" />
     <ProjectReference Include="..\TN.Modules.Configurations.Shared\TN.Modules.Configurations.Shared.csproj" />
   </ItemGroup>

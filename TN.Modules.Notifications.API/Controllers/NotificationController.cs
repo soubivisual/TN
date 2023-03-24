@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using TN.Modules.Buildings.Application.Contracts;
-using TN.Modules.Buildings.Shared.Mapping;
-using TN.Modules.Identities.Shared.Events;
+using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Notifications.Application.Contracts;
 using TN.Modules.Notifications.Application.Notifications.Queries.GetNotification;
-using TN.Modules.Notifications.Infrastructure;
 
 namespace TN.Modules.Notifications.API.Controllers
 {

@@ -1,4 +1,4 @@
-using TN.Modules.Buildings.API;
+using TN.Modules.Buildings.Shared;
 using TN.Modules.Remittances.API;
 
 var builder = WebApplication.CreateBuilder(args);

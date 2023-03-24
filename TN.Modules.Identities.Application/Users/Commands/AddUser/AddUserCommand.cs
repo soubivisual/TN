@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Application.Contracts;
+﻿using TN.Modules.Buildings.Shared.Commands;
 
 namespace TN.Modules.Identities.Application.Users.Commands.AddUser
 {

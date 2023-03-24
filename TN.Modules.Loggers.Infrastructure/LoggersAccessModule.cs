@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TN.Modules.Buildings.Application.Contracts;
+using TN.Modules.Buildings.Shared.Queries;
 using TN.Modules.Identities.Application.Contracts;
 
 namespace TN.Modules.Loggers.Infrastructure

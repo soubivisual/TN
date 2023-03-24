@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TN.Modules.Buildings.Application;
+using TN.Modules.Buildings.Shared.Mediator;
 
 namespace TN.Modules.Loggers.Application
 {

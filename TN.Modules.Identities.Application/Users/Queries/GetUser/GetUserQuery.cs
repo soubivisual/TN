@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Application.Contracts;
+﻿using TN.Modules.Buildings.Shared.Queries;
 
 namespace TN.Modules.Identities.Application.Users.Queries.GetUser
 {

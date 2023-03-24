@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Application.Contracts;
+﻿using TN.Modules.Buildings.Shared.Commands;
 
 namespace TN.Modules.Configurations.Application.Catalogs.Commands.AddCatalog
 {

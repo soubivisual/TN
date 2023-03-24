@@ -23,7 +23,6 @@ namespace TN.Modules.Configurations.Infrastructure.Repositories
         public Task<Catalog> FindAsync(Expression<Func<Catalog, bool>> expression)
             => _context.Catalogs
                 .AsNoTracking()
-                //.AsQueryable()
                 .Where(expression)
                 .SingleOrDefaultAsync();
 

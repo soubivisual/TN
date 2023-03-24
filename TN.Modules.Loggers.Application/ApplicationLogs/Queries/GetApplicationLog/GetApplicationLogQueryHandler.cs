@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Application.Configuration;
+﻿using TN.Modules.Buildings.Shared.Queries;
 using TN.Modules.Loggers.Domain.ApplicationLogs.Repositories;
 
 namespace TN.Modules.Loggers.Application.ApplicationLogs.Queries.GetApplicationLog

@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using TN.Modules.Buildings.Application.Contracts;
+using TN.Modules.Buildings.Shared.Commands;
+using TN.Modules.Buildings.Shared.Queries;
 using TN.Modules.Configurations.Application.Contracts;
 
 namespace TN.Modules.Configurations.Infrastructure

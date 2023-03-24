@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Domain.Entities;
+﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Configurations.Domain.Catalogs.ValueObjects;
 
 namespace TN.Modules.Configurations.Domain.Catalogs.Entities

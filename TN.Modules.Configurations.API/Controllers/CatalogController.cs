@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TN.Modules.Buildings.Shared.Mapping;
+using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Configurations.Application.Catalogs.Commands.AddCatalog;
 using TN.Modules.Configurations.Application.Catalogs.Queries.GetCatalog;
 using TN.Modules.Configurations.Application.Contracts;

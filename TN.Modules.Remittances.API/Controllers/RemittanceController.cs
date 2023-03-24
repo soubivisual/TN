@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TN.Modules.Buildings.Shared.Mapping;
+using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Remittances.Application.Contracts;
 using TN.Modules.Remittances.Application.Remittances.Queries.GetRemittance;
 

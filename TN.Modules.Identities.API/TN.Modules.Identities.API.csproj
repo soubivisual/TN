@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Buildings.API\TN.Modules.Buildings.API.csproj" />
     <ProjectReference Include="..\TN.Modules.Identities.Infrastructure\TN.Modules.Identities.Infrastructure.csproj" />
     <ProjectReference Include="..\TN.Modules.Identities.Shared\TN.Modules.Identities.Shared.csproj" />
   </ItemGroup>

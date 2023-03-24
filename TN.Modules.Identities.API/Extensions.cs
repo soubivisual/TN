@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using TN.Modules.Buildings.API.Validator;
+using TN.Modules.Buildings.Shared.Validator;
 using TN.Modules.Identities.Application;
 using TN.Modules.IdentitiesDomain;
 using TN.Modules.IdentitiesInfrastructure;

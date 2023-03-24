@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Application;
+﻿using TN.Modules.Buildings.Shared.Events;
 
 namespace TN.Modules.Identities.Shared.Events
 {
