@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using TN.Modules.Identities.Application.Contracts;
-using TN.Modules.Buildings.Application.Contracts;
+using TN.Modules.Buildings.Shared.Commands;
+using TN.Modules.Buildings.Shared.Queries;
 
 namespace TN.Modules.IdentitiesInfrastructure
 {

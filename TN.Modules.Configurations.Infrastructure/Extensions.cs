@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TN.Modules.Buildings.Infrastructure.Persistance.Database;
+using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Configurations.Application.Contracts;
 using TN.Modules.Configurations.Domain.Catalogs.Repositories;
 using TN.Modules.Configurations.Infrastructure.DataAccess;

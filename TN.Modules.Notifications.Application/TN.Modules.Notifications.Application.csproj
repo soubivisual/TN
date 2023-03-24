@@ -6,8 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Buildings.API\TN.Modules.Buildings.API.csproj" />
-    <ProjectReference Include="..\TN.Modules.Buildings.Application\TN.Modules.Buildings.Application.csproj" />
     <ProjectReference Include="..\TN.Modules.Identities.Shared\TN.Modules.Identities.Shared.csproj" />
     <ProjectReference Include="..\TN.Modules.Notifications.Domain\TN.Modules.Notifications.Domain.csproj" />
     <ProjectReference Include="..\TN.Shared.Utils.Misc\TN.Shared.Utils.Misc.csproj" />

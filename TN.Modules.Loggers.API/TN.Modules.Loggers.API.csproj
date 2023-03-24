@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Buildings.API\TN.Modules.Buildings.API.csproj" />
     <ProjectReference Include="..\TN.Modules.Loggers.Infrastructure\TN.Modules.Loggers.Infrastructure.csproj" />
     <ProjectReference Include="..\TN.Modules.Loggers.Shared\TN.Modules.Loggers.Shared.csproj" />
   </ItemGroup>

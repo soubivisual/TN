@@ -23,7 +23,6 @@ namespace TN.Modules.IdentitiesInfrastructure.Repositories
         public Task<User> FindAsync(Expression<Func<User, bool>> expression)
         => _context.Users
             .AsNoTracking()
-            //.AsQueryable()
             .Where(expression)
             .SingleOrDefaultAsync();
 

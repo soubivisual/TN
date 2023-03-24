@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using TN.Modules.Buildings.Domain.ValueObjects;
+using TN.Modules.Buildings.Shared.SharedKernel;
 
 namespace TN.Modules.IdentitiesDomain.Users.ValueObjects
 {

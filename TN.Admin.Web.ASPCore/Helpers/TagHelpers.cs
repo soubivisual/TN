@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TN.Admin.Web.ASPCore.Miscellaneous;
 
 namespace TN.Admin.Web.ASPCore.Helpers
 {
-	// You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-	[HtmlTargetElement("default-button")]
+    // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
+    [HtmlTargetElement("default-button")]
 	public class DefaultButtonTagHelper : TagHelper
 	{
 		[HtmlAttributeName("id")]

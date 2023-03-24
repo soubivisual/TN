@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Buildings.Application\TN.Modules.Buildings.Application.csproj" />
     <ProjectReference Include="..\TN.Modules.Loggers.Domain\TN.Modules.Loggers.Domain.csproj" />
   </ItemGroup>
 

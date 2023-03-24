@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TN.Modules.Buildings.Infrastructure.Persistance.Database;
+using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Identities.Application.Contracts;
 using TN.Modules.Loggers.Domain.ApplicationLogs.Repositories;
 using TN.Modules.Loggers.Infrastructure.DataAccess;

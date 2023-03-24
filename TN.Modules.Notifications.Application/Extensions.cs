@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TN.Modules.Buildings.Application;
-using TN.Modules.Buildings.Shared.Mapping;
+using TN.Modules.Buildings.Shared.Mapper;
+using TN.Modules.Buildings.Shared.Mediator;
 
 namespace TN.Modules.Notifications.Application
 {

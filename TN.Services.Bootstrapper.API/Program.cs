@@ -1,4 +1,4 @@
-using TN.Modules.Buildings.API;
+using TN.Modules.Buildings.Shared;
 using TN.Modules.Configurations.API;
 using TN.Modules.IdentitiesAPI;
 using TN.Modules.Loggers.API;

@@ -1,9 +1,9 @@
 ﻿using TN.Modules.IdentitiesDomain.Users.Entities;
 using TN.Modules.IdentitiesDomain.Users.Repositories;
-using TN.Modules.Buildings.Application.Configuration;
-using TN.Modules.Buildings.Shared.Mapping;
-using TN.Modules.Buildings.API.Messaging;
 using TN.Modules.Identities.Shared.Events;
+using TN.Modules.Buildings.Shared.Commands;
+using TN.Modules.Buildings.Shared.Messaging;
+using TN.Modules.Buildings.Shared.Mapper;
 
 namespace TN.Modules.Identities.Application.Users.Commands.AddUser
 {

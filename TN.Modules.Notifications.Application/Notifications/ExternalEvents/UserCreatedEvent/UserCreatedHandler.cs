@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using TN.Modules.Buildings.Application.Configuration;
 using TN.Modules.Identities.Shared.Events;
 using TN.Modules.Notifications.Domain.Notifications.Entities;
 using TN.Modules.Notifications.Domain.Notifications.Repositories;
-using TN.Shared.Utils.Misc.Time;
+using TN.Modules.Buildings.Shared.Time;
+using TN.Modules.Buildings.Shared.Events;
 
 namespace TN.Modules.Notifications.Application.Notifications.ExternalEvents.UserCreatedHandler
 {

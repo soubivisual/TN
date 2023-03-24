@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Domain.ValueObjects;
+﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.IdentitiesDomain.Users.Exceptions;
 
 namespace TN.Modules.IdentitiesDomain.Users.ValueObjects

@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using TN.Admin.Web.ASPCore.Areas.Maintenances.Models;
 using TN.Admin.Web.ASPCore.Controllers;
 using TN.Admin.Web.ASPCore.DataModels.Dto;
 
 namespace TN.Admin.Web.ASPCore.Areas.Maintenances.Controllers
 {
-	[Area("Maintenances")]
+    [Area("Maintenances")]
 	[Route("[controller]/[action]")]
 	public class CatalogController : AuthBaseController
 	{

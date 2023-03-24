@@ -1,4 +1,4 @@
-﻿using TN.Modules.Buildings.Domain.Entities;
+﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Notifications.Domain.Notifications.ValueObjects;
 
 namespace TN.Modules.Notifications.Domain.Notifications.Entities

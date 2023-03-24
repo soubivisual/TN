@@ -1,6 +1,6 @@
-﻿using TN.Modules.IdentitiesDomain.Users.Repositories;
-using TN.Modules.Buildings.Application.Configuration;
-using TN.Modules.Buildings.Shared.Mapping;
+﻿using TN.Modules.Buildings.Shared.Mapper;
+using TN.Modules.Buildings.Shared.Queries;
+using TN.Modules.IdentitiesDomain.Users.Repositories;
 
 namespace TN.Modules.Identities.Application.Users.Queries.GetUser
 {

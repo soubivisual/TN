@@ -1,5 +1,5 @@
-﻿using TN.Modules.Buildings.Application.Configuration;
-using TN.Modules.Buildings.Shared.Mapping;
+﻿using TN.Modules.Buildings.Shared.Mapper;
+using TN.Modules.Buildings.Shared.Queries;
 using TN.Modules.Notifications.Domain.Notifications.Repositories;
 
 namespace TN.Modules.Notifications.Application.Notifications.Queries.GetNotification

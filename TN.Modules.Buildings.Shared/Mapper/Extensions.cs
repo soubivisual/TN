@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TN.Modules.Buildings.Shared.Mapping
+namespace TN.Modules.Buildings.Shared.Mapper
 {
     public static class Extensions
     {

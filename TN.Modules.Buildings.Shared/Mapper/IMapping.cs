@@ -1,4 +1,4 @@
-﻿namespace TN.Modules.Buildings.Shared.Mapping
+﻿namespace TN.Modules.Buildings.Shared.Mapper
 {
     public interface IMapping : MapsterMapper.IMapper
     {

@@ -28,12 +28,14 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Configuration
             builder.Property(q => q.Decimal1).HasPrecision(18, 2);
             builder.Property(q => q.Decimal2).HasPrecision(18, 2);
 
-            builder.HasData(new Catalog(
-                Guid.NewGuid(),
-                "GeneralStatus",
-                "Activo",
-                false,
-                true));
+            builder.HasData(
+                // General Status
+                new Catalog(Guid.NewGuid(), "GeneralStatus", "Activo", false, true),
+                new Catalog(Guid.NewGuid(), "GeneralStatus", "Inactivo", false, true),
+                // Currencies
+                new Catalog(Guid.NewGuid(), "Currency", "Colones", false, true, null, null, "CRC", "₡", null, null, null, null, null, null),
+                new Catalog(Guid.NewGuid(), "Currency", "Dólares", false, true, null, null, "USD", "$", null, null, null, null, null, null)
+                );
         }
     }
 }
