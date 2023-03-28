@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using TN.Admin.Web.ASPCore.Areas.Maintenances.Models;
 using TN.Admin.Web.ASPCore.Controllers;
 using TN.Admin.Web.ASPCore.DataModels.Dto;
+using TN.Admin.Web.ASPCore.Exceptions;
 
 namespace TN.Admin.Web.ASPCore.Areas.Maintenances.Controllers
 {
@@ -31,7 +33,7 @@ namespace TN.Admin.Web.ASPCore.Areas.Maintenances.Controllers
 				return View();
 
 			_model.Catalog = catalogDto;
-			await Task.CompletedTask;
+
 			return View(nameof(Index), _model);
 		}
 

@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using System.Net;
+using System.Net.Mime;
+using TN.Admin.Web.ASPCore.Middleware;
 using static TN.Admin.Web.ASPCore.Miscellaneous.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,53 +12,30 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+//using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+//	.SetMinimumLevel(LogLevel.Trace)
+//	.AddConsole());
+
+//ILogger logger = loggerFactory.CreateLogger<Program>();
+
+var logger = LoggerFactory.Create(config =>
 {
-	app.UseExceptionHandler(options =>
-	{
-		options.Run(async context => 
-		{
-			var coreProcessId = Guid.NewGuid();
-			var ex = context.Features.Get<IExceptionHandlerFeature>();
+	config.AddConsole();
+}).CreateLogger("Program");
 
-			if (ex != null)
-			{
-				//Log.ApplicationLog(LogType.Error, coreProcessId, ex.Error);
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+	app.ConfigureNotFoundHandler();
 
-				if (ex.Error.InnerException != null)
-				{
-					var otherException = ex.Error.InnerException;
-
-					while (true)
-					{
-						//Log.ApplicationLog(LogType.Error, coreProcessId, otherException.Message);
-
-						if (otherException.InnerException != null)
-							otherException = otherException.InnerException;
-						else
-							break;
-					}
-				}
-			}
-
-			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-			context.Response.ContentType = "text/html";
-			context.Response.Redirect($"/Miscellaneous/Error?statusCode=500&coreProcessId={coreProcessId}");
-
-			await Task.CompletedTask;
-		});
-	});
+	app.ConfigureExceptionHandler(logger);
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
-
 }
 else
 {
 	app.UseDeveloperExceptionPage();
 }
-
-	
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -77,9 +57,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-	name: RouteName.NotFound,
-	pattern: "Miscellaneous/Error/statusCode=404",
-	defaults: new { controller = "Miscellaneous", action = "Error", statusCode = 404 });
+//app.MapControllerRoute(
+//	name: RouteName.NotFound,
+//	pattern: "Miscellaneous/Error/statusCode=404",
+//	defaults: new { controller = "Miscellaneous", action = "Error", statusCode = 404 });
 
 app.Run();

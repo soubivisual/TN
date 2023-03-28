@@ -137,4 +137,48 @@ function DoAceEditor() {
     }
 }
 
+function ToastrMessage(message, type) {
+
+    var position = 'top-right';
+    var hideAfter = 5000;
+    var icon = '';
+    var loaderBg = ''
+    var title = 'Notificación'
+
+    switch (type) {
+        case "Success":
+            loaderBg = '#ff6849';
+            icon = 'success';
+            break;
+        case "Warning":
+            loaderBg = '#ff6849';
+            icon = 'warning';
+            break;
+        case "Error":
+            loaderBg = '#ff6849';
+            icon = 'error';
+            break;
+        case "Info": 
+            loaderBg = '#ff6849';
+            icon = 'info';
+            break
+        default:
+            return;
+            break;
+    }
+
+    $.toast({
+        heading: title,
+        text: message,
+        position: position,
+        loaderBg: loaderBg,
+        icon: icon,
+        hideAfter: hideAfter,
+        stack: 6
+    });
+}
+
+
+
+
 
