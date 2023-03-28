@@ -1,25 +1,28 @@
 ﻿using TN.Modules.Buildings.Shared.Persistance.Caching;
-using TN.Modules.Configurations.Domain.Catalogs.Repositories;
+using TN.Modules.Configurations.Application.Catalogs.Queries.GetCatalogByType;
+using TN.Modules.Configurations.Application.Catalogs.Queries.GetCatalogTypes;
+using TN.Modules.Configurations.Application.Contracts;
 
 namespace TN.Modules.Configurations.Infrastructure.Caching
 {
     internal sealed class CacheDataSource : ICacheDataSource
     {
-        private readonly ICatalogRepository _catalogRepository;
+        private readonly IConfigurationsAccessModule _configurationsAccessModule;
 
-        public CacheDataSource(ICatalogRepository catalogRepository)
+        public CacheDataSource(IConfigurationsAccessModule configurationsAccessModule)
         {
-            _catalogRepository = catalogRepository;
+            _configurationsAccessModule = configurationsAccessModule;
         }
 
         public async Task<Dictionary<string, object>> GetData()
         {
             var response = new Dictionary<string, object>();
-            var catalogTypes = await _catalogRepository.GetTypesAsync();
+            var catalogTypes = await _configurationsAccessModule.ExecuteQueryAsync(new GetTypesQuery());
 
             foreach (var type in catalogTypes)
             {
-                response[type] = await _catalogRepository.GetByTypeAsync(type);
+                var catalogs = await _configurationsAccessModule.ExecuteQueryAsync(new GetCatalogByTypeQuery(type));
+                response[type] = catalogs;
             }
 
             return response;
