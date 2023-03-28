@@ -7,17 +7,17 @@ namespace TN.Admin.Web.ASPCore.DataModels.Dto
 	{
 		[Key]
 		[Required]
-		public Guid Id { get; set; }
+		public Guid Id { get; set; } =  Guid.Empty;
 
 		[Required]
 		[StringLength(50)]
 		[Display(Name = "Tipo")]
-		public string Type { get; set; }
+		public string Type { get; set; } = string.Empty;
 
 		[Required]
 		[StringLength(200)]
 		[Display(Name = "Valor")]
-		public string Value { get; set; }
+		public string Value { get; set; } = string.Empty;
 
 		[Required]
 		public bool Editable { get; set; }
@@ -30,13 +30,13 @@ namespace TN.Admin.Web.ASPCore.DataModels.Dto
 		public int? Int2 { get; set; }
 
 		[StringLength(200)]
-		public string Nvarchar1 { get; set; }
+		public string Nvarchar1 { get; set; } = string.Empty;
 
 		[StringLength(500)]
-		public string Nvarchar2 { get; set; }
+		public string Nvarchar2 { get; set; } = string.Empty;
 
 		[StringLength(3000)]
-		public string Nvarchar3 { get; set; }
+		public string Nvarchar3 { get; set; } = string.Empty;
 
 		public bool? Bool1 { get; set; }
 

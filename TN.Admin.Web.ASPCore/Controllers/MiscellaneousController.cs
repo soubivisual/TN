@@ -9,8 +9,10 @@ namespace TN.Admin.Web.ASPCore.Controllers
 			return View();
 		}
 
-		public IActionResult Error500()
+		public IActionResult Error500(string? coreProcessId = null)
 		{
+			ViewBag.CoreProcessId = coreProcessId;
+
 			return View();
 		}
 
@@ -19,18 +21,11 @@ namespace TN.Admin.Web.ASPCore.Controllers
 			return View();
 		}
 
-		public IActionResult Error(int? statusCode = null)
-		{
-			if (statusCode.HasValue)
-			{
-				if (statusCode == 403 || statusCode == 404 || statusCode == 500)
-				{
-					var viewName = "Error" + statusCode.ToString();
-					return View(viewName);
-				}
-			}
-
-			return View("Error500");
-		}
+		//public IActionResult Error(int? statusCode = null, string? coreProcessId = null)
+		//{
+		//	ViewBag.CoreProcessId = coreProcessId;
+			
+		//	return View(statusCode.HasValue ? $"Error{statusCode.Value}" : "Error500");
+		//}
 	}
 }

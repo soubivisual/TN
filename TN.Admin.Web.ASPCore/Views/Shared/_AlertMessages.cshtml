@@ -1,0 +1,43 @@
+﻿@if (TempData.ContainsKey("ErrorMessage"))
+{
+    foreach (var value in TempData.Values)
+    {
+        <script>
+            ToastrMessage("@value?.ToString()", "Error");
+        </script>
+    }
+    TempData.Remove("ErrorMessage");
+}
+
+@if (TempData.ContainsKey("WarningMessage"))
+{
+    foreach (var value in TempData.Values)
+    {
+        <script>
+            ToastrMessage("@value?.ToString()", "Warning");
+        </script>
+    }
+    TempData.Remove("WarningMessage");
+}
+
+@if (TempData.ContainsKey("SuccessMessage"))
+{
+    foreach (var value in TempData.Values)
+    {
+        <script>
+            ToastrMessage("@value?.ToString()", "Success");
+        </script>
+    }
+    TempData.Remove("SuccessMessage");
+}
+
+@if (TempData.ContainsKey("InfoMessage"))
+{
+    foreach (var value in TempData.Values)
+    {
+        <script>
+            ToastrMessage("@value?.ToString()", "Info");
+        </script>
+    }
+    TempData.Remove("InfoMessage");
+}
