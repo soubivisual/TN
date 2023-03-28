@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
+using TN.Modules.Buildings.Shared.Dtos;
 
 namespace TN.Modules.Buildings.Shared.Persistance.Caching
 {
@@ -11,34 +12,22 @@ namespace TN.Modules.Buildings.Shared.Persistance.Caching
             _cache = cache;
         }
 
-        public Task<IReadOnlyList<T>> GetCatalog<T>()
-        {
-            throw new NotImplementedException();
-        }
+        public Task<IReadOnlyList<CatalogDto>> GetCatalog(string type)
+            => _cache.GetRecord<IReadOnlyList<CatalogDto>>(type);
 
         public Task<string> GetCompany(int id)
-        {
-            throw new NotImplementedException();
-        }
+            => _cache.GetRecord<string>($"Company_{id}");
 
         public Task<string> GetTenant(int id)
-        {
-            throw new NotImplementedException();
-        }
+            => _cache.GetRecord<string>($"Tenant_{id}");
 
         public Task<string> GetProvider(int id)
-        {
-            throw new NotImplementedException();
-        }
+            => _cache.GetRecord<string>($"Provider_{id}");
 
         public Task<string> GetService(int id)
-        {
-            throw new NotImplementedException();
-        }
+            => _cache.GetRecord<string>($"Service_{id}");
 
-        public Task<string> GetUser(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<UserDto> GetUser(int id)
+            => _cache.GetRecord<UserDto>($"User_{id}");
     }
 }

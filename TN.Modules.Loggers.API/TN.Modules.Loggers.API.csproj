@@ -12,7 +12,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TN.Modules.Loggers.Infrastructure\TN.Modules.Loggers.Infrastructure.csproj" />
-    <ProjectReference Include="..\TN.Modules.Loggers.Shared\TN.Modules.Loggers.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Requests\" />
   </ItemGroup>
 
 </Project>

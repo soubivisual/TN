@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TN.Modules.Buildings.Shared.Controllers;
 using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Identities.Application.Contracts;
 using TN.Modules.Identities.Application.Users.Commands.AddUser;
 using TN.Modules.Identities.Application.Users.Queries.GetUser;
-using TN.Modules.IdentitiesShared.Requests;
+using TN.Modules.IdentitiesAPI.Requests;
+using TN.Modules.IdentitiesAPI.Responses;
 
 namespace TN.Modules.IdentitiesAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : AuthBaseController
     {
         private readonly IIdentitiesAccessModule _identitiesAccessModule;
         private readonly IMapping _mapping;
@@ -24,7 +26,7 @@ namespace TN.Modules.IdentitiesAPI.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDto>> Get(int id)
+        public async Task<ActionResult<UserResponse>> Get(int id)
         {
             var user = await _identitiesAccessModule.ExecuteQueryAsync(new GetUserQuery(id));
             if (user is not null)

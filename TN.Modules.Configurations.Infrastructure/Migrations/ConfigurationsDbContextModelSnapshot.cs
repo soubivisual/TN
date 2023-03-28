@@ -17,7 +17,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("configurations")
+                .HasDefaultSchema("Configurations")
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -81,16 +81,44 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Catalog", "configurations");
+                    b.ToTable("Catalog", "Configurations");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c1cb7366-37bb-4533-a637-ac987d534bdc"),
+                            Id = new Guid("12465b52-29b3-4a84-be56-37e0350711e8"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
                             Value = "Activo"
+                        },
+                        new
+                        {
+                            Id = new Guid("1c32f757-49f7-41fb-9134-3aa0e45b7784"),
+                            Editable = false,
+                            Enabled = true,
+                            Type = "GeneralStatus",
+                            Value = "Inactivo"
+                        },
+                        new
+                        {
+                            Id = new Guid("060cf618-dd69-4d9c-985e-f384690b4d63"),
+                            Editable = false,
+                            Enabled = true,
+                            Nvarchar1 = "CRC",
+                            Nvarchar2 = "₡",
+                            Type = "Currency",
+                            Value = "Colones"
+                        },
+                        new
+                        {
+                            Id = new Guid("93743f52-587c-4a79-a6ae-bcbd4a9af888"),
+                            Editable = false,
+                            Enabled = true,
+                            Nvarchar1 = "USD",
+                            Nvarchar2 = "$",
+                            Type = "Currency",
+                            Value = "Dólares"
                         });
                 });
 #pragma warning restore 612, 618

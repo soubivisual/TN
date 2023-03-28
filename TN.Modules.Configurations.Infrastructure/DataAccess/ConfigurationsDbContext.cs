@@ -23,7 +23,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("configurations");
+            modelBuilder.HasDefaultSchema("Configurations");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

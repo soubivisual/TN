@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using TN.Modules.Buildings.Shared.SharedKernel;
 
-namespace TN.Modules.IdentitiesDomain.Users.ValueObjects
+namespace TN.Modules.Identities.Domain.Users.ValueObjects
 {
     public sealed class Email : ValueObjectBase<string>
     {

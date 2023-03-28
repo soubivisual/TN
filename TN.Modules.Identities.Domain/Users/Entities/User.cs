@@ -1,7 +1,7 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
-using TN.Modules.IdentitiesDomain.Users.ValueObjects;
+using TN.Modules.Identities.Domain.Users.ValueObjects;
 
-namespace TN.Modules.IdentitiesDomain.Users.Entities
+namespace TN.Modules.Identities.Domain.Users.Entities
 {
     public sealed class User : EntityBase<UserId>
     {
@@ -29,6 +29,12 @@ namespace TN.Modules.IdentitiesDomain.Users.Entities
 
         public DateTime? EditedDate { get; private set; }
 
+        //private IEnumerable<UserLogin> _userLogins;
+        //public IEnumerable<UserLogin> UserLogins
+        //{
+        //    get => _userLogins;
+        //}
+
         public User() : base(default) { }
 
         public User(UserId id, Guid identificationTypeId, string identification, Name name, string username, string email, string phone, Guid typeId, Guid statusId, int? addedUserId, DateTime? addedDate) : base(id)
@@ -43,6 +49,8 @@ namespace TN.Modules.IdentitiesDomain.Users.Entities
             StatusId = statusId;
             AddedUserId = addedUserId;
             AddedDate = addedDate;
+
+            //_userLogins = new List<UserLogin>();
         }
     }
 }

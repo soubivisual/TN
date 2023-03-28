@@ -18,4 +18,8 @@
     <ProjectReference Include="..\TN.Modules.Identities.Application\TN.Modules.Identities.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

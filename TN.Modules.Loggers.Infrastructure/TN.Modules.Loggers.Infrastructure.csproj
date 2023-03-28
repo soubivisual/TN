@@ -19,4 +19,8 @@
     <ProjectReference Include="..\TN.Modules.Loggers.Application\TN.Modules.Loggers.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

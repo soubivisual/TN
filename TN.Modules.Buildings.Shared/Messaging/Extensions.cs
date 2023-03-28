@@ -7,6 +7,7 @@ namespace TN.Modules.Buildings.Shared.Messaging
         public static IServiceCollection AddMessaging(this IServiceCollection services)
         {
             services.AddHostedService<MessageBusSubscriber>();
+
             services.AddSingleton<IMessageBusPublisher, MessageBusPublisher>();
 
             return services;

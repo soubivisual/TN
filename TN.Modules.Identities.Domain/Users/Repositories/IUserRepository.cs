@@ -1,10 +1,12 @@
 ﻿using System.Linq.Expressions;
-using TN.Modules.IdentitiesDomain.Users.Entities;
+using TN.Modules.Identities.Domain.Users.Entities;
 
-namespace TN.Modules.IdentitiesDomain.Users.Repositories
+namespace TN.Modules.Identities.Domain.Users.Repositories
 {
     public interface IUserRepository
     {
+        Task<IReadOnlyList<User>> GetAllAsync();
+
         Task<User> GetAsync(int id);
 
         Task<User> FindAsync(Expression<Func<User, bool>> expression);

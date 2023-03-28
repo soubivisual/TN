@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TN.Modules.IdentitiesInfrastructure.DataAccess;
+using TN.Modules.Identities.Infrastructure.DataAccess;
 
 #nullable disable
 
@@ -17,7 +17,7 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("identities")
+                .HasDefaultSchema("Identities")
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -78,7 +78,7 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", "identities");
+                    b.ToTable("User", "Identities");
 
                     b.HasData(
                         new
@@ -87,11 +87,11 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                             AddedDate = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "dsanabria@teledolar.com",
                             Identification = "100010001",
-                            IdentificationTypeId = new Guid("d81d898c-cfd7-45c3-b133-0372198d0029"),
+                            IdentificationTypeId = new Guid("54173bd8-4fa4-4e29-a916-a3c9ea5d6cd3"),
                             Name = "Administrador",
                             Phone = "88778573",
-                            StatusId = new Guid("b66218d6-f2c3-4c86-a649-b30923d668f9"),
-                            TypeId = new Guid("da3d8271-3957-449c-8049-998caeb4e1e6"),
+                            StatusId = new Guid("a38c4fa8-7817-4ab8-9b75-13cd6479eaa8"),
+                            TypeId = new Guid("92790c13-b48d-4f52-9507-43d9a43030db"),
                             Username = "admin"
                         });
                 });

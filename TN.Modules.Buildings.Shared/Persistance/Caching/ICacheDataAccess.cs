@@ -1,8 +1,10 @@
-﻿namespace TN.Modules.Buildings.Shared.Persistance.Caching
+﻿using TN.Modules.Buildings.Shared.Dtos;
+
+namespace TN.Modules.Buildings.Shared.Persistance.Caching
 {
     public interface ICacheDataAccess
     {
-        Task<IReadOnlyList<T>> GetCatalog<T>();
+        Task<IReadOnlyList<CatalogDto>> GetCatalog(string type);
 
         Task<string> GetCompany(int id);
 
@@ -12,6 +14,6 @@
 
         Task<string> GetService(int id);
 
-        Task<string> GetUser(int id);
+        Task<UserDto> GetUser(int id);
     }
 }

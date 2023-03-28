@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using TN.Modules.Buildings.Shared.Validator;
-using TN.Modules.IdentitiesShared.Requests;
+using TN.Modules.IdentitiesAPI.Requests;
 
 namespace TN.Modules.IdentitiesAPI.Validations.Users
 {

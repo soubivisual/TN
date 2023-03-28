@@ -23,7 +23,7 @@ namespace TN.Modules.Notifications.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("notifications");
+            modelBuilder.HasDefaultSchema("Notifications");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

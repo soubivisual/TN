@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace TN.Modules.IdentitiesDomain
+namespace TN.Modules.Identities.Domain
 {
     public static class Extensions
     {

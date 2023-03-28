@@ -23,7 +23,7 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("loggers");
+            modelBuilder.HasDefaultSchema("Loggers");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
