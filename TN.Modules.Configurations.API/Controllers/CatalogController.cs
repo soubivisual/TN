@@ -31,7 +31,8 @@ namespace TN.Modules.Configurations.API.Controllers
             var catalog = await _configurationsAccessModule.ExecuteQueryAsync(new GetCatalogQuery(id));
             if (catalog is not null)
             {
-                return Ok(_mapping.Map<CatalogResponse>(catalog));
+                var response = _mapping.Map<CatalogResponse>(catalog);
+                return Ok(response);
             }
 
             return NotFound();

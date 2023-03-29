@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Catalogs\Aggregates\" />
     <Folder Include="Products\Aggregates\" />
     <Folder Include="Products\Entities\" />
     <Folder Include="Products\Exceptions\" />

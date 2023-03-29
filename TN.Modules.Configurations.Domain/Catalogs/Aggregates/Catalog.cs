@@ -1,9 +1,9 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Configurations.Domain.Catalogs.ValueObjects;
 
-namespace TN.Modules.Configurations.Domain.Catalogs.Entities
+namespace TN.Modules.Configurations.Domain.Catalogs.Aggregates
 {
-    public sealed class Catalog : EntityBase<CatalogId>
+    public sealed class Catalog : AggregateRootBase<CatalogId>
     {
         public CatalogType Type { get; private set; }
 
@@ -33,10 +33,7 @@ namespace TN.Modules.Configurations.Domain.Catalogs.Entities
 
         public decimal? Decimal2 { get; private set; }
 
-        public Catalog() : base(default)
-        {
-
-        }
+        public Catalog() : base(default) { }
 
         public Catalog(CatalogId id, CatalogType type, string value, bool editable, bool enabled) : base(id)
         {

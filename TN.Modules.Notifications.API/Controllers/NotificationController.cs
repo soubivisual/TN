@@ -29,7 +29,8 @@ namespace TN.Modules.Notifications.API.Controllers
             var notification = await _notificationsAccessModule.ExecuteQueryAsync(new GetNotificationQuery(id));
             if (notification is not null)
             {
-                return Ok(notification);
+                var response = _mapping.Map<NotificationResponse>(notification);
+                return Ok(response);
             }
 
             return NotFound();

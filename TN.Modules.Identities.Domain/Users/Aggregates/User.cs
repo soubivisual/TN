@@ -1,9 +1,9 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Identities.Domain.Users.ValueObjects;
 
-namespace TN.Modules.Identities.Domain.Users.Entities
+namespace TN.Modules.Identities.Domain.Users.Aggregates
 {
-    public sealed class User : EntityBase<UserId>
+    public sealed class User : AggregateRootBase<UserId>
     {
         public Guid IdentificationTypeId { get; private set; }
 

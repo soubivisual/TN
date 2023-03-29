@@ -1,4 +1,4 @@
-﻿using TN.Modules.Identities.Domain.Users.Entities;
+﻿using TN.Modules.Identities.Domain.Users.Aggregates;
 using TN.Modules.Identities.Domain.Users.Repositories;
 using TN.Modules.Buildings.Shared.Commands;
 using TN.Modules.Buildings.Shared.Messaging;

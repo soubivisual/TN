@@ -1,4 +1,4 @@
-﻿using TN.Modules.Notifications.Domain.Notifications.Entities;
+﻿using TN.Modules.Notifications.Domain.Notifications.Aggregates;
 
 namespace TN.Modules.Notifications.Domain.Notifications.Repositories
 {

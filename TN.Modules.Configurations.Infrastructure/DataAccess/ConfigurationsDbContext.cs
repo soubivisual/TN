@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Configurations.Domain.Catalogs.Entities;
+using TN.Modules.Configurations.Domain.Catalogs.Aggregates;
 
 namespace TN.Modules.Configurations.Infrastructure.DataAccess
 {

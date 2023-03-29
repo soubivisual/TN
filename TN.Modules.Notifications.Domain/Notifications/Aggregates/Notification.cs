@@ -1,9 +1,9 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Notifications.Domain.Notifications.ValueObjects;
 
-namespace TN.Modules.Notifications.Domain.Notifications.Entities
+namespace TN.Modules.Notifications.Domain.Notifications.Aggregates
 {
-    public sealed class Notification : EntityBase<NotificationId>
+    public sealed class Notification : AggregateRootBase<NotificationId>
     {
         public int TenantId { get; private set; }
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using TN.Modules.Configurations.Domain.Catalogs.Entities;
+using TN.Modules.Configurations.Domain.Catalogs.Aggregates;
 using TN.Modules.Configurations.Domain.Catalogs.Repositories;
 using TN.Modules.Configurations.Domain.Catalogs.ValueObjects;
 using TN.Modules.Configurations.Infrastructure.DataAccess;

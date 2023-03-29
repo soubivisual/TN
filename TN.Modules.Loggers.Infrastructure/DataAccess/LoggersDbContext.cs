@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Loggers.Domain.ApplicationLogs.Entities;
+using TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates;
 
 namespace TN.Modules.Loggers.Infrastructure.DataAccess
 {

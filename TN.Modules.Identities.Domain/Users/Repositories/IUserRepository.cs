@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using TN.Modules.Identities.Domain.Users.Entities;
+using TN.Modules.Identities.Domain.Users.Aggregates;
 
 namespace TN.Modules.Identities.Domain.Users.Repositories
 {

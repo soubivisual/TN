@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Notifications.Domain.Notifications.Entities;
+using TN.Modules.Notifications.Domain.Notifications.Aggregates;
 
 namespace TN.Modules.Notifications.Infrastructure.DataAccess
 {

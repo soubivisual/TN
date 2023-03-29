@@ -29,7 +29,8 @@ namespace TN.Modules.Remittances.API.Controllers
             var remittance = await _remittancesAccessModule.ExecuteQueryAsync(new GetRemittanceQuery(id));
             if (remittance is not null)
             {
-                return Ok(remittance);
+                var response = _mapping.Map<RemittanceResponse>(remittance);
+                return Ok(response);
             }
 
             return NotFound();

@@ -31,7 +31,8 @@ namespace TN.Modules.Identities.API.Controllers
             var user = await _identitiesAccessModule.ExecuteQueryAsync(new GetAllUsersQuery(id));
             if (user is not null)
             {
-                return Ok(user);
+                var response = _mapping.Map<UserResponse>(user);
+                return Ok(response);
             }
 
             return NotFound();

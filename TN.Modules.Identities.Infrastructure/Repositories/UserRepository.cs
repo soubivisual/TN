@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TN.Modules.Identities.Infrastructure.DataAccess;
-using TN.Modules.Identities.Domain.Users.Entities;
+using TN.Modules.Identities.Domain.Users.Aggregates;
 using TN.Modules.Identities.Domain.Users.Repositories;
 using System.Linq.Expressions;
 

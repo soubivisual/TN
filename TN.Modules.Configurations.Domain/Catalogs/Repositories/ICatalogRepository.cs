@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using TN.Modules.Configurations.Domain.Catalogs.Entities;
+using TN.Modules.Configurations.Domain.Catalogs.Aggregates;
 using TN.Modules.Configurations.Domain.Catalogs.ValueObjects;
 
 namespace TN.Modules.Configurations.Domain.Catalogs.Repositories

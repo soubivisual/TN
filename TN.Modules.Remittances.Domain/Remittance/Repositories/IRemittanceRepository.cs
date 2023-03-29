@@ -1,4 +1,4 @@
-﻿using TN.Modules.Remittances.Domain.Remittances.Entities;
+﻿using TN.Modules.Remittances.Domain.Remittances.Aggregates;
 
 namespace TN.Modules.Remittances.Domain.Remittances.Repositories
 {

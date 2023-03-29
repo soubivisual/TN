@@ -1,9 +1,9 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Remittances.Domain.Remittances.ValueObjects;
 
-namespace TN.Modules.Remittances.Domain.Remittances.Entities
+namespace TN.Modules.Remittances.Domain.Remittances.Aggregates
 {
-    public sealed class Remittance : EntityBase<RemittanceId?>
+    public sealed class Remittance : AggregateRootBase<RemittanceId>
     {
         public int TenantId { get; private set; }
 
@@ -33,11 +33,11 @@ namespace TN.Modules.Remittances.Domain.Remittances.Entities
 
         public Guid StatusId { get; private set; }
 
-        public Guid CoreProcessId { get; set; }
+        public Guid CoreProcessId { get; private set; }
 
-        public string Message { get; set; }
+        public string Message { get; private set; }
 
-        public string Data { get; set; }
+        public string Data { get; private set; }
 
         public Remittance() : base(default) { }
 
