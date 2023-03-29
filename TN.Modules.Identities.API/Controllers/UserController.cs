@@ -5,10 +5,10 @@ using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Identities.Application.Contracts;
 using TN.Modules.Identities.Application.Users.Commands.AddUser;
 using TN.Modules.Identities.Application.Users.Queries.GetUser;
-using TN.Modules.IdentitiesAPI.Requests;
-using TN.Modules.IdentitiesAPI.Responses;
+using TN.Modules.Identities.API.Requests;
+using TN.Modules.Identities.API.Responses;
 
-namespace TN.Modules.IdentitiesAPI.Controllers
+namespace TN.Modules.Identities.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -28,7 +28,7 @@ namespace TN.Modules.IdentitiesAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserResponse>> Get(int id)
         {
-            var user = await _identitiesAccessModule.ExecuteQueryAsync(new GetUserQuery(id));
+            var user = await _identitiesAccessModule.ExecuteQueryAsync(new GetAllUsersQuery(id));
             if (user is not null)
             {
                 return Ok(user);

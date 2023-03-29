@@ -1,6 +1,6 @@
 using TN.Modules.Buildings.Shared;
 using TN.Modules.Configurations.API;
-using TN.Modules.IdentitiesAPI;
+using TN.Modules.Identities.API;
 using TN.Modules.Loggers.API;
 using TN.Modules.Notifications.API;
 using TN.Modules.Remittances.API;

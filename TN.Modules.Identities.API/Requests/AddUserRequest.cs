@@ -1,6 +1,6 @@
 ﻿using TN.Modules.Buildings.Shared.Api;
 
-namespace TN.Modules.IdentitiesAPI.Requests
+namespace TN.Modules.Identities.API.Requests
 {
     public sealed record AddUserRequest(
             Guid IdentificationTypeId,

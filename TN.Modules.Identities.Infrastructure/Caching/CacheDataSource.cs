@@ -1,21 +1,22 @@
 ﻿using TN.Modules.Buildings.Shared.Persistance.Caching;
-using TN.Modules.Identities.Domain.Users.Repositories;
+using TN.Modules.Identities.Application.Contracts;
+using TN.Modules.Identities.Application.Users.Queries.GetAllUsers;
 
 namespace TN.Modules.Identities.Infrastructure.Caching
 {
     internal sealed class CacheDataSource : ICacheDataSource
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IIdentitiesAccessModule _identitiesAccessModule;
 
-        public CacheDataSource(IUserRepository userRepository)
+        public CacheDataSource(IIdentitiesAccessModule identitiesAccessModule)
         {
-            _userRepository = userRepository;
+            _identitiesAccessModule = identitiesAccessModule;
         }
 
         public async Task<Dictionary<string, object>> GetData()
         {
             var response = new Dictionary<string, object>();
-            var users = await _userRepository.GetAllAsync();
+            var users = await _identitiesAccessModule.ExecuteQueryAsync(new GetAllUsersQuery());
 
             foreach (var user in users)
             {

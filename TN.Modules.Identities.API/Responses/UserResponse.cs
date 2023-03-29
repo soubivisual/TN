@@ -1,7 +1,7 @@
 ﻿using TN.Modules.Buildings.Shared.Api;
 using TN.Modules.Buildings.Shared.Dtos;
 
-namespace TN.Modules.IdentitiesAPI.Responses
+namespace TN.Modules.Identities.API.Responses
 {
     public class UserResponse : BaseResponse<UserDto>
     {

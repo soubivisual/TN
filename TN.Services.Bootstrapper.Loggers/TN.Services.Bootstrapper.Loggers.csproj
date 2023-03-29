@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Remittances.API\TN.Modules.Remittances.API.csproj" />
+    <ProjectReference Include="..\TN.Modules.Loggers.API\TN.Modules.Loggers.API.csproj" />
   </ItemGroup>
 
 </Project>

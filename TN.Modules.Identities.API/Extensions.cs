@@ -5,7 +5,7 @@ using TN.Modules.Identities.Application;
 using TN.Modules.Identities.Domain;
 using TN.Modules.Identities.Infrastructure;
 
-namespace TN.Modules.IdentitiesAPI
+namespace TN.Modules.Identities.API
 {
     public static class Extensions
     {
