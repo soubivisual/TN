@@ -24,7 +24,7 @@ var logger = LoggerFactory.Create(config =>
 }).CreateLogger("Program");
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
 	app.ConfigureNotFoundHandler();
 

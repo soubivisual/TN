@@ -615,10 +615,11 @@ namespace TN.Admin.Web.ASPCore.Helpers
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
 			string data = string.Empty;
+			var guid = Guid.NewGuid();
 			output.TagName = "pre";
 
-			output.Attributes.SetAttribute("id", $"{For.ModelExplorer.Container.ModelType.Name}_{For.Name}");
-			output.Attributes.SetAttribute("name", $"{For.ModelExplorer.Container.ModelType.Name}.{For.Name}");
+			output.Attributes.SetAttribute("id", $"{For.ModelExplorer.Container.ModelType.Name}_{For.Name}_{guid}");
+			output.Attributes.SetAttribute("name", $"{For.ModelExplorer.Container.ModelType.Name}.{For.Name}_{guid}");
 			output.Attributes.SetAttribute("data-plugin", "ace");
 			output.Attributes.SetAttribute("data-mode", FormatStyle);
 			output.Attributes.SetAttribute("style", "width: 100%;");

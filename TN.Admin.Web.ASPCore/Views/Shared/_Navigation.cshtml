@@ -36,7 +36,7 @@
                     </li>
                 </ul>
             </li>
-            @*<li class="treeview">
+            <li class="treeview">
                 <a href="#">
                     <i class="ti-signal"></i> <span>Seguridad</span>
                     <span class="pull-right-container">
@@ -44,9 +44,13 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle"></i>Cambiar contraseña</a></li>
+                    <li>
+                        <a asp-area="Shared" asp-controller="CoreProcessTrace" asp-action="Index" >
+                            <i class="fa fa-circle-thin"></i>CoreProcess Trace
+                        </a>
+                    </li>
                 </ul>
-            </li>*@
+            </li>
         </ul>
     </section>
 </aside>
