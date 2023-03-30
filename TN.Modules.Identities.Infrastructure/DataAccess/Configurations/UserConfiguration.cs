@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using TN.Modules.IdentitiesDomain.Users.Entities;
+using TN.Modules.Identities.Domain.Users.Aggregates;
 
 internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {

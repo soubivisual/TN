@@ -12,13 +12,14 @@ namespace TN.Modules.Buildings.Shared.Messaging
     internal sealed class MessageBusPublisher : IMessageBusPublisher
     {
         private readonly ILogger<MessageBusPublisher> _logger;
-        
+
         private readonly IConnection _connection;
         private readonly IModel _channel;
 
         private const string ExchangeName = "TNExchange";
         private const string RoutingKey = "";
-        private const string QueueName = "TNQueue";
+
+        private static readonly string QueueName = Assembly.GetEntryAssembly().GetName().Name;
 
         public MessageBusPublisher(IConfiguration configuration, ILogger<MessageBusPublisher> logger)
         {
@@ -28,20 +29,21 @@ namespace TN.Modules.Buildings.Shared.Messaging
             {
                 var factory = new ConnectionFactory();
                 factory.Uri = new Uri(configuration.GetConnectionString(ConnectionStrings.EventBus));
-                factory.ClientProvidedName = Assembly.GetEntryAssembly().GetName().Name;
+                factory.ClientProvidedName = $"{Assembly.GetEntryAssembly().GetName().Name}_{Guid.NewGuid()}";
 
                 _connection = factory.CreateConnection();
+                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+
                 _channel = _connection.CreateModel();
                 _channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Fanout);
                 _channel.QueueDeclare(queue: QueueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
                 _channel.QueueBind(queue: QueueName, exchange: ExchangeName, routingKey: RoutingKey, arguments: null);
-                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
 
-                _logger.LogInformation("--> Connected to MessageBus");
+                _logger.LogInformation("Connected to MessageBus");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"--> Could not connect to the Message Bus: {ex.Message}");
+                _logger.LogError($"Could not connect to the Message Bus: {ex.Message}");
             }
         }
 
@@ -50,10 +52,12 @@ namespace TN.Modules.Buildings.Shared.Messaging
             var payload = new EventBase(data.GetType().AssemblyQualifiedName, JsonSerializer.Serialize(data));
             var message = JsonSerializer.Serialize(payload);
             var body = Encoding.UTF8.GetBytes(message);
+            var basicProperties = _channel.CreateBasicProperties();
+            basicProperties.Persistent = true;
 
-            _channel.BasicPublish(exchange: ExchangeName, routingKey: RoutingKey, basicProperties: null, body: body);
+            _channel.BasicPublish(exchange: ExchangeName, routingKey: RoutingKey, basicProperties: basicProperties, body: body);
 
-            _logger.LogInformation($"--> We have sent {message}");
+            _logger.LogInformation($"We have sent {message}");
         }
 
         public void Dispose()
@@ -69,7 +73,7 @@ namespace TN.Modules.Buildings.Shared.Messaging
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
         {
-            _logger.LogInformation("--> RabbitMQ Connection Shutdown");
+            _logger.LogInformation($"{nameof(MessageBusPublisher)} Connection Shutdown");
         }
     }
 }

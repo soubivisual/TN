@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.IdentitiesInfrastructure.DataAccess;
-using TN.Modules.IdentitiesDomain.Users.Entities;
-using TN.Modules.IdentitiesDomain.Users.Repositories;
+using TN.Modules.Identities.Infrastructure.DataAccess;
+using TN.Modules.Identities.Domain.Users.Aggregates;
+using TN.Modules.Identities.Domain.Users.Repositories;
 using System.Linq.Expressions;
 
-namespace TN.Modules.IdentitiesInfrastructure.Repositories
+namespace TN.Modules.Identities.Infrastructure.Repositories
 {
     internal class UserRepository : IUserRepository
     {
@@ -13,6 +13,15 @@ namespace TN.Modules.IdentitiesInfrastructure.Repositories
         public UserRepository(IdentitiesDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<IReadOnlyList<User>> GetAllAsync()
+        {
+            var users = await _context.Users
+                .AsNoTracking()
+                .ToListAsync();
+
+            return users;
         }
 
         public Task<User> GetAsync(int id)

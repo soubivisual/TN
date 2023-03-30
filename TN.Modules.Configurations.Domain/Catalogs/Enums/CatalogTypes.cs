@@ -3,5 +3,6 @@
     public enum CatalogTypes
     {
         GeneralStatus,
+        Currency
     }
 }

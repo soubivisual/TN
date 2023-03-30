@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TN.Modules.Identities.Domain\TN.Modules.Identities.Domain.csproj" />
-    <ProjectReference Include="..\TN.Modules.Identities.Shared\TN.Modules.Identities.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

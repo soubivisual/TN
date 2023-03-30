@@ -1,4 +1,5 @@
-﻿using TN.Modules.Buildings.Shared.Queries;
+﻿using TN.Modules.Buildings.Shared.Dtos;
+using TN.Modules.Buildings.Shared.Queries;
 
 namespace TN.Modules.Configurations.Application.Catalogs.Queries.GetCatalog
 {

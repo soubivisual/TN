@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TN.Modules.Buildings.Shared.Persistance.Caching;
 using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Configurations.Application.Contracts;
 using TN.Modules.Configurations.Domain.Catalogs.Repositories;
+using TN.Modules.Configurations.Infrastructure.Caching;
 using TN.Modules.Configurations.Infrastructure.DataAccess;
 using TN.Modules.Configurations.Infrastructure.Repositories;
 
@@ -16,6 +18,7 @@ namespace TN.Modules.Configurations.Infrastructure
             services.AddTransient<IConfigurationsAccessModule, ConfigurationsAccessModule>();
 
             services.AddScoped<ICatalogRepository, CatalogRepository>();
+            services.AddScoped<ICacheDataSource, CacheDataSource>();
 
             return services;
         }

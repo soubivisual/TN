@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TN.Modules.Remittances.Domain.Remittances.Entities;
+using TN.Modules.Remittances.Domain.Remittances.Aggregates;
 
 namespace TN.Modules.Remittances.Infrastructure.DataAccess.Configurations
 {

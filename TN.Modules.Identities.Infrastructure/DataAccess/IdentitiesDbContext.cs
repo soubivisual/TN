@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.IdentitiesDomain.Users.Entities;
+using TN.Modules.Identities.Domain.Users.Aggregates;
 
-namespace TN.Modules.IdentitiesInfrastructure.DataAccess
+namespace TN.Modules.Identities.Infrastructure.DataAccess
 {
     internal class IdentitiesDbContext : DbContext
     {
@@ -23,7 +23,7 @@ namespace TN.Modules.IdentitiesInfrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("identities");
+            modelBuilder.HasDefaultSchema("Identities");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
             // INFO: De esta forma se puede aplicar la configuración de cada entidad de forma manual en lugar de tomarlas del Assembly

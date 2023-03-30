@@ -1,7 +1,7 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
-using TN.Modules.IdentitiesDomain.Users.Exceptions;
+using TN.Modules.Identities.Domain.Users.Exceptions;
 
-namespace TN.Modules.IdentitiesDomain.Users.ValueObjects
+namespace TN.Modules.Identities.Domain.Users.ValueObjects
 {
     public sealed class Name : ValueObjectBase<string>
     {

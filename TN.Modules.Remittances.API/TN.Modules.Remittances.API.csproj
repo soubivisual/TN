@@ -9,4 +9,8 @@
     <ProjectReference Include="..\TN.Modules.Remittances.Infrastructure\TN.Modules.Remittances.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Requests\" />
+  </ItemGroup>
+
 </Project>

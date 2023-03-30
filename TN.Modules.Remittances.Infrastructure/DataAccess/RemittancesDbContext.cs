@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Remittances.Domain.Remittances.Entities;
+using TN.Modules.Remittances.Domain.Remittances.Aggregates;
 
 namespace TN.Modules.Remittances.Infrastructure.DataAccess
 {
@@ -23,7 +23,7 @@ namespace TN.Modules.Remittances.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("remittances");
+            modelBuilder.HasDefaultSchema("Remittances");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Loggers.Domain.ApplicationLogs.Entities;
+using TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates;
 
 namespace TN.Modules.Loggers.Infrastructure.DataAccess
 {
@@ -23,7 +23,7 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("loggers");
+            modelBuilder.HasDefaultSchema("Loggers");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

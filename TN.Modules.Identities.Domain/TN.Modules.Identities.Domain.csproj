@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Users\Aggregates\" />
+    <Folder Include="Role\" />
   </ItemGroup>
 
   <ItemGroup>

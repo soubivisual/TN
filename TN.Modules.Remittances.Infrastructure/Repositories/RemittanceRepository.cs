@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Remittances.Domain.Remittances.Entities;
+using TN.Modules.Remittances.Domain.Remittances.Aggregates;
 using TN.Modules.Remittances.Domain.Remittances.Repositories;
 using TN.Modules.Remittances.Infrastructure.DataAccess;
 

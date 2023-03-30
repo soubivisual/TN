@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Notifications.Domain.Notifications.Entities;
+using TN.Modules.Notifications.Domain.Notifications.Aggregates;
 
 namespace TN.Modules.Notifications.Infrastructure.DataAccess
 {
@@ -23,7 +23,7 @@ namespace TN.Modules.Notifications.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("notifications");
+            modelBuilder.HasDefaultSchema("Notifications");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

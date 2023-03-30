@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using TN.Modules.Loggers.Domain.ApplicationLogs.Entities;
+using TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates;
 using TN.Modules.Loggers.Domain.ApplicationLogs.Enums;
 
 namespace TN.Modules.Loggers.Infrastructure.DataAccess.Configurations

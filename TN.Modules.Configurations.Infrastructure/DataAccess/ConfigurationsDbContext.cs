@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TN.Modules.Configurations.Domain.Catalogs.Entities;
+using TN.Modules.Configurations.Domain.Catalogs.Aggregates;
 
 namespace TN.Modules.Configurations.Infrastructure.DataAccess
 {
@@ -23,7 +23,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("configurations");
+            modelBuilder.HasDefaultSchema("Configurations");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

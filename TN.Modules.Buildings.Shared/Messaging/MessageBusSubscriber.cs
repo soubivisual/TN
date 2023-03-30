@@ -21,7 +21,8 @@ namespace TN.Modules.Buildings.Shared.Messaging
 
         private const string ExchangeName = "TNExchange";
         private const string RoutingKey = "";
-        private const string QueueName = "TNQueue";
+
+        private static readonly string QueueName = Assembly.GetEntryAssembly().GetName().Name;
 
         public MessageBusSubscriber(IConfiguration configuration, ILogger<MessageBusSubscriber> logger, IEventDispatcher eventDispatcher)
         {
@@ -32,21 +33,22 @@ namespace TN.Modules.Buildings.Shared.Messaging
             {
                 var factory = new ConnectionFactory();
                 factory.Uri = new Uri(configuration.GetConnectionString(ConnectionStrings.EventBus));
-                factory.ClientProvidedName = Assembly.GetEntryAssembly().GetName().Name;
+                factory.ClientProvidedName = $"{Assembly.GetEntryAssembly().GetName().Name}_{Guid.NewGuid()}";
 
                 _connection = factory.CreateConnection();
+                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+
                 _channel = _connection.CreateModel();
                 _channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Fanout);
                 _channel.QueueDeclare(queue: QueueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
                 _channel.QueueBind(queue: QueueName, exchange: ExchangeName, routingKey: RoutingKey, arguments: null);
                 _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-                _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
 
-                _logger.LogInformation("--> Listenting on the Message Bus...");
+                _logger.LogInformation("Listenting on the Message Bus...");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"--> Could not connect to the Message Bus: {ex.Message}");
+                _logger.LogError($"Could not connect to the Message Bus: {ex.Message}");
             }
         }
 
@@ -58,7 +60,7 @@ namespace TN.Modules.Buildings.Shared.Messaging
 
             consumer.Received += async (ch, ea) =>
             {
-                _logger.LogInformation("--> Event Received!");
+                _logger.LogInformation("Event Received!");
 
                 var message = Encoding.UTF8.GetString(ea.Body.ToArray());
                 var payload = JsonSerializer.Deserialize<EventBase>(message);
@@ -71,9 +73,10 @@ namespace TN.Modules.Buildings.Shared.Messaging
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 var @event = (IEvent)JsonSerializer.Deserialize(stream, type, options);
 
-                await _eventDispatcher.PublishAsync(@event, stoppingToken);
+                var result = await _eventDispatcher.PublishAsync(@event, stoppingToken);
 
-                _channel.BasicAck(ea.DeliveryTag, multiple: false);
+                if (result)
+                    _channel.BasicAck(ea.DeliveryTag, multiple: false);
             };
 
             var consumerTag = _channel.BasicConsume(queue: QueueName, autoAck: false, consumer: consumer);
@@ -97,7 +100,7 @@ namespace TN.Modules.Buildings.Shared.Messaging
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
         {
-            _logger.LogInformation("--> Connection Shutdown");
+            _logger.LogInformation($"{nameof(MessageBusSubscriber)} Connection Shutdown");
         }
     }
 }

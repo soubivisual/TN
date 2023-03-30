@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TN.Modules.Buildings.Shared.Controllers;
 using TN.Modules.Buildings.Shared.Mapper;
+using TN.Modules.Notifications.API.Responses;
 using TN.Modules.Notifications.Application.Contracts;
 using TN.Modules.Notifications.Application.Notifications.Queries.GetNotification;
 
@@ -8,7 +10,7 @@ namespace TN.Modules.Notifications.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public sealed class NotificationController : ControllerBase
+    public sealed class NotificationController : AuthBaseController
     {
         private readonly INotificationsAccessModule _notificationsAccessModule;
         private readonly IMapping _mapping;
@@ -22,12 +24,13 @@ namespace TN.Modules.Notifications.API.Controllers
         [HttpGet("{id:long}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<dynamic>> Get(long id)
+        public async Task<ActionResult<NotificationResponse>> Get(long id)
         {
             var notification = await _notificationsAccessModule.ExecuteQueryAsync(new GetNotificationQuery(id));
             if (notification is not null)
             {
-                return Ok(notification);
+                var response = _mapping.Map<NotificationResponse>(notification);
+                return Ok(response);
             }
 
             return NotFound();

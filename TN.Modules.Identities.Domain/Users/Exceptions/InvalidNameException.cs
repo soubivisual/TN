@@ -1,6 +1,6 @@
 ﻿using TN.Modules.Buildings.Shared.Exceptions;
 
-namespace TN.Modules.IdentitiesDomain.Users.Exceptions
+namespace TN.Modules.Identities.Domain.Users.Exceptions
 {
     internal sealed class InvalidNameException : BaseException
     {
