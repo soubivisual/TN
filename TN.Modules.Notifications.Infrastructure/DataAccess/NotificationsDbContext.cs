@@ -5,7 +5,7 @@ namespace TN.Modules.Notifications.Infrastructure.DataAccess
 {
     internal class NotificationsDbContext : DbContext
     {
-        public DbSet<Notification> Notifications { get; set; }
+        internal DbSet<Notification> Notifications { get; set; }
 
         public NotificationsDbContext(DbContextOptions<NotificationsDbContext> options) : base(options) { }
 

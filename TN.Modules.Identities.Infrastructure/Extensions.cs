@@ -2,10 +2,12 @@
 using TN.Modules.Buildings.Shared.Persistance.Caching;
 using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Identities.Application.Contracts;
+using TN.Modules.Identities.Domain.Roles.Repositories;
 using TN.Modules.Identities.Domain.Users.Repositories;
 using TN.Modules.Identities.Infrastructure.Caching;
 using TN.Modules.Identities.Infrastructure.DataAccess;
-using TN.Modules.Identities.Infrastructure.Repositories;
+using TN.Modules.Identities.Infrastructure.DataAccess.Roles;
+using TN.Modules.Identities.Infrastructure.DataAccess.Users;
 
 namespace TN.Modules.Identities.Infrastructure
 {
@@ -18,6 +20,8 @@ namespace TN.Modules.Identities.Infrastructure
             services.AddTransient<IIdentitiesAccessModule, IdentitiesAccessModule>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
             services.AddScoped<ICacheDataSource, CacheDataSource>();
 
             return services;

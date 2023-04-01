@@ -10,7 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Role\" />
+    <Folder Include="Roles\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Roles\Entities\Claim.cs~RF3e801117.TMP" />
   </ItemGroup>
 
   <ItemGroup>

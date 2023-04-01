@@ -5,7 +5,7 @@ namespace TN.Modules.Remittances.Infrastructure.DataAccess
 {
     internal class RemittancesDbContext : DbContext
     {
-        public DbSet<Remittance> Remittances { get; set; }
+        internal DbSet<Remittance> Remittances { get; set; }
 
         public RemittancesDbContext(DbContextOptions<RemittancesDbContext> options) : base(options) { }
 

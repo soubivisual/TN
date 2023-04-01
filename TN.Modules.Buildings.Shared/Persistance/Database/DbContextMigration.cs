@@ -20,8 +20,8 @@ namespace TN.Modules.Buildings.Shared.Persistance.Database
         {
             var dbContextTypes = AppDomain.CurrentDomain
                 .GetAssemblies()
-                .SelectMany(q => q.GetTypes())
-                .Where(q => typeof(DbContext).IsAssignableFrom(q) && !q.IsInterface && q != typeof(DbContext));
+                .SelectMany(x => x.GetTypes())
+                .Where(x => typeof(DbContext).IsAssignableFrom(x) && !x.IsInterface && x != typeof(DbContext));
 
             using var scope = _serviceProvider.CreateScope();
             foreach (var dbContextType in dbContextTypes)

@@ -10,7 +10,7 @@ namespace TN.Modules.Buildings.Shared.Persistance.Database
         {
             var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
             var connectionString = configuration[$"{nameof(ConnectionStrings)}:{ConnectionStrings.Database}"];
-            services.AddDbContext<T>(q => q.UseSqlServer(connectionString));
+            services.AddDbContext<T>(x => x.UseSqlServer(connectionString));
 
             return services;
         }

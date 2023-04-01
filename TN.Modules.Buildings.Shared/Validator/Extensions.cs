@@ -6,10 +6,10 @@ namespace TN.Modules.Buildings.Shared.Validator
 {
     public static class Extensions
     {
-        public static IServiceCollection AddValidators<T>(this IServiceCollection services)
+        public static IServiceCollection AddValidators(this IServiceCollection services, Type type)
         {
             services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssemblyContaining<T>();
+            services.AddValidatorsFromAssemblyContaining(type);
 
             return services;
         }

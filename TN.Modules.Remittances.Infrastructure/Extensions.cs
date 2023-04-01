@@ -3,7 +3,7 @@ using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Remittances.Application.Contracts;
 using TN.Modules.Remittances.Domain.Remittances.Repositories;
 using TN.Modules.Remittances.Infrastructure.DataAccess;
-using TN.Modules.Remittances.Infrastructure.Repositories;
+using TN.Modules.Remittances.Infrastructure.DataAccess.Remittances;
 
 namespace TN.Modules.Remittances.Infrastructure
 {

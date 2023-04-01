@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Buildings.Shared.Validator;
 using TN.Modules.Identities.Application;
 using TN.Modules.Identities.Domain;
@@ -15,7 +16,8 @@ namespace TN.Modules.Identities.API
             services.AddApplicationLayer();
             services.AddInfrastructureLayer();
 
-            services.AddValidators<IAssemblyMarker>();
+            services.AddValidators(typeof(Extensions));
+            services.AddMappings(typeof(Extensions));
 
             return services;
         }

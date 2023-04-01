@@ -5,6 +5,7 @@ using TN.Modules.Buildings.Shared.Mapper;
 using TN.Modules.Configurations.API.Requests;
 using TN.Modules.Configurations.API.Responses;
 using TN.Modules.Configurations.Application.Catalogs.Commands.AddCatalog;
+using TN.Modules.Configurations.Application.Catalogs.Commands.UpdateCatalog;
 using TN.Modules.Configurations.Application.Catalogs.Queries.GetCatalog;
 using TN.Modules.Configurations.Application.Contracts;
 
@@ -41,9 +42,20 @@ namespace TN.Modules.Configurations.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Post(CatalogRequest request)
+        public async Task<ActionResult> Post(AddCatalogRequest request)
         {
             var command = _mapping.Map<AddCatalogCommand>(request);
+            await _configurationsAccessModule.ExecuteCommandAsync(command);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Put(UpdateCatalogRequest request)
+        {
+            var command = _mapping.Map<UpdateCatalogCommand>(request);
             await _configurationsAccessModule.ExecuteCommandAsync(command);
 
             return NoContent();

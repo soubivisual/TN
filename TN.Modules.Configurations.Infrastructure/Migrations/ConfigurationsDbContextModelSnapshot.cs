@@ -23,10 +23,16 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TN.Modules.Configurations.Domain.Catalogs.Entities.Catalog", b =>
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Catalogs.Aggregates.Catalog", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AddedUserId")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("Bool1")
                         .HasColumnType("bit");
@@ -41,6 +47,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<bool>("Editable")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EditedUserId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Enabled")
                         .HasColumnType("bit");
@@ -71,6 +83,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -86,7 +103,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("12465b52-29b3-4a84-be56-37e0350711e8"),
+                            Id = new Guid("86dd6e3d-d369-4e69-91dc-f8c190836d36"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
@@ -94,7 +111,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1c32f757-49f7-41fb-9134-3aa0e45b7784"),
+                            Id = new Guid("27409b8e-63f8-4d01-a83c-acd6a5186974"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
@@ -102,7 +119,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("060cf618-dd69-4d9c-985e-f384690b4d63"),
+                            Id = new Guid("07190d8f-fb8e-44d4-99e4-3288d2875296"),
                             Editable = false,
                             Enabled = true,
                             Nvarchar1 = "CRC",
@@ -112,7 +129,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("93743f52-587c-4a79-a6ae-bcbd4a9af888"),
+                            Id = new Guid("be8b58f0-c537-4995-a351-4db2b398cfbc"),
                             Editable = false,
                             Enabled = true,
                             Nvarchar1 = "USD",
@@ -120,6 +137,245 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                             Type = "Currency",
                             Value = "Dólares"
                         });
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Catalogs.Entities.CatalogDescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Bool1")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Decimal1")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Decimal2")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Int1")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Int2")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Nvarchar1")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Nvarchar2")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Nvarchar3")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Nvarchar4")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Nvarchar5")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CatalogDescription", "Configurations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nvarchar1 = "Código ISO 4217",
+                            Nvarchar2 = "Símbolo",
+                            Type = "Currency"
+                        });
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Menus.Aggregates.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menu", "Configurations");
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Services.Aggregates.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Metadata")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TermsAndConditions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProviderId");
+
+                    b.ToTable("Service", "Configurations");
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Services.Entities.Provider", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Metadata")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(4096)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Server")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Timeout")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Username")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provider", "Configurations");
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Tenants.Aggregates.Tenant", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Metadata")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenant", "Configurations");
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Tenants.Entities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Metadata")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<Guid>("StatusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Company", "Configurations");
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Services.Aggregates.Service", b =>
+                {
+                    b.HasOne("TN.Modules.Configurations.Domain.Services.Entities.Provider", null)
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

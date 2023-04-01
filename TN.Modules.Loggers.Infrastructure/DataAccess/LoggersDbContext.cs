@@ -1,11 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates;
+using TN.Modules.Loggers.Domain.TraceLogs.Aggregates;
+using TN.Modules.Loggers.Domain.UserActivities.Aggregates;
 
 namespace TN.Modules.Loggers.Infrastructure.DataAccess
 {
     internal class LoggersDbContext : DbContext
     {
-        public DbSet<ApplicationLog> ApplicationLogs { get; set; }
+        internal DbSet<ApplicationLog> ApplicationLogs { get; set; }
+
+        internal DbSet<TraceLog> TraceLogs { get; set; }
+
+        internal DbSet<UserActivity> UserActivities { get; set; }
 
         public LoggersDbContext(DbContextOptions<LoggersDbContext> options) : base(options) { }
 

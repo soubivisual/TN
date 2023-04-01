@@ -13,6 +13,8 @@ namespace TN.Modules.Identities.Domain.Users.Entities
 
         public string ProviderKey { get; private set; }
 
+        public UserLogin(long id) : base(id) { }
+
         public UserLogin(UserId id, long tenantId, UserId userId, Guid loginProviderId, string providerKey) : base(id)
         {
             TenantId = tenantId;

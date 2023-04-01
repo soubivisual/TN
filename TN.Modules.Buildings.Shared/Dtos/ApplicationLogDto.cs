@@ -1,6 +1,6 @@
 ﻿namespace TN.Modules.Buildings.Shared.Dtos
 {
-    public sealed class ApplicationLogDto
+    public sealed class ApplicationLogDto : BaseDto
     {
         public long Id { get; set; }
 
