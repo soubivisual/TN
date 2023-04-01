@@ -5,6 +5,7 @@
 
 $(document).ready(function () {
     DoDataTable();
+    DoAceEditor();
 });
 
 //function DoDataTable(tableClass, fileName, pageSize) {

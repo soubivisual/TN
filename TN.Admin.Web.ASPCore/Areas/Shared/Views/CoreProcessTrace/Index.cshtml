@@ -1,0 +1,126 @@
+﻿@model IEnumerable<CoreProcessTraceDto>
+@{
+	ViewBag.Title = "CoreProcess Trace";
+
+	var coreProcessId = Html.GetQueryString("coreProcessId");
+	var transactionId = Html.GetQueryString("transactionId");
+
+	var page = (Html.GetQueryString("page") ?? "1").ToInt();
+	var pageSize = Constants.General.RowCount;
+	var count = (double)Model.Count() / pageSize;
+	var pageCount = (int)Math.Ceiling(count);
+	var dataPage = Model.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+}
+
+	<div class="box bg-transparent no-shadow">
+		<div class="box-header no-border text-center">
+			<h1 class="box-title">@ViewBag.Title</h1>
+		</div>
+		<div class="box-body">
+			<div class="timeline">
+			@{  
+					var coreProcessess = Model.Select(q => q.CoreProcessId).Distinct();
+
+					foreach (var coreProcess in coreProcessess)
+					{
+						<span class="timeline-label">
+							<span class="badge badge-primary badge-lg">@coreProcess</span>
+						</span>
+
+						foreach (var data in Model.Where(q => q.CoreProcessId == coreProcess))
+						{
+							<div class="timeline-item">
+								@{
+									var iconClass = "";
+
+									switch (data.Type)
+									{
+										case Constants.CoreProcessTraceType.Transaction:
+											iconClass = "timeline-point timeline-point-info";
+											break;
+										case Constants.CoreProcessTraceType.ApplicationLog:
+											iconClass = "timeline-point timeline-point-danger";
+											break;
+										case Constants.CoreProcessTraceType.TraceLog:
+											iconClass = "timeline-point timeline-point-warning";
+											break;
+										case Constants.CoreProcessTraceType.UserHistory:
+											iconClass = "timeline-point timeline-point-primary";
+											break;
+										default:
+											iconClass = "timeline-point timeline-point-default";
+											break;
+									}
+								}
+								<div class="@iconClass">
+									<i class="fa fa-circle"></i>
+								</div>
+								<div class="timeline-event timeline-event-default">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">@data.Type</h4>
+									</div>
+									<div class="timeline-body">
+										<table class="table table-striped">
+											@foreach (var info in data.MoreInfo)
+											{
+												<tr>
+													<td><strong>@Html.Raw(info.Key):</strong></td>
+													<td>
+														@if (info.Key == "Id")
+														{
+															if (data.Type == Constants.CoreProcessTraceType.ApplicationLog)
+															{
+																//<a href="@Url.Action("ApplicationLogOut", "ApplicationLog", new { area = "Security", id = info.Value, type = ApplicationConstant.DetailsOperation })" target="_blank">@Html.Raw(info.Value)</a>
+																@Html.Raw(info.Value)
+															}
+															else if (data.Type == Constants.CoreProcessTraceType.TraceLog)
+															{
+																//<a href="@Url.Action("TraceLogOut", "TraceLog", new { area = "Security", id = info.Value, type = ApplicationConstant.DetailsOperation })" target="_blank">@Html.Raw(info.Value)</a>
+																@Html.Raw(info.Value)
+															}
+														}
+														else if (info.Key == "Message")
+														{
+															<textarea class="form-control disabled" disabled>@Html.Raw(info.Value)</textarea>
+														}
+														else
+														{
+															@Html.Raw(info.Value)
+														}
+
+													</td>
+												</tr>
+											}
+										</table>
+										<strong>Data:</strong>
+										<code-editor asp-for="@data.Content" readonly></code-editor>
+									</div>
+									<div class="timeline-footer">
+										<p class="text-right">@data.Date</p>
+									</div>
+								</div>
+							</div>
+						}
+					}
+					}
+					<span class="timeline-label">
+						<button class="btn btn-danger"><i class="fa fa-clock-o"></i></button>
+					</span>
+			</div>
+		<div class="mt-20">
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li class="page-item"><a class="page-link" href="@Url.Action(nameof(Index), new { coreProcessId = coreProcessId, transactionId = transactionId, page = page == 1 ? 1 : page - 1, type = Constants.OperationType.TraceOperation })">Anterior</a></li>
+					@for (int i = 1; i <= pageCount; i++)
+					{
+						<li class="page-item @(i == page ? "active" : "")">
+							<a class="page-link" href="@Url.Action(nameof(Index), new { coreProcessId = coreProcessId, transactionId = transactionId, page = i, type = Constants.OperationType.TraceOperation })">@Html.Raw(i)</a>
+						</li>
+					}
+					<li class="page-item"><a class="page-link" href="@Url.Action(nameof(Index), new { coreProcessId = coreProcessId, transactionId = transactionId, page = page == pageCount ? pageCount : page + 1, type = Constants.OperationType.TraceOperation })">Siguiente</a></li>
+				</ul>
+			</nav>
+			</div>
+			
+		</div>
+	</div>

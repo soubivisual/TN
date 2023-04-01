@@ -76,5 +76,13 @@
 			public const string Html = "html";
 			public const string Css = "text/css";
 		}
+
+		public class CoreProcessTraceType
+		{
+			public const string Transaction = "Transaction";
+			public const string ApplicationLog = "ApplicationLog";
+			public const string TraceLog = "TraceLog";
+			public const string UserHistory = "UserHistory";
+		}
 	}
 }
