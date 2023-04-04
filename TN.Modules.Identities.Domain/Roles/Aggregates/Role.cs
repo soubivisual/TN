@@ -7,7 +7,7 @@ namespace TN.Modules.Identities.Domain.Roles.Aggregates
     {
         public string Name { get; private set; }
 
-        public Role(RoleId id) : base(id) { }
+        public Role() : base(default) { }
 
         public Role(RoleId id, string name) : base(id)
         {

@@ -12,7 +12,7 @@ using TN.Modules.Identities.Infrastructure.DataAccess;
 namespace TN.Modules.Identities.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentitiesDbContext))]
-    [Migration("20230403160003_Init")]
+    [Migration("20230404142406_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -65,6 +65,29 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Claim", "Identities");
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Roles.Entities.RoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClaimId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClaimId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleClaim", "Identities");
                 });
 
             modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Aggregates.User", b =>
@@ -131,13 +154,108 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                             AddedDate = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "dsanabria@teledolar.com",
                             Identification = "100010001",
-                            IdentificationTypeId = new Guid("dcbb2a64-2de4-4f1f-af75-13c52822ba50"),
+                            IdentificationTypeId = new Guid("928c6f2b-4e41-41c8-9e9b-dc7e29c681b1"),
                             Name = "Administrador",
                             Phone = "88778573",
-                            StatusId = new Guid("298cd772-dd05-407d-b8e9-05a1c284f7e4"),
-                            TypeId = new Guid("598d7eed-557e-40e5-ab82-56413b12528f"),
+                            StatusId = new Guid("0b6b2343-9d1a-4ef1-976c-681a0f95357a"),
+                            TypeId = new Guid("d51c6740-bf3b-45bc-8073-c07a4dc919f3"),
                             Username = "admin"
                         });
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Entities.UserLogin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("LoginProviderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProviderKey")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLogin", "Identities");
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Entities.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRole", "Identities");
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Roles.Entities.RoleClaim", b =>
+                {
+                    b.HasOne("TN.Modules.Identities.Domain.Roles.Entities.Claim", null)
+                        .WithMany()
+                        .HasForeignKey("ClaimId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TN.Modules.Identities.Domain.Roles.Aggregates.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Entities.UserLogin", b =>
+                {
+                    b.HasOne("TN.Modules.Identities.Domain.Users.Aggregates.User", null)
+                        .WithMany("UserLogins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Entities.UserRole", b =>
+                {
+                    b.HasOne("TN.Modules.Identities.Domain.Roles.Aggregates.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TN.Modules.Identities.Domain.Users.Aggregates.User", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Aggregates.User", b =>
+                {
+                    b.Navigation("UserLogins");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

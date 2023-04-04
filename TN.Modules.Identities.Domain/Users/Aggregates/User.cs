@@ -1,4 +1,5 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
+using TN.Modules.Identities.Domain.Users.Entities;
 using TN.Modules.Identities.Domain.Users.ValueObjects;
 
 namespace TN.Modules.Identities.Domain.Users.Aggregates
@@ -29,11 +30,9 @@ namespace TN.Modules.Identities.Domain.Users.Aggregates
 
         public DateTime? EditedDate { get; private set; }
 
-        //private IEnumerable<UserLogin> _userLogins;
-        //public IEnumerable<UserLogin> UserLogins
-        //{
-        //    get => _userLogins;
-        //}
+        public IEnumerable<UserLogin> UserLogins { get; private set; }
+
+        public IEnumerable<UserRole> UserRoles { get; private set; }
 
         public User() : base(default) { }
 
@@ -50,7 +49,8 @@ namespace TN.Modules.Identities.Domain.Users.Aggregates
             AddedUserId = addedUserId;
             AddedDate = addedDate;
 
-            //_userLogins = new List<UserLogin>();
+            UserLogins = new List<UserLogin>();
+            UserRoles = new List<UserRole>();
         }
     }
 }

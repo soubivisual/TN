@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using TN.Modules.Identities.Domain.Users.Aggregates;
+using TN.Modules.Identities.Domain.Users.ValueObjects;
+using TN.Modules.Identities.Domain.Users.Entities;
 
 namespace TN.Modules.Identities.Infrastructure.DataAccess.Users
 {
@@ -27,6 +29,8 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess.Users
             builder.Property(x => x.Phone).IsRequired().HasMaxLength(64);
             builder.Property(x => x.TypeId).IsRequired();
             builder.Property(x => x.StatusId).IsRequired();
+
+            //builder.HasMany<UserRole>(x => x.UserRoles).WithOne().HasForeignKey(x => x.UserId);
 
             builder.HasData(new User(
                 1,
