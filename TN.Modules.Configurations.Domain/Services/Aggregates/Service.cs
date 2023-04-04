@@ -3,7 +3,7 @@ using TN.Modules.Configurations.Domain.Services.ValueObjects;
 
 namespace TN.Modules.Configurations.Domain.Services.Aggregates
 {
-    public sealed class Service : AggregateRootBase<ServiceId>
+    public sealed class Service : AggregateRootBase<ServiceId>, IAudit, IRowVersion
     {
         public ProviderId ProviderId { get; private set; }
 
@@ -20,6 +20,16 @@ namespace TN.Modules.Configurations.Domain.Services.Aggregates
         public Guid StatusId { get; private set; }
 
         public string Metadata { get; private set; }
+
+        public int? AddedUserId { get; private set; }
+
+        public DateTime? AddedDate { get; private set; }
+
+        public int? EditedUserId { get; private set; }
+
+        public DateTime? EditedDate { get; private set; }
+
+        public byte[] RowVersion { get; private set; }
 
         public Service() : base(default) { }
 

@@ -3,7 +3,7 @@ using TN.Modules.Configurations.Domain.Services.ValueObjects;
 
 namespace TN.Modules.Configurations.Domain.Services.Entities
 {
-    public sealed class Provider : EntityBase<ProviderId>
+    public sealed class Provider : EntityBase<ProviderId>, IAudit, IRowVersion
     {
         public string Name { get; private set; }
 
@@ -20,6 +20,16 @@ namespace TN.Modules.Configurations.Domain.Services.Entities
         public Guid StatusId { get; private set; }
 
         public string Metadata { get; private set; }
+
+        public int? AddedUserId { get; private set; }
+
+        public DateTime? AddedDate { get; private set; }
+
+        public int? EditedUserId { get; private set; }
+
+        public DateTime? EditedDate { get; private set; }
+
+        public byte[] RowVersion { get; private set; }
 
         public Provider() : base(default) { }
 

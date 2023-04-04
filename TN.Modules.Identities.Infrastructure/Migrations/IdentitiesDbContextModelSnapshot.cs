@@ -23,7 +23,48 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TN.Modules.IdentitiesDomain.Users.Entities.User", b =>
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Roles.Aggregates.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role", "Identities");
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Roles.Entities.Claim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Claim", "Identities");
+                });
+
+            modelBuilder.Entity("TN.Modules.Identities.Domain.Users.Aggregates.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,11 +128,11 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                             AddedDate = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "dsanabria@teledolar.com",
                             Identification = "100010001",
-                            IdentificationTypeId = new Guid("54173bd8-4fa4-4e29-a916-a3c9ea5d6cd3"),
+                            IdentificationTypeId = new Guid("dcbb2a64-2de4-4f1f-af75-13c52822ba50"),
                             Name = "Administrador",
                             Phone = "88778573",
-                            StatusId = new Guid("a38c4fa8-7817-4ab8-9b75-13cd6479eaa8"),
-                            TypeId = new Guid("92790c13-b48d-4f52-9507-43d9a43030db"),
+                            StatusId = new Guid("298cd772-dd05-407d-b8e9-05a1c284f7e4"),
+                            TypeId = new Guid("598d7eed-557e-40e5-ab82-56413b12528f"),
                             Username = "admin"
                         });
                 });

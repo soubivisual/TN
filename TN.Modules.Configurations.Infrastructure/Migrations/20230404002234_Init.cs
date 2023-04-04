@@ -79,31 +79,16 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddedUserId = table.Column<int>(type: "int", nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EditedUserId = table.Column<int>(type: "int", nullable: true),
+                    EditedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Company", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Menu",
-                schema: "Configurations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,7 +104,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     Timeout = table.Column<int>(type: "int", nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddedUserId = table.Column<int>(type: "int", nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EditedUserId = table.Column<int>(type: "int", nullable: true),
+                    EditedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,11 +127,23 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddedUserId = table.Column<int>(type: "int", nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EditedUserId = table.Column<int>(type: "int", nullable: true),
+                    EditedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenant", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tenant_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalSchema: "Configurations",
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,7 +159,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     TermsAndConditions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddedUserId = table.Column<int>(type: "int", nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EditedUserId = table.Column<int>(type: "int", nullable: true),
+                    EditedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -168,7 +175,53 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         principalSchema: "Configurations",
                         principalTable: "Provider",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Menu",
+                schema: "Configurations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AddedUserId = table.Column<int>(type: "int", nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EditedUserId = table.Column<int>(type: "int", nullable: true),
+                    EditedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menu", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Menu_Menu_ParentId",
+                        column: x => x.ParentId,
+                        principalSchema: "Configurations",
+                        principalTable: "Menu",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Menu_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalSchema: "Configurations",
+                        principalTable: "Service",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Menu_Tenant_TenantId",
+                        column: x => x.TenantId,
+                        principalSchema: "Configurations",
+                        principalTable: "Tenant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -177,10 +230,10 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 columns: new[] { "Id", "AddedDate", "AddedUserId", "Bool1", "Decimal1", "Decimal2", "Editable", "EditedDate", "EditedUserId", "Enabled", "Int1", "Int2", "Nvarchar1", "Nvarchar2", "Nvarchar3", "Nvarchar4", "Nvarchar5", "Type", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("07190d8f-fb8e-44d4-99e4-3288d2875296"), null, null, null, null, null, false, null, null, true, null, null, "CRC", "₡", null, null, null, "Currency", "Colones" },
-                    { new Guid("27409b8e-63f8-4d01-a83c-acd6a5186974"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Inactivo" },
-                    { new Guid("86dd6e3d-d369-4e69-91dc-f8c190836d36"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Activo" },
-                    { new Guid("be8b58f0-c537-4995-a351-4db2b398cfbc"), null, null, null, null, null, false, null, null, true, null, null, "USD", "$", null, null, null, "Currency", "Dólares" }
+                    { new Guid("0c043d8c-b11e-4530-84cb-e1a145061cae"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Inactivo" },
+                    { new Guid("c0e93895-e330-4405-a7f3-55e62163a82d"), null, null, null, null, null, false, null, null, true, null, null, "CRC", "₡", null, null, null, "Currency", "Colones" },
+                    { new Guid("c9f498d5-e643-4fcc-a569-5a8a6e9b5627"), null, null, null, null, null, false, null, null, true, null, null, "USD", "$", null, null, null, "Currency", "Dólares" },
+                    { new Guid("f11658c6-5c8d-45c9-bf92-3c9d827d282b"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Activo" }
                 });
 
             migrationBuilder.InsertData(
@@ -190,10 +243,34 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 values: new object[] { 1, null, null, null, null, null, "Código ISO 4217", "Símbolo", null, null, null, "Currency" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Menu_ParentId",
+                schema: "Configurations",
+                table: "Menu",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menu_ServiceId",
+                schema: "Configurations",
+                table: "Menu",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menu_TenantId",
+                schema: "Configurations",
+                table: "Menu",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Service_ProviderId",
                 schema: "Configurations",
                 table: "Service",
                 column: "ProviderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenant_CompanyId",
+                schema: "Configurations",
+                table: "Tenant",
+                column: "CompanyId");
         }
 
         /// <inheritdoc />
@@ -205,10 +282,6 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "CatalogDescription",
-                schema: "Configurations");
-
-            migrationBuilder.DropTable(
-                name: "Company",
                 schema: "Configurations");
 
             migrationBuilder.DropTable(
@@ -225,6 +298,10 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Provider",
+                schema: "Configurations");
+
+            migrationBuilder.DropTable(
+                name: "Company",
                 schema: "Configurations");
         }
     }

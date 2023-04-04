@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TN.Modules.Configurations.Domain.Tenants.Aggregates;
+using TN.Modules.Configurations.Domain.Tenants.Entities;
 
 namespace TN.Modules.Configurations.Infrastructure.DataAccess.Tenants
 {
@@ -19,6 +20,10 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Tenants
             builder.Property(x => x.TypeId).IsRequired();
             builder.Property(x => x.StatusId).IsRequired();
             builder.Property(x => x.Metadata);
+
+            builder.Property(x => x.RowVersion).IsRowVersion();
+
+            builder.HasOne<Company>().WithMany().HasForeignKey(x => x.CompanyId);
         }
     }
 }

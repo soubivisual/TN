@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TN.Modules.Configurations.Domain.Menus.Aggregates;
+using TN.Modules.Configurations.Domain.Services.Aggregates;
+using TN.Modules.Configurations.Domain.Tenants.Aggregates;
 
 namespace TN.Modules.Configurations.Infrastructure.DataAccess.Menus
 {
@@ -21,6 +23,12 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Menus
             builder.Property(x => x.Icon);
             builder.Property(x => x.ClaimId);
             builder.Property(x => x.StatusId).IsRequired();
+
+            builder.Property(x => x.RowVersion).IsRowVersion();
+
+            builder.HasOne<Tenant>().WithMany().HasForeignKey(x => x.TenantId);
+            builder.HasOne<Menu>().WithMany().HasForeignKey(x => x.ParentId);
+            builder.HasOne<Service>().WithMany().HasForeignKey(x => x.ServiceId);
         }
     }
 }

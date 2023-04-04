@@ -12,7 +12,7 @@ using TN.Modules.Configurations.Infrastructure.DataAccess;
 namespace TN.Modules.Configurations.Infrastructure.Migrations
 {
     [DbContext(typeof(ConfigurationsDbContext))]
-    [Migration("20230401001409_Init")]
+    [Migration("20230404002234_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -106,7 +106,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("86dd6e3d-d369-4e69-91dc-f8c190836d36"),
+                            Id = new Guid("f11658c6-5c8d-45c9-bf92-3c9d827d282b"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
@@ -114,7 +114,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("27409b8e-63f8-4d01-a83c-acd6a5186974"),
+                            Id = new Guid("0c043d8c-b11e-4530-84cb-e1a145061cae"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
@@ -122,7 +122,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("07190d8f-fb8e-44d4-99e4-3288d2875296"),
+                            Id = new Guid("c0e93895-e330-4405-a7f3-55e62163a82d"),
                             Editable = false,
                             Enabled = true,
                             Nvarchar1 = "CRC",
@@ -132,7 +132,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("be8b58f0-c537-4995-a351-4db2b398cfbc"),
+                            Id = new Guid("c9f498d5-e643-4fcc-a569-5a8a6e9b5627"),
                             Editable = false,
                             Enabled = true,
                             Nvarchar1 = "USD",
@@ -210,14 +210,31 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AddedUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ClaimId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EditedUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ParentId")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
@@ -238,6 +255,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("TenantId");
+
                     b.ToTable("Menu", "Configurations");
                 });
 
@@ -246,12 +269,24 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AddedUserId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("CountryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EditedUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Metadata")
                         .HasColumnType("nvarchar(max)");
@@ -263,6 +298,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<Guid>("StatusId")
                         .HasColumnType("uniqueidentifier");
@@ -285,6 +325,18 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AddedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EditedUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Metadata")
                         .HasColumnType("nvarchar(max)");
 
@@ -296,6 +348,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.Property<string>("Password")
                         .HasMaxLength(4096)
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<string>("Server")
                         .HasColumnType("nvarchar(max)");
@@ -323,11 +380,23 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AddedUserId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("CountryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EditedUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Metadata")
                         .HasColumnType("nvarchar(max)");
@@ -336,6 +405,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<Guid>("StatusId")
                         .HasColumnType("uniqueidentifier");
@@ -345,12 +419,26 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Tenant", "Configurations");
                 });
 
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Tenants.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AddedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EditedUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Metadata")
@@ -360,6 +448,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<Guid>("StatusId")
                         .HasColumnType("uniqueidentifier");
@@ -372,12 +465,42 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.ToTable("Company", "Configurations");
                 });
 
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Menus.Aggregates.Menu", b =>
+                {
+                    b.HasOne("TN.Modules.Configurations.Domain.Menus.Aggregates.Menu", null)
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TN.Modules.Configurations.Domain.Services.Aggregates.Service", null)
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TN.Modules.Configurations.Domain.Tenants.Aggregates.Tenant", null)
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Services.Aggregates.Service", b =>
                 {
                     b.HasOne("TN.Modules.Configurations.Domain.Services.Entities.Provider", null)
                         .WithMany()
                         .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TN.Modules.Configurations.Domain.Tenants.Aggregates.Tenant", b =>
+                {
+                    b.HasOne("TN.Modules.Configurations.Domain.Tenants.Entities.Company", null)
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

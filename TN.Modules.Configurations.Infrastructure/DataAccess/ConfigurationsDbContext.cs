@@ -43,6 +43,12 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess
 
             modelBuilder.HasDefaultSchema("Configurations");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+
+            // Solución del Error: Introducing FOREIGN KEY constraint 'FK_XXXXX' on table 'XXX' may cause cycles or multiple cascade paths. Specify ON DELETE NO ACTION or ON UPDATE NO ACTION, or modify other FOREIGN KEY constraints.
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
 }

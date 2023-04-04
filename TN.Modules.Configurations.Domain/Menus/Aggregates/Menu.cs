@@ -5,7 +5,7 @@ using TN.Modules.Configurations.Domain.Tenants.ValueObjects;
 
 namespace TN.Modules.Configurations.Domain.Menus.Aggregates
 {
-    public sealed class Menu : AggregateRootBase<MenuId>
+    public sealed class Menu : AggregateRootBase<MenuId>, IAudit, IRowVersion
     {
         public TenantId TenantId { get; private set; }
 
@@ -22,6 +22,16 @@ namespace TN.Modules.Configurations.Domain.Menus.Aggregates
         public string ClaimId { get; private set; }
 
         public Guid StatusId { get; private set; }
+
+        public int? AddedUserId { get; private set; }
+
+        public DateTime? AddedDate { get; private set; }
+
+        public int? EditedUserId { get; private set; }
+
+        public DateTime? EditedDate { get; private set; }
+
+        public byte[] RowVersion { get; private set; }
 
         public Menu() : base(default) { }
 

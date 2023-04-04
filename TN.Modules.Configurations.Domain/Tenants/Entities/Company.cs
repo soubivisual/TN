@@ -3,7 +3,7 @@ using TN.Modules.Configurations.Domain.Tenants.ValueObjects;
 
 namespace TN.Modules.Configurations.Domain.Tenants.Entities
 {
-    public sealed class Company : AggregateRootBase<CompanyId>
+    public sealed class Company : EntityBase<CompanyId>, IAudit, IRowVersion
     {
         public string Name { get; private set; }
 
@@ -12,6 +12,16 @@ namespace TN.Modules.Configurations.Domain.Tenants.Entities
         public Guid StatusId { get; private set; }
 
         public string Metadata { get; private set; }
+
+        public int? AddedUserId { get; private set; }
+
+        public DateTime? AddedDate { get; private set; }
+
+        public int? EditedUserId { get; private set; }
+
+        public DateTime? EditedDate { get; private set; }
+
+        public byte[] RowVersion { get; private set; }
 
         public Company() : base(default) { }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TN.Modules.Identities.Domain.Roles.Aggregates;
+using TN.Modules.Identities.Domain.Roles.Entities;
 using TN.Modules.Identities.Domain.Users.Aggregates;
 
 namespace TN.Modules.Identities.Infrastructure.DataAccess
@@ -9,6 +10,8 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess
         internal DbSet<User> Users { get; set; }
 
         internal DbSet<Role> Roles { get; set; }
+
+        internal DbSet<Claim> Claims { get; set; }
 
         public IdentitiesDbContext(DbContextOptions<IdentitiesDbContext> options) : base(options) { }
 

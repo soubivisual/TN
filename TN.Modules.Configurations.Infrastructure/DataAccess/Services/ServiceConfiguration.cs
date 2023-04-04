@@ -24,6 +24,10 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Services
             builder.Property(x => x.TypeId).IsRequired();
             builder.Property(x => x.StatusId).IsRequired();
             builder.Property(x => x.Metadata);
+
+            builder.Property(x => x.RowVersion).IsRowVersion();
+
+            builder.HasOne<Provider>().WithMany().HasForeignKey(x => x.ProviderId);
         }
     }
 }
