@@ -20,10 +20,10 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess.Users
             // por ejemplo, si tenemos la propiedad: private string _identificationTypeId;
             // en este caso se utilizará la nomenclatura PascalCase, por lo que no será necesario, sin embargo, se deja esta línea como referencia
             //builder.Property<string>("_identificationTypeId").HasColumnName("IdentificationTypeId");
-            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(User)}{nameof(User.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.IdentificationTypeId).IsRequired();
-            builder.Property(x => x.Identification).IsRequired();
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(256).HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Identification).IsRequired().HasMaxLength(128);
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(256).HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.Username).IsRequired().HasMaxLength(256);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(256);
             builder.Property(x => x.Phone).IsRequired().HasMaxLength(64);

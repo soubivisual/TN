@@ -12,7 +12,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Services
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Id).HasColumnName($"{nameof(Provider)}{nameof(Provider.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);
             builder.Property(x => x.Username).HasMaxLength(128);
             builder.Property(x => x.Password).HasMaxLength(4096);

@@ -26,7 +26,8 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Catalogs.Aggregates.Catalog", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CatalogId");
 
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
@@ -65,23 +66,23 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<string>("Nvarchar1")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar2")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar3")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar4")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar5")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("varchar");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -90,11 +91,13 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -103,7 +106,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f11658c6-5c8d-45c9-bf92-3c9d827d282b"),
+                            Id = new Guid("578f3e25-87c3-43e7-b491-c944f9637bc2"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
@@ -111,7 +114,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0c043d8c-b11e-4530-84cb-e1a145061cae"),
+                            Id = new Guid("0c0044b5-ab36-45a9-9a68-fd85db7a2465"),
                             Editable = false,
                             Enabled = true,
                             Type = "GeneralStatus",
@@ -119,7 +122,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c0e93895-e330-4405-a7f3-55e62163a82d"),
+                            Id = new Guid("a82b1410-cada-43e2-98e7-82522f056045"),
                             Editable = false,
                             Enabled = true,
                             Nvarchar1 = "CRC",
@@ -129,7 +132,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c9f498d5-e643-4fcc-a569-5a8a6e9b5627"),
+                            Id = new Guid("ed697a39-3898-472b-8a2e-dfc5d078c978"),
                             Editable = false,
                             Enabled = true,
                             Nvarchar1 = "USD",
@@ -142,51 +145,53 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Catalogs.Entities.CatalogDescription", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CatalogDescriptionId");
 
                     b.Property<string>("Bool1")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Decimal1")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Decimal2")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Int1")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Int2")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar1")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar2")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar3")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar4")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nvarchar5")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -205,7 +210,8 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Menus.Aggregates.Menu", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("MenuId");
 
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
@@ -214,7 +220,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ClaimId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<DateTime?>("EditedDate")
                         .HasColumnType("datetime2");
@@ -223,7 +229,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<int>("ParentId")
                         .HasColumnType("int");
@@ -244,11 +250,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -264,7 +270,8 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Services.Aggregates.Service", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ServiceId");
 
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
@@ -277,7 +284,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<DateTime?>("EditedDate")
                         .HasColumnType("datetime2");
@@ -286,12 +293,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Metadata")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
@@ -305,7 +312,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TermsAndConditions")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<Guid>("TypeId")
                         .HasColumnType("uniqueidentifier");
@@ -320,7 +327,8 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Services.Entities.Provider", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ProviderId");
 
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
@@ -335,16 +343,16 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Metadata")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Password")
                         .HasMaxLength(4096)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -352,7 +360,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("rowversion");
 
                     b.Property<string>("Server")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<Guid>("StatusId")
                         .HasColumnType("uniqueidentifier");
@@ -365,7 +373,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
 
                     b.Property<string>("Username")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -375,7 +383,8 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Tenants.Aggregates.Tenant", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("TenantId");
 
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
@@ -396,12 +405,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Metadata")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -424,7 +433,8 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
             modelBuilder.Entity("TN.Modules.Configurations.Domain.Tenants.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
 
                     b.Property<DateTime?>("AddedDate")
                         .HasColumnType("datetime2");
@@ -439,12 +449,12 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Metadata")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()

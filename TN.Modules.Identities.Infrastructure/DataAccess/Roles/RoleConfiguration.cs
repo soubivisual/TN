@@ -12,7 +12,7 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess.Roles
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(Role)}{nameof(Role.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.Name).IsRequired().HasMaxLength(256);
         }
     }

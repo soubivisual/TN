@@ -19,14 +19,14 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 schema: "Identities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ClaimId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    Type = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Claim", x => x.Id);
+                    table.PrimaryKey("PK_Claim", x => x.ClaimId);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,13 +34,13 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 schema: "Identities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Role", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,14 +48,14 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 schema: "Identities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentificationTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    Identification = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false),
+                    Username = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false),
+                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false),
+                    Phone = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AddedUserId = table.Column<int>(type: "int", nullable: true),
@@ -65,7 +65,7 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,27 +73,27 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 schema: "Identities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    RoleClaimId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     ClaimId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleClaim", x => x.Id);
+                    table.PrimaryKey("PK_RoleClaim", x => x.RoleClaimId);
                     table.ForeignKey(
                         name: "FK_RoleClaim_Claim_ClaimId",
                         column: x => x.ClaimId,
                         principalSchema: "Identities",
                         principalTable: "Claim",
-                        principalColumn: "Id",
+                        principalColumn: "ClaimId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RoleClaim_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Identities",
                         principalTable: "Role",
-                        principalColumn: "Id",
+                        principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -102,21 +102,21 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 schema: "Identities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserLoginId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     LoginProviderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    ProviderKey = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLogin", x => x.Id);
+                    table.PrimaryKey("PK_UserLogin", x => x.UserLoginId);
                     table.ForeignKey(
                         name: "FK_UserLogin_User_UserId",
                         column: x => x.UserId,
                         principalSchema: "Identities",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -125,35 +125,35 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 schema: "Identities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserRoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => x.Id);
+                    table.PrimaryKey("PK_UserRole", x => x.UserRoleId);
                     table.ForeignKey(
                         name: "FK_UserRole_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Identities",
                         principalTable: "Role",
-                        principalColumn: "Id",
+                        principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserRole_User_UserId",
                         column: x => x.UserId,
                         principalSchema: "Identities",
                         principalTable: "User",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 schema: "Identities",
                 table: "User",
-                columns: new[] { "Id", "AddedDate", "AddedUserId", "EditedDate", "EditedUserId", "Email", "Identification", "IdentificationTypeId", "Name", "Phone", "StatusId", "TypeId", "Username" },
-                values: new object[] { 1, new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), null, null, null, "dsanabria@teledolar.com", "100010001", new Guid("928c6f2b-4e41-41c8-9e9b-dc7e29c681b1"), "Administrador", "88778573", new Guid("0b6b2343-9d1a-4ef1-976c-681a0f95357a"), new Guid("d51c6740-bf3b-45bc-8073-c07a4dc919f3"), "admin" });
+                columns: new[] { "UserId", "AddedDate", "AddedUserId", "EditedDate", "EditedUserId", "Email", "Identification", "IdentificationTypeId", "Name", "Phone", "StatusId", "TypeId", "Username" },
+                values: new object[] { 1, new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), null, null, null, "dsanabria@teledolar.com", "100010001", new Guid("6e575e2b-d840-4adf-a139-e63c1fb90b69"), "Administrador", "88778573", new Guid("73bb6bda-4687-44b3-93a5-03ba83280efc"), new Guid("306d9e4b-bc0b-40d7-bd35-604b0a7b26d5"), "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaim_ClaimId",

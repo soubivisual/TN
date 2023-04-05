@@ -13,9 +13,9 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess.Roles
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasConversion(x => x.Value, y => new(y));
-            builder.Property(x => x.RoleId).IsRequired().HasConversion(x => x.Value, y => new(y));
-            builder.Property(x => x.ClaimId).IsRequired().HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(RoleClaim)}{nameof(RoleClaim.Id)}").HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.RoleId).IsRequired().HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.ClaimId).IsRequired().HasConversion(x => x.Value, x => new(x));
 
             builder.HasOne<Role>().WithMany().HasForeignKey(x => x.RoleId);
             builder.HasOne<Claim>().WithMany().HasForeignKey(x => x.ClaimId);

@@ -27,14 +27,15 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("RoleId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -45,19 +46,20 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ClaimId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -68,7 +70,8 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("RoleClaimId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -91,7 +94,8 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -110,11 +114,12 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Identification")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar");
 
                     b.Property<Guid>("IdentificationTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -122,12 +127,12 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("varchar");
 
                     b.Property<Guid>("StatusId")
                         .HasColumnType("uniqueidentifier");
@@ -138,7 +143,7 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
@@ -151,11 +156,11 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                             AddedDate = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "dsanabria@teledolar.com",
                             Identification = "100010001",
-                            IdentificationTypeId = new Guid("928c6f2b-4e41-41c8-9e9b-dc7e29c681b1"),
+                            IdentificationTypeId = new Guid("6e575e2b-d840-4adf-a139-e63c1fb90b69"),
                             Name = "Administrador",
                             Phone = "88778573",
-                            StatusId = new Guid("0b6b2343-9d1a-4ef1-976c-681a0f95357a"),
-                            TypeId = new Guid("d51c6740-bf3b-45bc-8073-c07a4dc919f3"),
+                            StatusId = new Guid("73bb6bda-4687-44b3-93a5-03ba83280efc"),
+                            TypeId = new Guid("306d9e4b-bc0b-40d7-bd35-604b0a7b26d5"),
                             Username = "admin"
                         });
                 });
@@ -164,7 +169,8 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("UserLoginId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -174,7 +180,7 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                     b.Property<string>("ProviderKey")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -190,7 +196,8 @@ namespace TN.Modules.Identities.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("UserRoleId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 

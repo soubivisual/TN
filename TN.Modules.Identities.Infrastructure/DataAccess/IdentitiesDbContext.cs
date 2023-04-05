@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using TN.Modules.Buildings.Shared.Persistance;
+using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Identities.Domain.Roles.Aggregates;
 using TN.Modules.Identities.Domain.Roles.Entities;
 using TN.Modules.Identities.Domain.Users.Aggregates;
@@ -20,23 +23,38 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess
 
         internal DbSet<Claim> Claims { get; set; }
 
-        public IdentitiesDbContext(DbContextOptions<IdentitiesDbContext> options) : base(options) { }
+        private readonly string _schemaName;
+
+        public IdentitiesDbContext(DbContextOptions<IdentitiesDbContext> options) : base(options) 
+        {
+            _schemaName = this.GetType().Name.Replace(nameof(DbContext), string.Empty);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString(ConnectionStrings.Database), y => y.MigrationsHistoryTable("MigrationsHistory", _schemaName));
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             base.ConfigureConventions(configurationBuilder);
+
+            configurationBuilder.Properties<string>().HaveColumnType("varchar");
+            configurationBuilder.Properties<ValueObjectBase<string>>().HaveColumnType("varchar");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema("Identities");
+            modelBuilder.HasDefaultSchema(_schemaName);
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
             // INFO: De esta forma se puede aplicar la configuración de cada entidad de forma manual en lugar de tomarlas del Assembly

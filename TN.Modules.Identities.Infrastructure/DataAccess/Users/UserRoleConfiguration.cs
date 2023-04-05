@@ -14,9 +14,9 @@ namespace TN.Modules.Identities.Infrastructure.DataAccess.Users
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasConversion(x => x.Value, y => new(y));
-            builder.Property(x => x.UserId).IsRequired().HasConversion(x => x.Value, y => new(y));
-            builder.Property(x => x.RoleId).IsRequired().HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(UserRole)}{nameof(UserRole.Id)}").HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.UserId).IsRequired().HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.RoleId).IsRequired().HasConversion(x => x.Value, x => new(x));
 
             //builder.HasOne<User>().WithMany().HasForeignKey(x => x.UserId);
             builder.HasOne<Role>().WithMany().HasForeignKey(x => x.RoleId);

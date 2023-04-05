@@ -23,11 +23,12 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TN.Modules.Remittances.Domain.Remittances.Entities.Remittance", b =>
+            modelBuilder.Entity("TN.Modules.Remittances.Domain.Remittances.Aggregates.Remittance", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("RemittanceId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
@@ -35,7 +36,7 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Data")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -46,7 +47,7 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
 
                     b.Property<string>("Message")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("varchar");
 
                     b.Property<decimal>("ReceiverAmount")
                         .HasPrecision(18, 2)
@@ -57,11 +58,11 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
 
                     b.Property<string>("ReceiverFullName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("ReceiverIdentification")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<decimal>("SenderAmount")
                         .HasPrecision(18, 2)
@@ -72,11 +73,11 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
 
                     b.Property<string>("SenderFullName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("SenderIdentification")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");

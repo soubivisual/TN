@@ -14,7 +14,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Menus
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Id).HasColumnName($"{nameof(Menu)}{nameof(Menu.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.TenantId).IsRequired().HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.ParentId).IsRequired().HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.ServiceId).IsRequired().HasConversion(x => x.Value, x => new(x));

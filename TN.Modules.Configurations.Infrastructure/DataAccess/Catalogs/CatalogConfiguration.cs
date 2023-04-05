@@ -12,9 +12,9 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Catalogs
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasConversion(x => x.Value, x => new(x));
-            builder.Property(x => x.Type).IsRequired().HasConversion(x => x.Value, x => new(x));
-            builder.Property(x => x.Value).IsRequired();
+            builder.Property(x => x.Id).HasColumnName($"{nameof(Catalog)}{nameof(Catalog.Id)}").HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Type).IsRequired().HasMaxLength(64).HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Value).IsRequired().HasMaxLength(128);
             builder.Property(x => x.Editable).IsRequired();
             builder.Property(x => x.Enabled).IsRequired();
             builder.Property(x => x.Int1);

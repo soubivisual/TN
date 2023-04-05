@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -18,15 +19,15 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
                 schema: "Remittances",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    RemittanceId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenantId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
-                    SenderIdentification = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    ReceiverIdentification = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    SenderFullName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ReceiverFullName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    SenderIdentification = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    ReceiverIdentification = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    SenderFullName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    ReceiverFullName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     SenderCurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReceiverCurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SenderAmount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
@@ -35,12 +36,12 @@ namespace TN.Modules.Remittances.Infrastructure.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CoreProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Message = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    Data = table.Column<string>(type: "varchar", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Remittance", x => x.Id);
+                    table.PrimaryKey("PK_Remittance", x => x.RemittanceId);
                 });
         }
 

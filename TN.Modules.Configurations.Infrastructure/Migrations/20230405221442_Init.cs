@@ -21,18 +21,18 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CatalogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Type = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
+                    Value = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     Editable = table.Column<bool>(type: "bit", nullable: false),
                     Enabled = table.Column<bool>(type: "bit", nullable: false),
                     Int1 = table.Column<int>(type: "int", nullable: true),
                     Int2 = table.Column<int>(type: "int", nullable: true),
-                    Nvarchar1 = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    Nvarchar2 = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    Nvarchar3 = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    Nvarchar4 = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    Nvarchar5 = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    Nvarchar1 = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    Nvarchar2 = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    Nvarchar3 = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    Nvarchar4 = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
+                    Nvarchar5 = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true),
                     Bool1 = table.Column<bool>(type: "bit", nullable: true),
                     Decimal1 = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     Decimal2 = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
@@ -44,7 +44,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Catalog", x => x.Id);
+                    table.PrimaryKey("PK_Catalog", x => x.CatalogId);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,22 +52,22 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Int1 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Int2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Nvarchar1 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Nvarchar2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Nvarchar3 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Nvarchar4 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Nvarchar5 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Bool1 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Decimal1 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Decimal2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true)
+                    CatalogDescriptionId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
+                    Int1 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Int2 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Nvarchar1 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Nvarchar2 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Nvarchar3 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Nvarchar4 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Nvarchar5 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Bool1 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Decimal1 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Decimal2 = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CatalogDescription", x => x.Id);
+                    table.PrimaryKey("PK_CatalogDescription", x => x.CatalogDescriptionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,11 +75,11 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Metadata = table.Column<string>(type: "varchar", nullable: true),
                     AddedUserId = table.Column<int>(type: "int", nullable: true),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EditedUserId = table.Column<int>(type: "int", nullable: true),
@@ -88,7 +88,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.PrimaryKey("PK_Company", x => x.CompanyId);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,15 +96,15 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", maxLength: 4096, nullable: true),
-                    Server = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
+                    Username = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true),
+                    Password = table.Column<string>(type: "varchar(4096)", maxLength: 4096, nullable: true),
+                    Server = table.Column<string>(type: "varchar", nullable: true),
                     Timeout = table.Column<int>(type: "int", nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Metadata = table.Column<string>(type: "varchar", nullable: true),
                     AddedUserId = table.Column<int>(type: "int", nullable: true),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EditedUserId = table.Column<int>(type: "int", nullable: true),
@@ -113,7 +113,7 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Provider", x => x.Id);
+                    table.PrimaryKey("PK_Provider", x => x.ProviderId);
                 });
 
             migrationBuilder.CreateTable(
@@ -121,13 +121,13 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Metadata = table.Column<string>(type: "varchar", nullable: true),
                     AddedUserId = table.Column<int>(type: "int", nullable: true),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EditedUserId = table.Column<int>(type: "int", nullable: true),
@@ -136,13 +136,13 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenant", x => x.Id);
+                    table.PrimaryKey("PK_Tenant", x => x.TenantId);
                     table.ForeignKey(
                         name: "FK_Tenant_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalSchema: "Configurations",
                         principalTable: "Company",
-                        principalColumn: "Id",
+                        principalColumn: "CompanyId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -151,15 +151,15 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
                     ProviderId = table.Column<int>(type: "int", nullable: false),
                     CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    TermsAndConditions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false),
+                    Description = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
+                    TermsAndConditions = table.Column<string>(type: "varchar", nullable: true),
                     TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Metadata = table.Column<string>(type: "varchar", nullable: true),
                     AddedUserId = table.Column<int>(type: "int", nullable: true),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EditedUserId = table.Column<int>(type: "int", nullable: true),
@@ -168,13 +168,13 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Service", x => x.Id);
+                    table.PrimaryKey("PK_Service", x => x.ServiceId);
                     table.ForeignKey(
                         name: "FK_Service_Provider_ProviderId",
                         column: x => x.ProviderId,
                         principalSchema: "Configurations",
                         principalTable: "Provider",
-                        principalColumn: "Id",
+                        principalColumn: "ProviderId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -183,14 +183,14 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 schema: "Configurations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: false),
                     ParentId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Text = table.Column<string>(type: "varchar", nullable: false),
+                    Url = table.Column<string>(type: "varchar", nullable: false),
+                    Icon = table.Column<string>(type: "varchar", nullable: true),
+                    ClaimId = table.Column<string>(type: "varchar", nullable: true),
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AddedUserId = table.Column<int>(type: "int", nullable: true),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -200,46 +200,46 @@ namespace TN.Modules.Configurations.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
+                    table.PrimaryKey("PK_Menu", x => x.MenuId);
                     table.ForeignKey(
                         name: "FK_Menu_Menu_ParentId",
                         column: x => x.ParentId,
                         principalSchema: "Configurations",
                         principalTable: "Menu",
-                        principalColumn: "Id",
+                        principalColumn: "MenuId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Menu_Service_ServiceId",
                         column: x => x.ServiceId,
                         principalSchema: "Configurations",
                         principalTable: "Service",
-                        principalColumn: "Id",
+                        principalColumn: "ServiceId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Menu_Tenant_TenantId",
                         column: x => x.TenantId,
                         principalSchema: "Configurations",
                         principalTable: "Tenant",
-                        principalColumn: "Id",
+                        principalColumn: "TenantId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 schema: "Configurations",
                 table: "Catalog",
-                columns: new[] { "Id", "AddedDate", "AddedUserId", "Bool1", "Decimal1", "Decimal2", "Editable", "EditedDate", "EditedUserId", "Enabled", "Int1", "Int2", "Nvarchar1", "Nvarchar2", "Nvarchar3", "Nvarchar4", "Nvarchar5", "Type", "Value" },
+                columns: new[] { "CatalogId", "AddedDate", "AddedUserId", "Bool1", "Decimal1", "Decimal2", "Editable", "EditedDate", "EditedUserId", "Enabled", "Int1", "Int2", "Nvarchar1", "Nvarchar2", "Nvarchar3", "Nvarchar4", "Nvarchar5", "Type", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("0c043d8c-b11e-4530-84cb-e1a145061cae"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Inactivo" },
-                    { new Guid("c0e93895-e330-4405-a7f3-55e62163a82d"), null, null, null, null, null, false, null, null, true, null, null, "CRC", "₡", null, null, null, "Currency", "Colones" },
-                    { new Guid("c9f498d5-e643-4fcc-a569-5a8a6e9b5627"), null, null, null, null, null, false, null, null, true, null, null, "USD", "$", null, null, null, "Currency", "Dólares" },
-                    { new Guid("f11658c6-5c8d-45c9-bf92-3c9d827d282b"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Activo" }
+                    { new Guid("0c0044b5-ab36-45a9-9a68-fd85db7a2465"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Inactivo" },
+                    { new Guid("578f3e25-87c3-43e7-b491-c944f9637bc2"), null, null, null, null, null, false, null, null, true, null, null, null, null, null, null, null, "GeneralStatus", "Activo" },
+                    { new Guid("a82b1410-cada-43e2-98e7-82522f056045"), null, null, null, null, null, false, null, null, true, null, null, "CRC", "₡", null, null, null, "Currency", "Colones" },
+                    { new Guid("ed697a39-3898-472b-8a2e-dfc5d078c978"), null, null, null, null, null, false, null, null, true, null, null, "USD", "$", null, null, null, "Currency", "Dólares" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Configurations",
                 table: "CatalogDescription",
-                columns: new[] { "Id", "Bool1", "Decimal1", "Decimal2", "Int1", "Int2", "Nvarchar1", "Nvarchar2", "Nvarchar3", "Nvarchar4", "Nvarchar5", "Type" },
+                columns: new[] { "CatalogDescriptionId", "Bool1", "Decimal1", "Decimal2", "Int1", "Int2", "Nvarchar1", "Nvarchar2", "Nvarchar3", "Nvarchar4", "Nvarchar5", "Type" },
                 values: new object[] { 1, null, null, null, null, null, "Código ISO 4217", "Símbolo", null, null, null, "Currency" });
 
             migrationBuilder.CreateIndex(

@@ -12,7 +12,7 @@ namespace TN.Modules.Notifications.Infrastructure.DataAccess.Notifications
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(Notification)}{nameof(Notification.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.TenantId).IsRequired();
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.TypeId).IsRequired();

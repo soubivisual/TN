@@ -12,7 +12,7 @@ using TN.Modules.Notifications.Infrastructure.DataAccess;
 namespace TN.Modules.Notifications.Infrastructure.Migrations
 {
     [DbContext(typeof(NotificationsDbContext))]
-    [Migration("20230325154002_Init")]
+    [Migration("20230405225136_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -26,17 +26,18 @@ namespace TN.Modules.Notifications.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TN.Modules.Notifications.Domain.Notifications.Entities.Notification", b =>
+            modelBuilder.Entity("TN.Modules.Notifications.Domain.Notifications.Aggregates.Notification", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("NotificationId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CallbackUrl")
                         .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("varchar");
 
                     b.Property<Guid>("CoreProcessId")
                         .HasColumnType("uniqueidentifier");
@@ -65,12 +66,12 @@ namespace TN.Modules.Notifications.Infrastructure.Migrations
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<Guid>("TypeId")
                         .HasColumnType("uniqueidentifier");

@@ -12,8 +12,8 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Catalogs
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasConversion(x => x.Value, x => new(x));
-            builder.Property(x => x.Type).IsRequired().HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(CatalogDescription)}{nameof(CatalogDescription.Id)}").HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Type).IsRequired().HasMaxLength(64).HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.Int1).HasMaxLength(128);
             builder.Property(x => x.Int2).HasMaxLength(128);
             builder.Property(x => x.Nvarchar1).HasMaxLength(128);

@@ -12,7 +12,7 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess.UserActivities
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasConversion(x => x.Value, y => new(y));
+            builder.Property(x => x.Id).ValueGeneratedOnAdd().HasColumnName($"{nameof(UserActivity)}{nameof(UserActivity.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.TenantId);
             builder.Property(x => x.UserId);
             builder.Property(x => x.Channel).HasMaxLength(128);

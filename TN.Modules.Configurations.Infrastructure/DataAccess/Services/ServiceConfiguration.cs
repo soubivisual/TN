@@ -15,7 +15,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Services
 
             builder.HasOne<Provider>().WithMany().HasForeignKey(x => x.ProviderId);
 
-            builder.Property(x => x.Id).HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Id).HasColumnName($"{nameof(Service)}{nameof(Service.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.ProviderId).IsRequired().HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.CountryId).IsRequired();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);

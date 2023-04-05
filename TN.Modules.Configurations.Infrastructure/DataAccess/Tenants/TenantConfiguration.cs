@@ -13,7 +13,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess.Tenants
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasConversion(x => x.Value, x => new(x));
+            builder.Property(x => x.Id).HasColumnName($"{nameof(Tenant)}{nameof(Tenant.Id)}").HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.CompanyId).IsRequired().HasConversion(x => x.Value, x => new(x));
             builder.Property(x => x.CountryId).IsRequired();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);
