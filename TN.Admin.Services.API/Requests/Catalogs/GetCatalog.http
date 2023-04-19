@@ -1,0 +1,2 @@
+@id=f55f33c1-8176-4137-b359-d0ff794e908e
+GET https://localhost:7071/api/Catalog/{{id}}

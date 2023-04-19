@@ -1,0 +1,18 @@
+POST https://localhost:7071/api/Catalog/
+Content-Type application/json
+
+{
+  "type": "Settings",
+  "value": "Enviroment",
+  "editable": true,
+  "enabled": true,
+  "int1": 0,
+  "int2": 0,
+  "nvarchar1": "Development",
+  "nvarchar2": "string",
+  "nvarchar3": "string",
+  "bool1": true,
+  "float1": 0,
+  "decimal1": 0,
+  "addedUserId": 0
+}

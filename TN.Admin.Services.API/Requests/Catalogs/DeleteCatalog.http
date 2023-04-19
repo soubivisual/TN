@@ -1,0 +1,2 @@
+@id=305a9033-3e2f-462e-b42e-fe718a033040
+DELETE https://localhost:7071/api/Catalog/{{id}}

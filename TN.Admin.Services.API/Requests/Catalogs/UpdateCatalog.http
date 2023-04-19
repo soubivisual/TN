@@ -1,0 +1,21 @@
+@id=f55f33c1-8176-4137-b359-d0ff794e908e
+
+PUT https://localhost:7071/api/Catalog/{{id}}
+Content-Type application/json
+
+{
+  "id": "{{id}}",
+  "type": "Settings",
+  "value": "Production",
+  "editable": true,
+  "enabled": true,
+  "int1": 0,
+  "int2": 0,
+  "nvarchar1": "Cualquier123",
+  "nvarchar2": "string",
+  "nvarchar3": "string",
+  "bool1": true,
+  "float1": 0,
+  "decimal1": 0,
+  "addedUserId": 0
+}
