@@ -15,7 +15,6 @@ namespace TN.Modules.Buildings.Shared
     {
         public static IServiceCollection AddSharedFramework(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddEndpointsApiExplorer();
             services.AddErrorHandling();
             services.AddEvents();
             services.AddMessaging();

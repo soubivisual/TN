@@ -1,6 +1,6 @@
 ﻿namespace TN.Modules.Buildings.Shared.Dtos
 {
-    public sealed class NotificationDto
+    public sealed class NotificationDto : BaseDto
     {
         public long Id { get; set; }
 

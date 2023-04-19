@@ -4,10 +4,7 @@ namespace TN.Modules.Configurations.Domain.Catalogs.ValueObjects
 {
     public sealed class CatalogId : ValueObjectBase<Guid>
     {
-        public CatalogId(Guid value) : base(value)
-        {
-
-        }
+        public CatalogId(Guid value) : base(value) { }
 
         public static implicit operator CatalogId(Guid value) => new(value);
 

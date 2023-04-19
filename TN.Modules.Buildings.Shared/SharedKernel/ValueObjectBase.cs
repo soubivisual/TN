@@ -6,11 +6,6 @@
 
         protected ValueObjectBase(TValue value)
         {
-            //if (value == null)
-            //{
-            //    throw new ArgumentNullException(nameof(value));
-            //}
-
             Value = value;
         }
 

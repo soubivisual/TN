@@ -6,16 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Products\Aggregates\" />
-    <Folder Include="Products\Entities\" />
-    <Folder Include="Products\Exceptions\" />
-    <Folder Include="Products\Repositories\" />
-    <Folder Include="Products\ValueObjects\" />
-    <Folder Include="Providers\Aggregates\" />
-    <Folder Include="Providers\Entities\" />
-    <Folder Include="Providers\Exceptions\" />
-    <Folder Include="Providers\Repositories\" />
-    <Folder Include="Providers\ValueObjects\" />
+    <Compile Remove="Providers\**" />
+    <EmbeddedResource Remove="Providers\**" />
+    <None Remove="Providers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>

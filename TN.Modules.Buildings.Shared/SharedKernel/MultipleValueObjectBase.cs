@@ -24,7 +24,7 @@
 
         public override int GetHashCode() => 
             GetEqualityComponents().
-            Select(q => q?.GetHashCode() ?? 0)
+            Select(x => x?.GetHashCode() ?? 0)
             .Aggregate((q, p) => q ^ p);
 
         public override string ToString() => string.Join(",", GetEqualityComponents());

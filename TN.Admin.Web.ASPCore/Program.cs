@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.Extensions.Logging;
-using System.Net;
-using System.Net.Mime;
 using TN.Admin.Web.ASPCore.Middleware;
 using static TN.Admin.Web.ASPCore.Miscellaneous.Constants;
 

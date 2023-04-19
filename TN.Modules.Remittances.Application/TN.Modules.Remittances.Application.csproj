@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Modules.Remittances.Domain\TN.Modules.Remittances.Domain.csproj" />
+    <Folder Include="Remittances\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Remittances\Commands\" />
+    <ProjectReference Include="..\TN.Modules.Remittances.Domain\TN.Modules.Remittances.Domain.csproj" />
   </ItemGroup>
 
 </Project>

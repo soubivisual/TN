@@ -1,6 +1,8 @@
-﻿namespace TN.Modules.Buildings.Shared.Dtos
+﻿using TN.Modules.Buildings.Shared.SharedKernel;
+
+namespace TN.Modules.Buildings.Shared.Dtos
 {
-    public sealed class UserDto
+    public sealed class UserDto : BaseDto, IAudit, IRowVersion
     {
         public int Id { get; set; }
 
@@ -27,5 +29,7 @@
         public int? EditedUserId { get; set; }
 
         public DateTime? EditedDate { get; set; }
+
+        public byte[] RowVersion { get; set; }
     }
 }

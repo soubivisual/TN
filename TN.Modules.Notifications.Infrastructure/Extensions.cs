@@ -3,7 +3,7 @@ using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Notifications.Application.Contracts;
 using TN.Modules.Notifications.Domain.Notifications.Repositories;
 using TN.Modules.Notifications.Infrastructure.DataAccess;
-using TN.Modules.Notifications.Infrastructure.Repositories;
+using TN.Modules.Notifications.Infrastructure.DataAccess.Notifications;
 
 namespace TN.Modules.Notifications.Infrastructure
 {

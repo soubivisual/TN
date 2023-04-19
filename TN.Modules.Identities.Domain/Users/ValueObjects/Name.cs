@@ -7,7 +7,7 @@ namespace TN.Modules.Identities.Domain.Users.ValueObjects
     {
         public Name(string value) : base(value)
         {
-            if (string.IsNullOrWhiteSpace(value) || value.Length is > 100 or < 2)
+            if (string.IsNullOrWhiteSpace(value) || value.Length is > 256 or < 2)
             {
                 throw new InvalidNameException(value);
             }

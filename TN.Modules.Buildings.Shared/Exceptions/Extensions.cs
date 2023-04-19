@@ -15,7 +15,7 @@ namespace TN.Modules.Buildings.Shared.Exceptions
 
         public static ExceptionResponse ToExceptionResponse(this Exception ex, Guid coreProcessId, long timestamp) => ex switch
         {
-            BaseException bex => new (coreProcessId, bex.Errors.Select(q => new ExceptionResponse.Error(q.Code, q.Message, q.Type)).ToList(), timestamp),
+            BaseException bex => new (coreProcessId, bex.Errors.Select(x => new ExceptionResponse.Error(x.Code, x.Message, x.Type)).ToList(), timestamp),
             _ => new (coreProcessId, new List<ExceptionResponse.Error> { new ExceptionResponse.Error("999", ex.Message, ex.GetType().Name) }, timestamp)
         };
 

@@ -23,22 +23,23 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TN.Modules.Loggers.Domain.ApplicationLogs.Entities.ApplicationLog", b =>
+            modelBuilder.Entity("TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates.ApplicationLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("ApplicationLogId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Channel")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("ClassName")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.Property<Guid?>("CoreProcessId")
                         .HasColumnType("uniqueidentifier");
@@ -48,20 +49,20 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
 
                     b.Property<string>("Ip")
                         .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Key")
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar");
 
                     b.Property<string>("MethodName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -69,18 +70,127 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("varchar");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationLog", "Loggers");
+                });
+
+            modelBuilder.Entity("TN.Modules.Loggers.Domain.TraceLogs.Aggregates.TraceLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("TraceLogId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Channel")
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("ClassName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar");
+
+                    b.Property<Guid?>("CoreProcessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Ip")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("Key")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("MethodName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TraceLog", "Loggers");
+                });
+
+            modelBuilder.Entity("TN.Modules.Loggers.Domain.UserActivities.Aggregates.UserActivity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("UserActivityId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("Channel")
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar");
+
+                    b.Property<Guid?>("CoreProcessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Detail")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("Ip")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserActivity", "Loggers");
                 });
 #pragma warning restore 612, 618
         }

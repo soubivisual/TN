@@ -10,18 +10,15 @@ namespace TN.Modules.Configurations.Application.Catalogs.Queries.GetCatalog
     {
         private readonly ICatalogRepository _catalogRepository;
         private readonly IMapping _mapping;
-        private readonly ICacheDataAccess _cacheDataAccess;
 
-        public GetCatalogQueryHandler(ICatalogRepository catalogRepository, IMapping mapping, ICacheDataAccess cacheDataAccess)
+        public GetCatalogQueryHandler(ICatalogRepository catalogRepository, IMapping mapping)
         {
             _catalogRepository = catalogRepository;
             _mapping = mapping;
-            _cacheDataAccess = cacheDataAccess;
         }
 
         public async Task<CatalogDto> Handle(GetCatalogQuery request, CancellationToken cancellationToken)
         {
-            var prueba = await _cacheDataAccess.GetCatalog("Currency");
             var catalog = await _catalogRepository.GetAsync(request.CatalogId);
             return _mapping.Map<CatalogDto>(catalog);
         }

@@ -1,5 +1,4 @@
 ﻿using TN.Modules.Buildings.Shared.SharedKernel;
-using TN.Modules.Loggers.Domain.ApplicationLogs.Enums;
 using TN.Modules.Loggers.Domain.ApplicationLogs.ValueObjects;
 
 namespace TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates

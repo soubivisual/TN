@@ -1,6 +1,8 @@
-﻿namespace TN.Modules.Buildings.Shared.Dtos
+﻿using TN.Modules.Buildings.Shared.SharedKernel;
+
+namespace TN.Modules.Buildings.Shared.Dtos
 {
-    public sealed class CatalogDto
+    public sealed class CatalogDto : BaseDto, IAudit, IRowVersion
     {
         public Guid Id { get; set; }
 
@@ -31,5 +33,15 @@
         public decimal? Decimal1 { get; set; }
 
         public decimal? Decimal2 { get; set; }
+
+        public int? AddedUserId { get; set; }
+
+        public DateTime? AddedDate { get; set; }
+
+        public int? EditedUserId { get; set; }
+
+        public DateTime? EditedDate { get; set; }
+
+        public byte[] RowVersion { get; set; }
     }
 }
