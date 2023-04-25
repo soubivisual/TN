@@ -1,0 +1,87 @@
+﻿# Comando para la ayuda: docker compose --help
+# Comando para subir todos los contenedores en modo detached: docker-compose --project-name tn-containers up -d
+# Comando para eliminar todos los contenedores y los volúmenes creados: docker-compose --project-name tn-containers down -v
+
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    shm_size: '4gb'
+    container_name: tn-postgres
+    restart: unless-stopped # Esto indica que el contenedor debe reiniciarse siempre, excepto si se detiene de forma explícita.
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: tn-sqlserver
+    restart: unless-stopped
+    user: root
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Prueba001.
+    ports:
+      - 1433:1433
+    volumes:
+      - sqlserver-data:/var/opt/mssql/data
+
+  redis:
+    image: redis
+    container_name: tn-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: tn-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  #tn.services.bootstrapper.api:
+  #  image: ${DOCKER_REGISTRY-}tnservicesbootstrapperapi
+  #  build:
+  #    context: .
+  #    dockerfile: TN.Services.Bootstrapper.API/Dockerfile
+
+  tn.services.bootstrapper.configurations:
+    image: ${DOCKER_REGISTRY-}tnservicesbootstrapperconfigurations
+    build:
+      context: .
+      dockerfile: TN.Services.Bootstrapper.Configurations/Dockerfile
+
+  tn.services.bootstrapper.identities:
+    image: ${DOCKER_REGISTRY-}tnservicesbootstrapperidentities
+    build:
+      context: .
+      dockerfile: TN.Services.Bootstrapper.Identities/Dockerfile
+
+  tn.services.bootstrapper.loggers:
+    image: ${DOCKER_REGISTRY-}tnservicesbootstrapperloggers
+    build:
+      context: .
+      dockerfile: TN.Services.Bootstrapper.Loggers/Dockerfile
+
+  tn.services.bootstrapper.notifications:
+    image: ${DOCKER_REGISTRY-}tnservicesbootstrappernotifications
+    build:
+      context: .
+      dockerfile: TN.Services.Bootstrapper.Notifications/Dockerfile
+
+  tn.services.bootstrapper.remittance:
+    image: ${DOCKER_REGISTRY-}tnservicesbootstrapperremittance
+    build:
+      context: .
+      dockerfile: TN.Services.Bootstrapper.Remittance/Dockerfile
+
+volumes:
+  postgres-data:
+    driver: local
+  sqlserver-data:
