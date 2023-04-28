@@ -1,0 +1,34 @@
+{
+  "profiles": {
+    "Start All": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "postgres": "StartWithoutDebugging",
+        "rabbitmq": "StartWithoutDebugging",
+        "redis": "StartWithoutDebugging",
+        "sqlserver": "StartWithoutDebugging",
+        "tn.services.bootstrapper.configurations": "StartDebugging",
+        "tn.services.bootstrapper.identities": "StartDebugging",
+        "tn.services.bootstrapper.loggers": "StartDebugging",
+        "tn.services.bootstrapper.notifications": "StartDebugging",
+        "tn.services.bootstrapper.remittance": "StartDebugging"
+      }
+    },
+    "Start Bootstrapper Services": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "postgres": "DoNotStart",
+        "rabbitmq": "DoNotStart",
+        "redis": "DoNotStart",
+        "sqlserver": "DoNotStart",
+        "tn.services.bootstrapper.configurations": "StartDebugging",
+        "tn.services.bootstrapper.identities": "StartDebugging",
+        "tn.services.bootstrapper.loggers": "StartDebugging",
+        "tn.services.bootstrapper.notifications": "StartDebugging",
+        "tn.services.bootstrapper.remittance": "StartDebugging"
+      }
+    }
+  }
+}

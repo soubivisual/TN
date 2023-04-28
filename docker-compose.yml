@@ -1,4 +1,6 @@
-﻿# Comando para la ayuda: docker compose --help
+﻿# Documentación múltiples Compose files: https://docs.docker.com/compose/extends/
+# Documentación Microsoft Docker Compose: https://learn.microsoft.com/en-us/visualstudio/containers/tutorial-multicontainer?view=vs-2022
+# Comando para la ayuda: docker compose --help
 # Comando para subir todos los contenedores en modo detached: docker-compose --project-name tn-containers up -d
 # Comando para eliminar todos los contenedores y los volúmenes creados: docker-compose --project-name tn-containers down -v
 
