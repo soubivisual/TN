@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 using TN.Modules.Buildings.Shared.Persistance;
 using TN.Modules.Buildings.Shared.SharedKernel;
 using TN.Modules.Configurations.Domain.Catalogs.Aggregates;

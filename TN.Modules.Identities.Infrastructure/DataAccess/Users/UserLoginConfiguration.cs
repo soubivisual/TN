@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using TN.Modules.Identities.Domain.Users.Entities;
-using TN.Modules.Identities.Domain.Users.Aggregates;
 
 namespace TN.Modules.Identities.Infrastructure.DataAccess.Users
 {

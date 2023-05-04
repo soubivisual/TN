@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using TN.Admin.Web.ASPCore.Areas.Shared.Models;
 using TN.Admin.Web.ASPCore.Controllers;
-using TN.Admin.Web.ASPCore.DataModels.Dto;
 
 namespace TN.Admin.Web.ASPCore.Areas.Shared.Controllers
 {
