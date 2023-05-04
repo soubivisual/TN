@@ -46,6 +46,8 @@
     <Content Remove="Controls\TwoFactor.razor" />
     <Content Remove="Controls\WizardControl.razor" />
     <Content Remove="Controls\WizardStep.razor" />
+    <Content Remove="Pages\Authentication\FirstPage.razor" />
+    <Content Remove="Pages\Authentication\Login.razor" />
     <Content Remove="wwwroot\assets\assets\" />
     <Content Remove="wwwroot\assets\plugins\visa\" />
     <Content Remove="wwwroot\assets\plugins\visa\blue_theme\" />
@@ -80,7 +82,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TN.Client.Services.Interfaces\TN.Client.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\..\TN.Client.Services.Shared\TN.Client.Services.Shared.csproj" />
     <ProjectReference Include="..\TN.Shared.Utils.Misc\TN.Shared.Utils.Misc.csproj" />
   </ItemGroup>
 
@@ -118,6 +120,8 @@
     <None Remove="Objects\" />
     <None Remove="Objects\Misc\" />
     <None Remove="Models\Objects\" />
+    <None Remove="Pages\Authentication\FirstPage.razor.css" />
+    <None Remove="Pages\Authentication\Login.razor.css" />
     <None Remove="Pages\Components\" />
     <None Remove="Models\Components\" />
     <None Remove="Models\Misc\" />

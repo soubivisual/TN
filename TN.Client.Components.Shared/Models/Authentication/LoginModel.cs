@@ -2,7 +2,7 @@
 
 namespace TN.Client.Components.Shared.Models.Authentication
 {
-    internal sealed class LoginModel
+    public sealed class LoginModel
     {
         [Required]
         public string Username { get; set; }
@@ -10,6 +10,5 @@ namespace TN.Client.Components.Shared.Models.Authentication
         public string Password { get; set; }
         [Required]
         public string Comment { get; set; }
-       
     }
 }

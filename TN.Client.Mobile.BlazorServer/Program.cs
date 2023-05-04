@@ -1,11 +1,11 @@
-using TN.Client.Services.BlazorServer;
-using TN.Client.Services.Interfaces;
+using TN.Client.Services.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddTransient<IVibrationService,VibrationService>();
+
+builder.Services.AddWebSharedServices();
 
 var app = builder.Build();
 
