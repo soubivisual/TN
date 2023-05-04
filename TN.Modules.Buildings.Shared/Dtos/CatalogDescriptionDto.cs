@@ -1,6 +1,4 @@
-﻿using TN.Modules.Buildings.Shared.SharedKernel;
-
-namespace TN.Modules.Buildings.Shared.Dtos
+﻿namespace TN.Modules.Buildings.Shared.Dtos
 {
     public sealed class CatalogDescriptionDto : BaseDto
     {
