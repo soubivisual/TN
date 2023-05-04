@@ -8,7 +8,6 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <ProjectReference Include="..\..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
     <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
   </ItemGroup>
 

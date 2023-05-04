@@ -82,7 +82,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TN.Client.Services.Shared\TN.Client.Services.Shared.csproj" />
+    <ProjectReference Include="..\TN.Client.Services.Shared\TN.Client.Services.Shared.csproj" />
     <ProjectReference Include="..\TN.Shared.Utils.Misc\TN.Shared.Utils.Misc.csproj" />
   </ItemGroup>
 

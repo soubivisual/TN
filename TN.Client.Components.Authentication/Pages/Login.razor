@@ -1,0 +1,76 @@
+﻿@page "/login"
+
+
+@layout EmptyLayout
+@inject NavigationManager NavigationManager
+
+<div class="container-firstpage">
+
+
+     <TNButton Class="btn btn-round m-3 float-end btn-white" Icon="fas fa-question-circle"></TNButton>
+    
+
+    <div class="logo">
+        <div class="circle-logo">
+        </div>
+    </div>
+
+    <div class="info-container p-5">
+
+        <div class="heading p-2">
+            <h3 class="text-center pt-4" tabindex="-1">¡Bienvenido!</h3>
+            <p class="text-center pt-4">
+                Ingresa tus datos para iniciar sesión
+            </p>
+        </div>
+        <div class="form-container p-2 pt-3">
+
+            <EditForm Model="Model" OnValidSubmit="OnSubmit">
+                <DataAnnotationsValidator />
+                <TNTextBox @bind-Value="Model.Username" Label="" ValidationFor="@(() => Model.Username)"></TNTextBox>
+                <TNTextBox @bind-Value="Model.Password" Label="" ValidationFor="@(() => Model.Password)"></TNTextBox>
+            </EditForm>
+
+            <TNButton Class="btn btn-primary min-w-100">Crear cuenta</TNButton>
+            <TNButton Class="btn btn-secondary min-w-100">Iniciar sesión</TNButton>
+
+            <div class="exchange-container">
+                <strong>Tipo de cambio</strong>
+                <div class="d-flex pt-2" style="justify-content: center;">
+                    <p>Colones: 600</p>
+                    <div class="vl"></div>
+                    <p>Dolares: 600</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="header-with-logo">
+        <div class="circle">
+            <div class="circle-logo">
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    LoginModel Model = new();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+    }
+
+    private async Task OnSubmit()
+    {
+        try
+        {
+            // TODO: Lógica
+
+            NavigationManager.NavigateTo("/dashboard", true);
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+}
