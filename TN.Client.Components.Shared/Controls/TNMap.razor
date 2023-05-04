@@ -1,0 +1,24 @@
+﻿<div id="GoogleMap">
+</div>
+
+@code {
+    [Parameter] public LocationData CurrentLocation { get; set; }
+    [Parameter] public List<LocationData> Locations { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            string googleMapKey = "AIzaSyD7jxPn_u_emfynvkjw7-aKDq22kcv376I";
+            JSRuntime.CreateGoogleMap(googleMapKey, CurrentLocation, Locations);
+            StateHasChanged();
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+
+}
+

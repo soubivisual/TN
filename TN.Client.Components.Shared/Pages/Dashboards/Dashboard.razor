@@ -1,7 +1,22 @@
 ﻿@page "/dashboard"
 
-<h3>Dashboard</h3>
+<h3>Mas componentes</h3>
+
+<button class="btn btn-primary" @onclick="OpenAnimationModal">Visa Sensory Branding</button>
+<TNVisaSensoryBranding @ref="Modal"></TNVisaSensoryBranding>
 
 @code {
+    private TNVisaSensoryBranding Modal { get; set; }
 
+    private async Task OpenAnimationModal()
+    {
+        try
+        {
+            Modal.Open();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
 }

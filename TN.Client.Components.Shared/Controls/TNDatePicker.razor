@@ -1,0 +1,66 @@
+﻿@inherits InputBase<DateTime?>
+
+<div class="position-relative">
+    <label class="form-label" for="@Id" field-required="@ValidationFor.Body.IsRequired()">@(Label ?? ValidationFor.Body.GetDisplayName())</label>
+    <input @bind="CurrentValue" type="date" min="@(FormatValueAsString(MinDate))" max="@(FormatValueAsString(MaxDate))" class="form-control" autocomplete="off" id="@IdBinding" disabled="@Disabled" placeholder="@(Placeholder ?? ValidationFor.Body.GetDisplayPrompt())" />
+    <ValidationMessage For="@ValidationFor" />
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string Placeholder { get; set; }
+    [Parameter] public object CollectionId { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool IsDateRange { get; set; } = false;
+    [Parameter] public bool IsBeginDate { get; set; } = true;
+    [Parameter] public DateTime? MinDate { get; set; } = DateTime.MinValue;
+    [Parameter] public DateTime? MaxDate { get; set; } = DateTime.MaxValue;
+    [Parameter] public Expression<Func<DateTime?>> ValidationFor { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string IdBinding;
+    private string Id;
+
+    protected override void OnParametersSet()
+    {
+        IdBinding = CollectionId == null ? $"{FieldIdentifier.GetName()}": $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+        Id = CollectionId == null ? FieldIdentifier.GetName() : $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+    }
+
+    protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
+    {
+        DateTime.TryParse(value, out var parsedValue);
+        result = parsedValue;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    protected override string FormatValueAsString(DateTime? value)
+    {
+        return value.HasValue ? value.Value.ToString(ApplicationConstant.DateFormat) : null;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.CreateDatePicker(Id, ApplicationConstant.DateFormat.ToUpper(), FormatValueAsString(MinDate), FormatValueAsString(MaxDate), IsDateRange, IsBeginDate);
+        }
+        else
+        {
+            if (IsDateRange)
+            {
+                if (IsBeginDate)
+                {
+                    await JSRuntime.DateTimePickerMinDate(CurrentValue ?? DateTime.Now,MaxDate, ApplicationConstant.DateFormat.ToUpper());
+                }
+                else
+                {
+                    await JSRuntime.DateTimePickerMaxDate(CurrentValue ?? DateTime.Now, MinDate, ApplicationConstant.DateFormat.ToUpper());
+                }
+            }
+        }
+
+    }
+}

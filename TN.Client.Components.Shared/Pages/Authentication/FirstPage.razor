@@ -1,0 +1,73 @@
+﻿@page "/"
+
+@layout EmptyLayout
+@inject NavigationManager NavigationManager
+
+<div class="container-firstpage">
+
+    @if (showTopButton)
+    {
+        <TNButton Class="btn m-3 animation-appear float-end btn-white btn-round" Icon="fas fa-question-circle"></TNButton>
+    }
+
+    <div class="logo">
+        <div class="circle-logo">
+        </div>
+    </div>
+
+    <div class="info-container p-5">
+
+        <div class="heading p-2">
+            <h3 class="text-center pt-4" tabindex="-1" >¡Bienvenido!</h3>
+            <p class="text-center pt-4">
+                ¡Enviar y recibir remesas nunca
+                había sido tan fácil!
+            </p>
+        </div>
+        <div class="form-container p-2 pt-3">
+            <button class="btn btn-primary min-w-100">Crear cuenta</button>
+            <TNButton Class="btn btn-secondary min-w-100" OnClick="NavigationToLogin">Iniciar sesión</TNButton>
+
+            <div class="exchange-container">
+                <strong>Tipo de cambio</strong>
+                <div class="d-flex pt-2" style="justify-content: center;">
+                    <p>Colones: 600</p>
+                    <div class="vl"></div>
+                    <p>Dolares: 600</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="header-with-logo">
+        <div class="circle">
+            <div class="circle-logo">
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    public bool showTopButton { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(1000).ContinueWith((_)=> showTopButton = true);
+            StateHasChanged();
+        }
+    }
+
+    private async Task NavigationToLogin()
+    {
+        try
+        {
+            NavigationManager.NavigateTo("/login", true);
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+}

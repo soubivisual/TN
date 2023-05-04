@@ -1,0 +1,96 @@
+﻿@inject IJSRuntime JS
+
+<body>
+    <div class="modal @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content" style="background-color: transparent; border-color:transparent;">
+                <div class="modal-body">
+                    <div id="visa-branding" style="height: 400px;">
+                        <div class="flag-container">
+                            <div class="flag-mask-top flag-mask"></div>
+                            <div class="constrained-flag-mask constrained-top-flag-mask"></div>
+                            <div class="flag-slider flag-slider-top"><img class="top-flag flag" /></div>
+                            <div class="top-flag-fade-mask flag-fade-mask"></div>
+                        </div>
+                        <div class="visa-container">
+                            <div class="visa-wrapper">
+                                <img class="visa-logo" />
+                                <div class="wipers-container">
+                                    <div class="wiper-left wiper"></div>
+                                    <div class="wiper-middle wiper"></div>
+                                    <div class="wiper-right wiper"></div>
+                                </div>
+                                <div class="checkmark-container">
+                                    <img class="checkmark-circle" />
+                                    <div class="rotate-container">
+                                        <img class="checkmark" />
+                                        <div class="checkmark-mask"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flag-container">
+                            <div class="flag-mask-bottom flag-mask"></div>
+                            <div class="constrained-flag-mask constrained-bottom-flag-mask"></div>
+                            <div class="flag-slider flag-slider-bottom"><img class="bottom-flag flag" /></div>
+                            <div class="bottom-flag-fade-mask flag-fade-mask"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"></div>
+}
+
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Inject] protected IVibrationService VibrationService { get; set; }
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+
+    public Guid Guid = Guid.NewGuid();
+    public string ModalDisplay = "none;";
+    public string ModalClass = "";
+    public bool ShowBackdrop = false;
+    public bool Opened = false;
+    string animationClass = "no-animation";
+
+    public async Task Open()
+    {
+        ModalDisplay = "block;";
+        ModalClass = "Show";
+        ShowBackdrop = true;
+        Opened = true;
+        animationClass = "";
+        Animate();
+        StateHasChanged();
+    }
+
+    public void Close()
+    {
+        ModalDisplay = "none";
+        ModalClass = "";
+        ShowBackdrop = false;
+        Opened = false;
+        StateHasChanged();
+    }
+
+    public async Task Animate()
+    {
+        await JS.InvokeVoidAsync("InitVisaSensoryBranding");
+        await Task.Delay(1800).ContinueWith((_) => animationClass = "no-animation");
+        var vibrate = await VibrationService.Vibrate(1);
+        if(!vibrate)
+        {
+            await JSRuntime.Vibrate(1);
+        }
+        Close();
+    }
+}

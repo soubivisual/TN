@@ -1,0 +1,54 @@
+﻿
+@page "/Components2"
+@inherits ComponentsTestBase
+@inject IJSRuntime JSRuntime
+
+
+<TNWizardControl>
+    <TNWizardStep Title="1. Primera Parte" Model="Model.FirstStep" OnValidSubmit="OnValidSubmit" NextButtonValue="Siguiente">
+        <TNTextBox @bind-Value="Model.FirstStep.FirstInputTest" Label="" ValidationFor="@(() => Model.FirstStep.FirstInputTest)" />
+    </TNWizardStep>
+    <TNWizardStep Title="2. Segunda Parte" Model="Model.SecondStep" OnValidSubmit="OnValidSubmit" NextButtonValue="Guardar Usuario">
+        <TNTextBox @bind-Value="Model.SecondStep.SecondInputTest" Label="" ValidationFor="@(() => Model.SecondStep.SecondInputTest)" />
+    </TNWizardStep>
+</TNWizardControl>
+
+
+<div class="pt-2 row">
+
+    <TNButton Class="btn btn-primary shadow-2 mb-2 col-lg-3 col-sm-12" Type="ButtonType.Button" OnClick="@SweetModalSuccess">Success</TNButton>
+    <TNButton Class="btn btn-primary shadow-2 mb-2 col-lg-3 col-sm-12" Type="ButtonType.Button" OnClick="@SweetModalError">Error</TNButton>
+    <TNButton Class="btn btn-primary shadow-2 mb-2 col-lg-3 col-sm-12" Type="ButtonType.Button" OnClick="@SweetModalWarning">Warning</TNButton>
+    <TNButton Class="btn btn-primary shadow-2 mb-2 col-lg-3 col-sm-12" Type="ButtonType.Button" OnClick="@SweetModalInformation">Information</TNButton>
+    <TNButton Class="btn btn-primary shadow-2 mb-2 col-lg-3 col-sm-12" Type="ButtonType.Button" OnClick="@SweetModalConfirm">Confirmación</TNButton>
+    <TNButton Class="btn btn-primary shadow-2 mb-2 col-lg-3 col-sm-12" Type="ButtonType.Button" OnClick="@SweetModalException">Excepción</TNButton>
+
+</div>
+
+@code {
+    private async Task SweetModalSuccess()
+    {
+        await JSRuntime.SwalSuccess("Titulo de exitoso", "Contenido de exitoso", "Continuar");
+    }
+    private async Task SweetModalError()
+    {
+        await JSRuntime.SwalError("Titulo de error", "Contenido de error", "Continuar");
+    }
+    private async Task SweetModalInformation()
+    {
+        await JSRuntime.SwalInfo("Titulo de información", "Contenido de información", "Continuar");
+    }
+    private async Task SweetModalConfirm()
+    {
+        await JSRuntime.SwalConfirm("Titulo de confirmación", "Contenido de confirmación", "Confirmar", "1","2", "","3",null);
+    }
+    private async Task SweetModalWarning()
+    {
+        await JSRuntime.SwalWarning("Titulo de confirmación", "Contenido de confirmación", "Continuar");
+    }
+    private async Task SweetModalException()
+    {
+        await JSRuntime.SwalException("Titulo de excepción", "Contenido de excepción", "Continuar","Continuar", "Continuar", "Continuar", "Continuar");
+    }
+}
+

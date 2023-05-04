@@ -1,7 +1,11 @@
+using TN.Client.Services.BlazorServer;
+using TN.Client.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddTransient<IVibrationService,VibrationService>();
 
 var app = builder.Build();
 
@@ -19,5 +23,7 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+
 
 app.Run();

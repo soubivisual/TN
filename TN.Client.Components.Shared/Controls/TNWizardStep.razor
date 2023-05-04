@@ -1,0 +1,96 @@
+﻿@using TN.Client.Web.BlazorShared.Models
+
+@if (WizardControl.ActiveWizardStep == this)
+{
+    <EditForm EditContext="EditContext" OnSubmit="ValidSubmit">
+        <TNCard>
+            @*<DataAnnotationsValidator />*@
+            <ObjectGraphDataAnnotationsValidator />
+            <TNTwoFactor @ref="TwoFactorReference"></TNTwoFactor>
+            @ChildContent
+            <div class="d-flex justify-content-between mt-4">
+                <TNButton Class="btn btn-light" Invisible="@WizardControl.DisableButton(this, "back", false)" OnClick="() => WizardControl.Back(this)">Atrás</TNButton>
+                <TNButton Type="ButtonType.Submit" Disabled="@WizardControl.DisableButton(this, "next", NextButtonDisabled)" Processing="@Processing">@NextButtonValue</TNButton>
+            </div>
+        </TNCard>
+    </EditForm>
+}
+
+@code {
+    [CascadingParameter] private TNWizardControl WizardControl { get; set; }
+
+    [Parameter] public BaseModel Model { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string NextButtonValue { get; set; }
+    [Parameter] public bool NextButtonDisabled { get; set; }
+    [Parameter] public bool ConfirmBeforeSubmit { get; set; }
+    [Parameter] public bool Request2FA { get; set; }
+    [Parameter] public Func<BaseModel, Task<bool>> OnValidSubmit { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+    private EditContext EditContext;
+    private TNTwoFactor TwoFactorReference;
+    private bool Processing;
+
+    protected override void OnInitialized()
+    {
+        if (WizardControl == null)
+            throw new ArgumentNullException(nameof(WizardControl), "WizardStep must exist within a WizardControl");
+
+        WizardControl.AddPage(this);
+
+        base.OnInitialized();
+    }
+
+    // Se agrega aquí y no en el inicializar porque los errores de validación no se estaban reseteando al cambiar de WizardStep
+    protected override void OnParametersSet()
+    {
+        EditContext = new EditContext(Model);
+    }
+
+    protected async Task ValidSubmit()
+    {
+        if (EditContext.Validate())
+        {
+            Processing = true;
+            StateHasChanged();
+
+            if (ConfirmBeforeSubmit)
+            {
+                var confirm = await JSRuntime.SwalConfirmTransaction(
+                    "Confirmar Transferencia",
+                    "Al confirmar la transferencia se realizará la reducción correspondiente en la cuenta a debitar seleccionada de manera permanente. ¿Seguro que desea realizar la transferencia?",
+                    "Confirmar");
+
+                if (!confirm)
+                    goto End;
+            }
+
+            if (Request2FA)
+            {
+                var valid2FA = await TwoFactorReference.Request2FA(
+                    "¿Desea autorizar esta operación?",
+                    "Antes de proceder con esta operación es necesario realizar una verificación de seguridad.");
+
+                if (!valid2FA)
+                    goto End;
+            }
+
+            var result = await OnValidSubmit.Invoke(Model);
+
+            if (result)
+            {
+                EditContext = new EditContext(Model);
+                WizardControl.Next(this);
+
+                await JSRuntime.ScrollPosition(0, 0); // Subir el scroll
+            }
+
+        End:
+            Processing = false;
+        }
+    }
+}
+
+

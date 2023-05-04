@@ -1,0 +1,24 @@
+﻿<div class="card">
+    @if (Title != null)
+    {
+        <div class="card-header @(CardOptions == null ? "text-center" : "")">
+            <h5>@Title</h5>
+            @if (CardOptions != null)
+            {
+                <div class="card-header-right">
+                    @CardOptions
+                </div>
+            }
+        </div>
+    }
+    <div class="card-body">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public RenderFragment CardOptions { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}
+

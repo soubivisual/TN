@@ -1,0 +1,44 @@
+﻿<div class="row p-2">
+    <div class="col-12">
+        <h5>
+            @if (ShowBackButton)
+            {
+                <a class="page-back" href="" @onclick="OnBackButtonClick" @onclick:preventDefault><i class="fas fa-chevron-left"></i></a>
+            }
+            <span class="page-title">
+                @Title
+
+                @if (ShowTourButton)
+                {
+                    <a class="ml-1" href="" @onclick:preventDefault><i class="fas fa-question-circle"></i></a>
+                }
+            </span>
+            <span class="page-detail">@Detail</span>
+        </h5>
+        @PageOptions
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Detail { get; set; }
+    [Parameter] public bool ShowBackButton { get; set; } = false;
+    [Parameter] public string BackButtonUrl { get; set; } = "/dashboard";
+    [Parameter] public bool ShowTourButton { get; set; } = false;
+    [Parameter] public RenderFragment PageOptions { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Inject] public NavigationManager NavigationManager { get; set; }
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    protected void OnBackButtonClick()
+    {
+        NavigationManager.NavigateTo($"/{HttpUtility.UrlEncode(BackButtonUrl)}");
+    }
+}

@@ -14,6 +14,8 @@
     </div>
 </main>
 
+<TNBottomNavbar ListNavbarItems="ListBottomNavbarItem"/>
+
 <!-- Older IE warning message -->
 <!--[if lt IE 11]>
     <div class="ie-warning">
@@ -61,9 +63,16 @@
 <!-- Warning Section Ends -->
 
 @code {
+    public List<BottomNavbarItem> ListBottomNavbarItem = new();
     protected override void OnInitialized()
     {
         //AlertMessage = new AlertMessage();
+        ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Remesas", Icon = "icon-globe", Url = "dashboard" });
+        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Transferencias", Icon = "icon-home", URL = "" });
+        ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Servicios", Icon = "icon-briefcase", Url = "components" });
+        ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Información", Icon = "icon-credit-card", Url = "components2" });
+
+
     }
 
     //public AlertMessage AlertMessage { get; set; } = new AlertMessage();

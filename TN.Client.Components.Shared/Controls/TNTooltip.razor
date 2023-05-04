@@ -1,0 +1,34 @@
+﻿@*
+    ---------------------------------------------------------------------------------------
+     -- TNTooltip: Habilita el tooltip en elementos que tengan el atributo "TNTooltip-Title"
+    ---------------------------------------------------------------------------------------
+     -- Atributos
+     -- TNTooltip-Title: Habilitida y asigna el titulo a utilizar
+     -- TNTooltip-Position: Asigna la posición del tooltip para un elemento en especifico
+*@
+
+@code {
+    [Parameter] public TooltipPosition TooltipPosition { get; set; } = TooltipPosition.Top;
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string _TooltipPosition;
+
+    protected override void OnParametersSet()
+    {
+        _TooltipPosition = TooltipPosition switch
+        {
+            TooltipPosition.Top => "top",
+            TooltipPosition.Right => "right",
+            TooltipPosition.Bottom => "bottom",
+            TooltipPosition.Left => "left",
+            _ => "top"
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.LoadTNTooltip(_TooltipPosition);
+    }
+}
+

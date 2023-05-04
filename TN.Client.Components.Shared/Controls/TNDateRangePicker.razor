@@ -1,0 +1,43 @@
+﻿@*@inherits InputBase<DateTime?>*@
+
+<label class="form-label">@Label</label>
+
+<input class="form-control" id="dateCatcher"/>
+
+<input class="form-control" id="datepicker"  />
+@*<ValidationMessage For="@ValidationFor" />*@
+
+@code {
+    [Parameter] public string Label { get; set; }
+    [Parameter] public object CollectionId { get; set; }
+    [Parameter] public Expression<Func<DateTime?>> ValidationFor { get; set; }
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string Id;
+
+    protected override void OnParametersSet()
+    {
+        //Id = CollectionId == null ? FieldIdentifier.GetName() : $"{FieldIdentifier.GetName()}_{CollectionId.ToString()}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await JSRuntime.CreateDateRange("datepicker");
+    }
+
+
+    //private async Task GetDates()
+    //{
+    //    var initialDate = await JSRuntime.GetDateValue("DatePickerRange", "");
+    //}
+
+    //protected override bool TryParseValueFromString(string value, out DateTime? result, out string validationErrorMessage)
+    //{
+    //    DateTime.TryParse(value, out var parsedValue);
+    //    result = parsedValue;
+    //    validationErrorMessage = null;
+    //    return true;
+    //}
+}

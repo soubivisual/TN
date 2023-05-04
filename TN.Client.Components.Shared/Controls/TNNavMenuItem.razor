@@ -1,0 +1,67 @@
+﻿@*<AuthorizeView Policy="@Policy">
+    <Authorized>*@
+        <CascadingValue Value="this">
+            <li class="nav-item @(ChildContent != null ? "nav-item-hasmenu" : "") @(SubMenuOpened ? "nav-trigger" : "")">
+                @if (ChildContent != null)
+                {
+                    <a id="@Id" class="nav-link" @onclick="@(() => NavMenu.OpenSubMenu(this))">
+                        @if (NavMenuItemParent == null)
+                        {
+                            <span class="nav-icon"><i class="@Icon"></i></span>
+                        }
+                        <span class="nav-text">@Text</span>
+                    </a>
+                    <ul class="nav-submenu">
+                        @ChildContent
+                    </ul>
+                }
+                else
+                {
+                    <a class="nav-link @(Selected ? "active" : "")" href="@Url" @onclick:preventDefault @onclick="@(() => NavMenu.SelectMenuItem(this))">
+                        @if (NavMenuItemParent == null)
+                        {
+                            <span class="nav-icon"><i class="@Icon"></i></span>
+                        }
+                        <span class="nav-text">@Text</span>
+                    </a>
+                }
+            </li>
+        </CascadingValue>
+    @*</Authorized>
+</AuthorizeView>*@
+
+@code {
+    [CascadingParameter] private NavMenu NavMenu { get; set; }
+    [CascadingParameter] private TNNavMenuItem NavMenuItemParent { get; set; }
+
+    [Parameter] public string Policy { get; set; }
+    [Parameter] public string Url { get; set; }
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public string Text { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Inject] public NavigationManager NavigationManager { get; set; }
+
+    public List<TNNavMenuItem> NavSubMenuItems = new List<TNNavMenuItem>();
+
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public bool SubMenuOpened { get; set; }
+    public bool Selected { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (NavMenu == null)
+            throw new ArgumentNullException(nameof(NavMenu), "NavMenuItem must exist within a NavMenu");
+
+        SubMenuOpened = NavigationManager.IsSelected(Url);
+        Selected = NavigationManager.IsSelected(Url);
+
+        NavMenu.AddMenuItem(this);
+        NavMenuItemParent?.AddSubMenuItem(this);
+    }
+
+    internal void AddSubMenuItem(TNNavMenuItem navSubMenuItem)
+    {
+        NavSubMenuItems.Add(navSubMenuItem);
+    }
+}

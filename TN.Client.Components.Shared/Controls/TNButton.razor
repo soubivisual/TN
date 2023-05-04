@@ -1,0 +1,62 @@
+﻿@inherits TNBase
+
+<button class="@Class" type="@_type" data-html="@PopoverHtml.ToString().ToLower()" disabled="@(Disabled || Processing)" @onclick="OnClick" @attributes="AdditionalAttributes"
+        TNTooltip-Title="@TNTooltipTitle" TNTooltip-Position="@TNTooltipPosition" TNPopover-Title="@TNPopoverTitle" TNPopover-Content="@TNPopoverContent"
+        TNPopover-Position="@TNPopoverPosition">
+    @if (Processing)
+    {
+        <span class="spinner-border spinner-border-sm" role="status"></span>
+        @(ChildContent is not null ? "Procesando..." : "")
+    }
+    else
+    {
+        @if (Icon != null)
+        {
+            <i class="@Icon"></i>
+        }
+        @ChildContent
+    }
+</button>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Class { get; set; } = "btn btn-primary";
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public bool PopoverHtml { get; set; }
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public bool Invisible { get; set; } = false;
+    [Parameter] public bool Hidden { get; set; } = false;
+    [Parameter] public bool Processing { get; set; } = false;
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+    [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
+    [Parameter] public ButtonStyle Style { get; set; } = ButtonStyle.Button;
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string _type;
+
+
+    protected override void OnParametersSet()
+    {
+        //base.OnParametersSet();
+        if (Style == ButtonStyle.Link)
+        {
+            Class += " url";
+        }
+
+        if (Invisible)
+            Class += " invisible";
+
+        if (Hidden)
+            Class += " d-none";
+
+        _type = Type switch
+        {
+            ButtonType.Button => "button",
+            ButtonType.Submit => "submit",
+            ButtonType.Reset => "reset",
+            _ => "button"
+        };
+    }
+}

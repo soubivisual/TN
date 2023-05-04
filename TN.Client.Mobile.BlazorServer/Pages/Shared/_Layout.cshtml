@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="TN made using Bootstrap 4 and JQuery. Sponsored by Transnetwork" />
+    <meta name="description" content="TN made using Bootstrap 5. Sponsored by Transnetwork" />
 
     <base href="~/" />
 
@@ -15,26 +15,49 @@
     <!-- Google -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
 
-    <!-- Bootstrap 4 -->
+    <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/fonts/feather/css/feather.css">
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/fonts/flag/css/flag-icon.min.css">
 
     <!-- custom site css -->
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/css/site.css">
 
+    <!-- easepick css -->
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/easepick/base.css">
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/easepick/range.css">
+
+    <!-- choices css -->
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/choices/choices.min.css">
+
     <!-- css isolation -->
     <link href="TN.Client.Mobile.BlazorServer.styles.css" rel="stylesheet" />
-
+    @*<link href="_content/TN.Client.Components.Shared.styles.css" rel="stylesheet" />*@
+    
     @RenderSection("PageStyles", required: false)
 </head>
 <body>
+
     @RenderBody()
 
     <!-- JQuery -->
-    <script src="_content/TN.Client.Components.Shared/assets/plugins/jquery/jquery-3.5.1.min.js"></script>
+    @*<script src="_content/TN.Client.Components.Shared/assets/plugins/jquery/jquery-3.5.1.min.js"></script>*@
 
     <!-- Bootstrap -->
     <script src="_content/TN.Client.Components.Shared/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="_content/TN.Client.Components.Shared/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="_content/TN.Client.Components.Shared/assets/plugins/visa/visa-sensory-branding.js"></script>
+    <script src="_content/TN.Client.Components.Shared/assets/plugins/easepick/index.umd.min.js"></script>
+
+    <!-- sweet alert Js -->
+    <script src="_content/TN.Client.Components.Shared/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- choices css -->
+    <script src="_content/TN.Client.Components.Shared/assets/plugins/choices/choices.min.js"></script>
 
     <!-- custom site Js -->
     <script src="_content/TN.Client.Components.Shared/assets/js/site.js"></script>

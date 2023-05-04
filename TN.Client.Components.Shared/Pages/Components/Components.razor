@@ -1,0 +1,29 @@
+﻿@page "/Components"
+@layout EmptyLayout
+
+<TNPage Title="Page component" BackButtonUrl="components2" ShowBackButton="true">
+    <TNMap CurrentLocation="CurrentLocation" Locations="Locations"></TNMap>
+</TNPage>
+
+@code {
+    public LocationData CurrentLocation { get; set; }
+    public List<LocationData> Locations { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CurrentLocation = new LocationData
+        {
+            Latitude = 10.016397,
+            Longitude = -84.212516
+        };
+
+        Locations = new List<LocationData>
+        {
+            new LocationData { Latitude = 10.015120, Longitude=-84.21687, Title = "Teledolar Tuasa", Content = "C. Central, Provincia de Alajuela, Alajuela" },
+            new LocationData { Latitude = 10.016026, Longitude=-84.213233, Title = "Teledolar Alajuela", Content = "Av. Central Juan López del Corral, Provincia de Alajuela, Alajuela" },
+            new LocationData { Latitude = 9.863349999999999, Longitude=-83.92197999999999, Title = "Teledolar Cartago San Luis", Content = "Gimnasio Escuela Jesus Jimenez Zamora, Av. 3, Provincia de Cartago, Cartago" },
+        };
+    }
+}
+

@@ -1,0 +1,47 @@
+﻿<CascadingValue Value="this">
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                @foreach (var tabPage in TabPages)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @GetTabClass(tabPage)" data-toggle="pill" role="tab" @onclick=@(() => OnClick(tabPage))>
+                            @tabPage.Title
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public TNTabPage ActiveTabPage { get; set; }
+    private List<TNTabPage> TabPages = new List<TNTabPage>();
+
+    internal void AddPage(TNTabPage tabPage)
+    {
+        TabPages.Add(tabPage);
+
+        if (TabPages.Count == 1)
+            ActiveTabPage = tabPage;
+
+        StateHasChanged();
+    }
+
+    protected string GetTabClass(TNTabPage tabPage)
+    {
+        return tabPage == ActiveTabPage ? "active" : "";
+    }
+
+    protected void OnClick(TNTabPage tabPage)
+    {
+        ActiveTabPage = tabPage;
+    }
+}

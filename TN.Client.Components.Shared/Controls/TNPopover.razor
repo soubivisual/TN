@@ -1,0 +1,34 @@
+﻿@*
+    ---------------------------------------------------------------------------------------
+     -- TNPopver: Habilita el popover en elementos que tengan el atributo "TNPopover-Title"
+    ---------------------------------------------------------------------------------------
+     -- Atributos
+     -- TNPopover-Title: Habilitida y asigna el titulo a utilizar
+     -- TNPopover-Content: Asigna el contenido a utilizar
+     -- TNPopover-Position: Asigna la posición del popover para un elemento en especifico
+*@
+@code {
+    [Parameter] public PopoverPosition PopoverPosition { get; set; } = PopoverPosition.Top;
+
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+
+    private string _PopoverPosition;
+
+    protected override void OnParametersSet()
+    {
+        _PopoverPosition = PopoverPosition switch
+        {
+            PopoverPosition.Top => "top",
+            PopoverPosition.Right => "right",
+            PopoverPosition.Bottom => "bottom",
+            PopoverPosition.Left => "left",
+            _ => "top"
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.LoadTNPopover(_PopoverPosition);
+    }
+}
+

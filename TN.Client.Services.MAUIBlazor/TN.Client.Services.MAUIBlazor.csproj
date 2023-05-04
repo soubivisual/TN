@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+		<TargetFrameworks>net7.0;</TargetFrameworks>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TN.Client.Services.Interfaces\TN.Client.Services.Interfaces.csproj" />
+	</ItemGroup>
+
+</Project>

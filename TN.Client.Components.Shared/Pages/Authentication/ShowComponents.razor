@@ -1,0 +1,203 @@
+﻿@page "/showcomponents3"
+@*@layout EmptyLayout*@
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+
+<div class="auth-wrapper">
+    <div class="row col-12">
+        <h3 class="auth-welcome">¡Componentes!</h3>
+
+        <div class="col-lg-4 mb-4">
+            <div class="auth-content d-grid">
+
+                <EditForm Model="Model" OnValidSubmit="OnSubmit">
+                    <DataAnnotationsValidator />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <p class="pb-1 fw-bold">TNTextbox</p>
+                    <div class="input-group mb-4">
+                        <TNTextBox @bind-Value="Model.Username" Label="" ValidationFor="@(() => Model.Username)" />
+                    </div>
+                    <p class="pb-1 fw-bold">TNText (show password)</p>
+
+                    <p class="pb-1 fw-bold">TNPasswordTextBox</p>
+                    <div class="input-group mb-4">
+                        <TNPasswordTextBox @bind-Value="Model.Password" Type="password" IsPassword="true" Label="" ValidationFor="@(() => Model.Password)" />
+                    </div>
+                    <p class="pb-1 fw-bold">TNCheckbox</p>
+                    <div class="input-group mb-4">
+                        <TNCheckbox @bind-Value="Model.IsChecked" Text="Recuerdame" ValidationFor="@(() => Model.IsChecked)" Label=""></TNCheckbox>
+                    </div>
+                    <p class="pb-1 fw-bold">TNTextarea</p>
+                    <TNTextarea @bind-Value="Model.Description" Label="" Rows="4" Cols="4" ValidationFor="@(() => Model.Description)"></TNTextarea>
+
+                    <p class="pb-1 fw-bold pt-2">TNButton</p>
+
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <TNButton Class="btn btn-primary shadow-2 mb-4 w-100 mt-4" Type="ButtonType.Submit" TNTooltipTitle="tesgt">Submit</TNButton>
+                        </div>
+                        <div class="col-4">
+                            <TNButton Class="btn btn-primary shadow-2 mb-4 w-100 mt-4" Type="ButtonType.Button" OnClick="@SweetModal">@buttonText</TNButton>
+                        </div>
+                        <div class="col-4">
+                            <TNButton Class="btn btn-primary shadow-2 mb-4 w-100 mt-4" Type="ButtonType.Reset" OnClick="@CleanModel">Reset</TNButton>
+                        </div>
+                        <div class="col-4">
+                            <TNButton TNTooltipTitle="Tooltip in TNButton info" Class="btn btn-primary shadow-2 mb-4 mt-4" Type="ButtonType.Button" TNTooltipPosition="TooltipPosition.Bottom" Icon="fas fa-info-circle"></TNButton>
+                        </div>
+                        <div class="col-4">
+                            <TNButton TNPopoverTitle="Popover in TNButton" Class="btn btn-primary shadow-2 mb-4 w-100 mt-4" Type="ButtonType.Button" TNPopoverPosition="PopoverPosition.Right" TNPopoverContent="Contenido de prueba base">Popover</TNButton>
+                        </div>
+                    </div>
+
+                </EditForm>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+
+            <div class="input-group mb-4">
+                <EditForm Model="Model" OnValidSubmit="OnSubmit">
+                    <DataAnnotationsValidator />
+                    <p class="pb-1 fw-bold pt-2">TNButton (Style URL)</p>
+
+
+                    <p class="mb-2 text-muted">
+                        ¿Olvidaste la contraseña?
+                        <TNButton Class="" Type="ButtonType.Button" Style="ButtonStyle.Link" OnClick="@OnSubmit">Recuperar Contraseña</TNButton>
+                    </p>
+
+                    <div class="col-12">
+                        <TNComboBox Label="Opciones de prueba" Placeholder="Seleccione una opción" SearchPlaceholder="FiltreS la provincia" @bind-Value="Model.ModelComboID" Data="@OptionList" ValueField="@nameof(OptionTest.Valor)" TextField="@nameof(OptionTest.Descripcion)" ValidationFor="@(() => Model.ModelComboID)"></TNComboBox>
+                        <p>Valor de combo box: @Model.ModelComboID</p>
+                    </div>
+                    <TNDatePicker @bind-Value="Model.Date" MinDate="DateTime.Now.Date" MaxDate="DateTime.Now.AddYears(2)" ValidationFor="@(() => Model.Date)"></TNDatePicker>
+                    <label>Fecha seleccionada: @Model.Date</label>
+
+                    <TNDatePicker Label="Fecha inicio" @bind-Value="Model.BeginDate" MinDate="DateTime.Now.Date" MaxDate="Model.EndDate ?? DateTime.Now.Date.AddYears(3)" ValidationFor="@(() => Model.BeginDate)" IsDateRange="true" IsBeginDate="true"></TNDatePicker>
+                    <label>Fecha inicio seleccionada: @Model.BeginDate</label>
+
+                    <TNDatePicker Label="Fecha final" @bind-Value="Model.EndDate" MinDate="Model.BeginDate ?? DateTime.Now.Date" MaxDate="DateTime.Now.AddYears(3)" ValidationFor="@(() => Model.EndDate)" IsDateRange="true" IsBeginDate="false"></TNDatePicker>
+                    <label>Fecha final seleccionada: @Model.EndDate</label>
+
+                    <TNButton Class="btn btn-primary shadow-2 mb-4 w-100 mt-4" Type="ButtonType.Button" OnClick="@ButtonExample">7 DIAS</TNButton>
+                    <br />
+                </EditForm>
+            </div>
+            <label class="pb-1 fw-bold">TNAlert</label>
+
+            <TNAlert Type="AlertType.Primary">Primary Alert</TNAlert>
+            <TNAlert Type="AlertType.Success">Success Alert</TNAlert>
+            <TNAlert Type="AlertType.Danger">Danger Alert</TNAlert>
+
+
+            <TNTooltip TooltipPosition="TooltipPosition.Top"></TNTooltip>
+            <TNPopover PopoverPosition="PopoverPosition.Top"></TNPopover>
+
+        </div>
+        <div class="col-lg-4">
+            <EditForm Model="Model" OnValidSubmit="OnSubmit">
+                <TNSwitch @bind-Value="Model.BoolCheckbox" Text="" ValidationFor="@(() => Model.IsChecked)" Label="Usar biometrico"></TNSwitch>
+                @*<TNDateRangePicker  Label="Rango de fechas"></TNDateRangePicker>*@
+            </EditForm>
+        </div>
+    </div>
+
+</div>
+
+@code {
+    ComponentTestModel Model = new();
+    public string buttonText = "Button";
+    public bool showPassword = false;
+    public List<OptionTest> OptionList = new List<OptionTest>() {
+                new OptionTest() { Descripcion = "Alajuela", Valor = Guid.Parse("11152AEA-F212-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "San Jose", Valor = Guid.Parse("22252AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Heredia", Valor = Guid.Parse("33352AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Cartago", Valor = Guid.Parse("44452AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Alajuela", Valor = Guid.Parse("11152AEA-F212-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "San Jose", Valor = Guid.Parse("22252AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Heredia", Valor = Guid.Parse("33352AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Cartago", Valor = Guid.Parse("44452AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Alajuela", Valor = Guid.Parse("11152AEA-F212-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "San Jose", Valor = Guid.Parse("22252AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Heredia", Valor = Guid.Parse("33352AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Cartago", Valor = Guid.Parse("44452AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Alajuela", Valor = Guid.Parse("11152AEA-F212-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "San Jose", Valor = Guid.Parse("22252AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Heredia", Valor = Guid.Parse("33352AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Cartago", Valor = Guid.Parse("44452AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Alajuela", Valor = Guid.Parse("11152AEA-F212-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "San Jose", Valor = Guid.Parse("22252AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Heredia", Valor = Guid.Parse("33352AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Cartago", Valor = Guid.Parse("44452AEA-F213-4F2D-99C9-7EE7E63C18D0") },
+                new OptionTest() { Descripcion = "Guanacaste", Valor = Guid.Parse("55552AEA-F213-4F2D-99C9-7EE7E63C18D0")
+                },
+                new OptionTest() { Descripcion = "Guanacaste", Valor = Guid.Parse("55552AEA-F213-4F2D-99C9-7EE7E63C18D0")
+                },
+                new OptionTest() { Descripcion = "Guanacaste", Valor = Guid.Parse("55552AEA-F213-4F2D-99C9-7EE7E63C18D0")
+                },
+                new OptionTest() { Descripcion = "Guanacaste", Valor = Guid.Parse("55552AEA-F213-4F2D-99C9-7EE7E63C18D0")
+                }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+    }
+
+    private async Task OnSubmit()
+    {
+        try
+        {
+            NavigationManager.NavigateTo("/dashboard", true);
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+    private async Task ButtonExample()
+    {
+        try
+        {
+            Model.BeginDate = DateTime.Now;
+            Model.EndDate = DateTime.Now.AddDays(7);
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+    private async Task CleanModel()
+    {
+        try
+        {
+            Model = new();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+    private async Task SweetModal()
+    {
+        try
+        {
+            JSRuntime.SwalSuccess("Title", "Content text", "Continuar");
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+    private async Task ShowPassword()
+    {
+        showPassword = true;
+        await Task.Delay(1200).ContinueWith((_) => showPassword = false);
+    }
+}

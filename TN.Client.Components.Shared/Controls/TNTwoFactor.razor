@@ -1,0 +1,53 @@
+﻿
+@code {
+    //[Inject] protected IUserService UserService { get; set; }
+
+    public async ValueTask<bool> Request2FA(string title, string text)
+    {
+        //var currentUser = await GetCurrentUser();
+
+        //var request = new BaseParamsIn(currentUser, CoreProcessId);
+
+        //if (!currentUser.TwoFactorEnabled)
+        //    return true;
+
+        //if (string.IsNullOrWhiteSpace(currentUser.TwoFactorProviderType) || currentUser.TwoFactorProviderType == Enum.GetName(TwoFactorProviderType.Email))
+        //    await UserService.TwoFactorSendTokenToEmail(request);
+
+        //return await JSRuntime.Swal2FA(
+        //    title,
+        //    text + "<br/><br/>Por favor ingrese su token de doble verificación<br/>",
+        //    "Confirmar",
+        //    "Cancelar",
+        //    this,
+        //    nameof(TwoFactorVerifyToken),
+        //    null);
+        return true;
+    }
+
+    //[JSInvokable]
+    //public async Task<string> TwoFactorVerifyToken(string token)
+    //{
+    //    try
+    //    {
+    //        var currentUser = await GetCurrentUser();
+
+    //        Enum.TryParse<TwoFactorProviderType>(currentUser.TwoFactorProviderType, out var twoFactorTokenProviderType);
+
+    //        var request = new TwoFactorParamsIn(currentUser, CoreProcessId)
+    //        {
+    //            TwoFactorTokenProviderType = twoFactorTokenProviderType,
+    //            VerificationCode = token
+    //        };
+
+    //        await UserService.TwoFactorVerifyToken(request);
+
+    //        return (string)null;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return ex.ToString();
+    //    }
+    //}
+}
+

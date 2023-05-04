@@ -6,8 +6,10 @@ namespace TN.Client.Components.Shared.Models.Authentication
     {
         [Required]
         public string Username { get; set; }
-
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string Comment { get; set; }
+       
     }
 }

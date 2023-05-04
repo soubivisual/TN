@@ -5,8 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
+    <ProjectReference Include="..\TN.Client.Services.Interfaces\TN.Client.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\TN.Client.Services.BlazorServer\TN.Client.Services.BlazorServer.csproj" />
   </ItemGroup>
 
 </Project>

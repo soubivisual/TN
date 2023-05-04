@@ -46,6 +46,26 @@
     <Content Remove="Controls\TwoFactor.razor" />
     <Content Remove="Controls\WizardControl.razor" />
     <Content Remove="Controls\WizardStep.razor" />
+    <Content Remove="wwwroot\assets\assets\" />
+    <Content Remove="wwwroot\assets\plugins\visa\" />
+    <Content Remove="wwwroot\assets\plugins\visa\blue_theme\" />
+    <Content Remove="wwwroot\assets\plugins\bootstrap\js\" />
+    <Content Remove="wwwroot\assets\plugins\jquery\" />
+    <Content Remove="wwwroot\assets\fonts\fontawesome\" />
+    <Content Remove="wwwroot\assets\fonts\fontawesome\css\" />
+    <Content Remove="wwwroot\assets\fonts\fontawesome\webfonts\" />
+    <Content Remove="wwwroot\assets\fonts\feather\" />
+    <Content Remove="wwwroot\assets\fonts\flag\" />
+    <Content Remove="wwwroot\assets\fonts\feather\css\" />
+    <Content Remove="wwwroot\assets\fonts\flag\css\" />
+    <Content Remove="wwwroot\assets\fonts\flag\flags\" />
+    <Content Remove="wwwroot\assets\fonts\feather\fonts\" />
+    <Content Remove="wwwroot\assets\fonts\flag\flags\1x1\" />
+    <Content Remove="wwwroot\assets\fonts\flag\flags\4x3\" />
+    <Content Remove="wwwroot\assets\plugins\easepick\" />
+    <Content Remove="wwwroot\assets\plugins\choices\" />
+    <Content Remove="wwwroot\assets\plugins\sweetalert2\" />
+    <Content Remove="wwwroot\assets\plugins\sweetalert2\dist\" />
   </ItemGroup>
 
 
@@ -55,14 +75,51 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
+
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TN.Client.Services.Interfaces\TN.Client.Services.Interfaces.csproj" />
     <ProjectReference Include="..\TN.Shared.Utils.Misc\TN.Shared.Utils.Misc.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\fonts\" />
+    <Folder Include="wwwroot\assets\assets\" />
+    <Folder Include="wwwroot\assets\plugins\visa\" />
+    <Folder Include="wwwroot\assets\plugins\visa\blue_theme\" />
+    <Folder Include="wwwroot\assets\plugins\bootstrap\js\" />
+    <Folder Include="wwwroot\assets\plugins\jquery\" />
+    <Folder Include="wwwroot\assets\fonts\fontawesome\" />
+    <Folder Include="wwwroot\assets\fonts\fontawesome\css\" />
+    <Folder Include="wwwroot\assets\fonts\fontawesome\webfonts\" />
+    <Folder Include="wwwroot\assets\fonts\feather\" />
+    <Folder Include="wwwroot\assets\fonts\flag\" />
+    <Folder Include="wwwroot\assets\fonts\feather\css\" />
+    <Folder Include="wwwroot\assets\fonts\flag\css\" />
+    <Folder Include="wwwroot\assets\fonts\flag\flags\" />
+    <Folder Include="wwwroot\assets\fonts\feather\fonts\" />
+    <Folder Include="wwwroot\assets\fonts\flag\flags\1x1\" />
+    <Folder Include="wwwroot\assets\fonts\flag\flags\4x3\" />
+    <Folder Include="Objects\" />
+    <Folder Include="Objects\Misc\" />
+    <Folder Include="Models\Objects\" />
+    <Folder Include="wwwroot\assets\plugins\easepick\" />
+    <Folder Include="wwwroot\assets\plugins\choices\" />
+    <Folder Include="wwwroot\assets\plugins\sweetalert2\" />
+    <Folder Include="wwwroot\assets\plugins\sweetalert2\dist\" />
+    <Folder Include="Pages\Components\" />
+    <Folder Include="Models\Components\" />
+    <Folder Include="Models\Misc\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Objects\" />
+    <None Remove="Objects\Misc\" />
+    <None Remove="Models\Objects\" />
+    <None Remove="Pages\Components\" />
+    <None Remove="Models\Components\" />
+    <None Remove="Models\Misc\" />
+  </ItemGroup>
 </Project>

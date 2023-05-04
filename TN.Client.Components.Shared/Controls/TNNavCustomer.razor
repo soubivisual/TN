@@ -1,0 +1,65 @@
+﻿
+
+@*<AuthorizeView>
+    <Authorized>*@
+        <li class="nav-item nav-item-customer @(ChangeCustomer ? "nav-item-hasmenu" : "nav-item-hasnotmenu") @(SubMenuOpened ? "nav-trigger" : "")">
+            <a id="@Id" class="nav-link" @onclick="@(async () => { if (ChangeCustomer) await NavMenu.OpenSubMenu(this); })">
+                @*@if (Customer == default)
+                {*@
+                    <TNSpinner />
+                @*}
+                else
+                {
+                    @if (string.IsNullOrEmpty(Customer.ImageUrl) || Customer.ImageUrl.EndsWith("empty.png"))
+                    {*@
+                        <i class="fas fa-square-full text-center color-secondary mlr-10" style="width: 30px;"></i>
+                    @*}
+                    else
+                    {
+                        <img src="@Customer.ImageUrl" alt="@(context.User.FindFirstValue(CustomClaimType.CustomerName) ?? Customer.TradeName)">
+                    }
+                    <span class="nav-text">@(context.User.FindFirstValue(CustomClaimType.CustomerName) ?? Customer.TradeName)</span>*@
+                }
+            </a>
+            <ul class="nav-submenu">
+                <li>
+                    <a class="nav-link" href="@($"/Customers/?returnUrl=")">
+                        <span class="nav-text">Cambiar Empresa</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    @*</Authorized>
+</AuthorizeView>*@
+
+@code {
+    [CascadingParameter] private NavMenu NavMenu { get; set; }
+    //[Inject] protected ICustomerService CustomerService { get; set; }
+
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public bool SubMenuOpened { get; set; }
+
+    private bool ChangeCustomer;
+    //private CustomerEntity Customer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (NavMenu == null)
+            throw new ArgumentNullException(nameof(NavMenu), "NavCustomer must exist within a NavMenu");
+
+        try
+        {
+            //var currentUser = await GetCurrentUser();
+
+            //var baseRequest = new BaseParamsIn(currentUser, CoreProcessId);
+
+            //this.ChangeCustomer = (await CustomerService.GetCustomers(baseRequest)).Payload.Customers.Count > 1;
+            //this.Customer = (await CustomerService.GetCurrentCustomer(baseRequest)).Payload.Customer;
+        }
+        catch (Exception ex)
+        {
+            //Customer = new CustomerEntity { TradeName = "Error" };
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}

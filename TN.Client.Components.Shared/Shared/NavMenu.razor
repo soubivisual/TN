@@ -1,50 +1,35 @@
 ﻿<CascadingValue Value="this">
-    <nav class="navbar">
+    <nav id="side-menu" class="navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand">
                 <a href="/dashboard">
-                    <img src="_content/TN.Client.Web.BlazorShared/assets/images/logo.svg" />
+                    <img src="https://teledolar.com/wp-content/uploads/2021/03/Logo-TD.svg" />
                 </a>
                 <a href="" class="close-menu" onclick="javascript:ToggleMenu()" @onclick:preventDefault><i class="feather icon-x"></i></a>
             </div>
 
             <div class="navbar-content">
                 <ul class="inner-navbar">
-                    @*<NavSeparator />
-                    <NavMenuItem Url="/dashboard" Icon="feather icon-home" Text="Home" />
-                    <NavMenuItem Url="/accounts" Icon="feather icon-credit-card" Text="Cuentas" Policy="@ApplicationPolicy.Client.ShowAccounts" />
-                    <NavMenuItem Url="/transfers" Icon="feather icon-minimize-2" Text="Transferencias Locales" Policy="@ApplicationPolicy.Client.ShowTransfers">
-                        <NavMenuItem Url="/transfers/monis" Text="A Cuentas Monis" Policy="@ApplicationPolicy.Client.TransferMonis" />
-                        <NavMenuItem Url="/transfers/sinpe" Text="A Otros Bancos (SINPE)" Policy="@ApplicationPolicy.Client.ShowTransferSINPE" />
-                        <NavMenuItem Url="/transfers/sinpemovil" Text="SINPE Móvil" Policy="@ApplicationPolicy.Client.TransferSINPEMovil" />
-                        <NavMenuItem Url="/transfers/history" Text="Historial" Policy="@ApplicationPolicy.Client.ViewTransfers" />
-                    </NavMenuItem>
-                    <NavMenuItem Url="/international-transfers" Icon="feather icon-globe" Text="Transferencias Internacionales" Policy="@ApplicationPolicy.Client.ShowInternationalTransfers">
-                        <NavMenuItem Url="/international-transfers/ripple" Text="GlobalPay" Policy="@ApplicationPolicy.Client.ShowRipple">
-                            <NavMenuItem Url="/international-transfers/ripple/transfer" Text="Transferencias" Policy="@ApplicationPolicy.Client.TransferRipple" />
-                            <NavMenuItem Url="/international-transfers/ripple/history" Text="Historial" Policy="@ApplicationPolicy.Client.ViewRipple" />
-                        </NavMenuItem>
-                        <NavMenuItem Url="/international-transfers/ripple-third-party" Text="GlobalPay Terceros" Policy="@ApplicationPolicy.Client.ShowRippleThirdParty">
-                            <NavMenuItem Url="/international-transfers/ripple-third-party/transfer" Text="Transferencias" Policy="@ApplicationPolicy.Client.TransferRippleThirdParty" />
-                            <NavMenuItem Url="/international-transfers/ripple-third-party/history" Text="Historial" Policy="@ApplicationPolicy.Client.ViewRippleThirdParty" />
-                        </NavMenuItem>
-                        <NavMenuItem Url="/international-transfers/pex" Text="Pagos al Exterior (PEX)" Policy="@ApplicationPolicy.Client.ShowPEX">
-                            <NavMenuItem Url="/international-transfers/pex/transfer" Text="Transferencias" Policy="@ApplicationPolicy.Client.TransferPEX" />
-                            <NavMenuItem Url="/international-transfers/pex/history" Text="Historial" Policy="@ApplicationPolicy.Client.ViewPEX" />
-                        </NavMenuItem>
-                        <NavMenuItem Url="/international-transfers/pex-third-party" Text="Pagos al Exterior Terceros" Policy="@ApplicationPolicy.Client.ShowPEXThirdParty">
-                            <NavMenuItem Url="/international-transfers/pex-third-party/transfer" Text="Transferencias" Policy="@ApplicationPolicy.Client.TransferPEXThirdParty" />
-                            <NavMenuItem Url="/international-transfers/pex-third-party/history" Text="Historial" Policy="@ApplicationPolicy.Client.ViewPEXThirdParty" />
-                        </NavMenuItem>
-                        <NavMenuItem Url="/international-transfers/visa-b2b" Text="VISA B2B" Policy="@ApplicationPolicy.Client.ShowVISAB2B">
-                            <NavMenuItem Url="/international-transfers/visa-b2b/transfer" Text="Transferencias" Policy="@ApplicationPolicy.Client.TransferVISAB2B" />
-                            <NavMenuItem Url="/international-transfers/visa-b2b/history" Text="Historial" Policy="@ApplicationPolicy.Client.ViewVISAB2B" />
-                        </NavMenuItem>
-                    </NavMenuItem>
-                    <NavMenuItem Url="/managements" Icon="feather icon-briefcase" Text="Gestiones" Policy="@ApplicationPolicy.Client.ShowManagements">
-                        <NavMenuItem Url="/managements/authorizations" Text="Autorizaciones" Policy="@ApplicationPolicy.Client.ViewAuthorizations" />
-                    </NavMenuItem>
-                    <NavMenuItem Url="/configuration" Icon="feather icon-settings" Text="Configuración" Policy="@ApplicationPolicy.Client.ShowConfiguration" />*@
+                    <TNNavSeparator />
+                    <TNNavMenuItem Url="" Icon="feather icon-home" Text="Home" />
+                    <TNNavMenuItem Url="dashboard" Icon="feather icon-credit-card" Text="Remesas" />
+               
+                    <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones">
+                        <TNNavMenuItem Url="/login" Text="Transferencias" />
+                        <TNNavMenuItem Url="/login" Text="Historial" />
+                        <TNNavMenuItem Url="/login" Text="Transferencias" />
+                        <TNNavMenuItem Url="/login" Text="Historial" />
+                        <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones">
+                            <TNNavMenuItem Url="/login" Text="Transferencias" />
+                            <TNNavMenuItem Url="/login" Text="Historial" />
+                            <TNNavMenuItem Url="/login" Text="Transferencias" />
+                            <TNNavMenuItem Url="/login" Text="Historial" />
+                        </TNNavMenuItem>
+                    </TNNavMenuItem>
+                    <TNNavMenuItem Url="/login" Icon="feather icon-briefcase" Text="Promociones">
+                        <TNNavMenuItem Url="/login" Text="Autorizaciones" />
+                    </TNNavMenuItem>
+                    <TNNavMenuItem Url="/login" Icon="feather icon-settings" Text="Configuración" />
                 </ul>
             </div>
         </div>
@@ -52,76 +37,80 @@
 </CascadingValue>
 
 @code {
-    //private NavCustomer NavCustomer;
-    //private List<NavMenuItem> NavMenuItems = new List<NavMenuItem>();
+    [Inject] protected IJSRuntime JSRuntime { get; set; }
+    private TNNavCustomer NavCustomer;
+    private List<TNNavMenuItem> NavMenuItems = new List<TNNavMenuItem>();
+    [Inject] protected NavigationManager NavigationManager { get; set; }
 
-    //protected override void OnInitialized()
-    //{
-    //    // Se agrega el siguiente delegate para que se pueda actualizar el menú desde otro componente (validar componente Shared/Redirect.razor)
-    //    NotifyPropertyChanged.MenuChanged += async () =>
-    //    {
-    //        foreach (var item in NavMenuItems)
-    //        {
-    //            item.SubMenuOpened = NavigationManager.IsSelected(item.Url);
-    //            item.Selected = NavigationManager.IsSelected(item.Url);
-    //        }
 
-    //        await JSRuntime.ResetSlideToggleMenuItem();
-    //        this.StateHasChanged();
-    //    };
-    //}
+    protected override void OnInitialized()
+    {
+        NavCustomer = new ();
+        // Se agrega el siguiente delegate para que se pueda actualizar el menú desde otro componente (validar componente Shared/Redirect.razor)
+        //NotifyPropertyChanged.MenuChanged += async () =>
+        //{
+        //    foreach (var item in NavMenuItems)
+        //    {
+        //        item.SubMenuOpened = NavigationManager.IsSelected(item.Url);
+        //        item.Selected = NavigationManager.IsSelected(item.Url);
+        //    }
 
-    //internal void AddMenuItem(NavMenuItem navMenuItem)
-    //{
-    //    NavMenuItems.Add(navMenuItem);
-    //}
+        //    await JSRuntime.ResetSlideToggleMenuItem();
+        //    this.StateHasChanged();
+        //};
+    }
 
-    //public async Task OpenSubMenu(object navControl)
-    //{
-    //    if (navControl is NavMenuItem)
-    //    {
-    //        var navMenuItem = navControl as NavMenuItem;
+    internal void AddMenuItem(TNNavMenuItem navMenuItem)
+    {
+        NavMenuItems.Add(navMenuItem);
+    }
 
-    //        foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem) && !q.NavSubMenuItems.Any(p => p.Equals(navMenuItem))))
-    //            item.SubMenuOpened = false;
+    public async Task OpenSubMenu(object navControl)
+    {
+        if (navControl is TNNavMenuItem)
+        {
+            var navMenuItem = navControl as TNNavMenuItem;
 
-    //        NavCustomer.SubMenuOpened = false;
+            foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem) && !q.NavSubMenuItems.Any(p => p.Equals(navMenuItem))))
+                item.SubMenuOpened = false;
 
-    //        navMenuItem.SubMenuOpened = !navMenuItem.SubMenuOpened;
-    //        await JSRuntime.SlideToggleMenuItem(navMenuItem.Id);
-    //    }
-    //    else if (navControl is NavCustomer)
-    //    {
-    //        var navCustomer = navControl as NavCustomer;
+            NavCustomer.SubMenuOpened = false;
 
-    //        foreach (var item in NavMenuItems)
-    //            item.SubMenuOpened = false;
+            navMenuItem.SubMenuOpened = !navMenuItem.SubMenuOpened;
+            await JSRuntime.SlideToggleMenuItem(navMenuItem.Id);
+        }
+        else if (navControl is TNNavCustomer)
+        {
+            var navCustomer = navControl as TNNavCustomer;
 
-    //        navCustomer.SubMenuOpened = !navCustomer.SubMenuOpened;
-    //        await JSRuntime.SlideToggleMenuItem(navCustomer.Id);
-    //    }
-    //    else
-    //        throw new ArgumentException(nameof(navControl), "navControl must be NavMenuItem or NavCustomer instance");
+            foreach (var item in NavMenuItems)
+                item.SubMenuOpened = false;
 
-    //    this.StateHasChanged();
-    //}
+            navCustomer.SubMenuOpened = !navCustomer.SubMenuOpened;
+            await JSRuntime.SlideToggleMenuItem(navCustomer.Id);
+        }
+        else
+            throw new ArgumentException(nameof(navControl), "navControl must be TNNavMenuItem or NavCustomer instance");
 
-    //public async Task SelectMenuItem(NavMenuItem navMenuItem)
-    //{
-    //    foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem)))
-    //        item.Selected = false;
+        this.StateHasChanged();
+    }
 
-    //    navMenuItem.Selected = true;
+    public async Task SelectMenuItem(TNNavMenuItem navMenuItem)
+    {
+        foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem)))
+            item.Selected = false;
 
-    //    await JSRuntime.ToggleMenu();
+        navMenuItem.Selected = true;
 
-    //    RedirectToUrl(navMenuItem.Url);
+        await JSRuntime.ToggleMenu();
 
-    //    this.StateHasChanged();
-    //}
+        RedirectToUrl(navMenuItem.Url);
 
-    //private void RedirectToUrl(string url)
-    //{
-    //    NavigationManager.NavigateTo($"/redirect/{HttpUtility.UrlEncode(url)}");
-    //}
+        this.StateHasChanged();
+    }
+
+    private void RedirectToUrl(string url)
+    {
+        NavigationManager.NavigateTo($"/{HttpUtility.UrlEncode(url)}");
+    }
 }

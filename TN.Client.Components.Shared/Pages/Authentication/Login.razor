@@ -1,81 +1,62 @@
-﻿@page "/"
+﻿@page "/login"
+
 
 @layout EmptyLayout
-@inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
-<div id="modal-content">
-    <div class="modal inmodal fade" id="customModal" tabindex="-1" role="dialog" aria-hidden="true">
-        @* Content in Partial View *@
-    </div>
-</div>
+<div class="container-firstpage">
 
-<div class="auth-wrapper">
-    <div class="row auth-logo">
-        <div class="col-lg-12">
-            <a class="logo" href="/"><img src="_content/FTPymes.Client.Web.BlazorShared/assets/images/logo.svg" /></a>
+
+     <TNButton Class="btn btn-round m-3 float-end btn-white" Icon="fas fa-question-circle"></TNButton>
+    
+
+    <div class="logo">
+        <div class="circle-logo">
         </div>
     </div>
-    <div class="row align-items-center">
-        <div class="col-lg-8 mb-4">
-            <img class="auth-bg" src="_content/FTPymes.Client.Web.BlazorShared/assets/images/login_bg.svg" />
+
+    <div class="info-container p-5">
+
+        <div class="heading p-2">
+            <h3 class="text-center pt-4" tabindex="-1">¡Bienvenido!</h3>
+            <p class="text-center pt-4">
+                Ingresa tus datos para iniciar sesión
+            </p>
         </div>
-        <div class="col-lg-4 mb-4">
-            <div class="auth-content text-center">
-                <EditForm Model="Model" OnValidSubmit="OnSubmit">
-                    <DataAnnotationsValidator />
-                    <h3 class="auth-welcome">¡Hola!</h3>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="input-group mb-4">
-                        <TextBox @bind-Value="Model.Username" Label="" ValidationFor="@(() => Model.Username)" />
-                    </div>
-                    <div class="input-group mb-4">
-                        <TextBox @bind-Value="Model.Password" type="password" Label="" ValidationFor="@(() => Model.Password)" />
-                    </div>
-                    <div class="form-group mb-4 text-left">
-                        <div class="checkbox checkbox-primary checkbox-fill d-inline">
-                            <input asp-for="Input.RememberMe" type="checkbox">
-                            <label for="Input_RememberMe" class="cr"> Recuérdame</label>
-                        </div>
-                    </div>
-                    <SubmitButton Class="btn btn-primary btn-block shadow-2 mb-4">Ingresar</SubmitButton>
-                    <p class="mb-2 text-muted">¿Olvidaste la contraseña? <a id="forgotPassword" href="">Recuperar Contraseña</a></p>
-                    @*<p class="mb-0 text-muted">¿No tienes una cuenta? <a href="/NewAccount">Solicitar Cuenta</a></p>*@
-                </EditForm>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-between" style="min-width: 100%;">
-        <div class="col-md-8 d-flex align-self-start">
-            <div class="auth-exchange-rate">
-                <div class="auth-exchange-rate-image">
-                    <img src="_content/FTPymes.Client.Web.BlazorShared/assets/images/exchange_rate.svg" />
-                </div>
-                <div class="auth-exchange-rate-content">
-                    <div class="title">Tipo de Cambio</div>
-                    <div class="grid">
-                        <div class="header">Compra</div>
-                        <div class="header">Venta</div>
-                        <div class="amount"><div class="spinner-border spinner-border-sm mr-1" role="status"><span class="sr-only">@ApplicationConstant.Loading</span></div></div>
-                        <div class="amount"><div class="spinner-border spinner-border-sm mr-1" role="status"><span class="sr-only">@ApplicationConstant.Loading</span></div></div>
-                    </div>
+        <div class="form-container p-2 pt-3">
+
+            <EditForm Model="Model" OnValidSubmit="OnSubmit">
+                <DataAnnotationsValidator />
+                <TNTextBox @bind-Value="Model.Username" Label="" ValidationFor="@(() => Model.Username)"></TNTextBox>
+                <TNTextBox @bind-Value="Model.Password" Label="" ValidationFor="@(() => Model.Password)"></TNTextBox>
+            </EditForm>
+
+            <TNButton Class="btn btn-primary min-w-100">Crear cuenta</TNButton>
+            <TNButton Class="btn btn-secondary min-w-100">Iniciar sesión</TNButton>
+
+            <div class="exchange-container">
+                <strong>Tipo de cambio</strong>
+                <div class="d-flex pt-2" style="justify-content: center;">
+                    <p>Colones: 600</p>
+                    <div class="vl"></div>
+                    <p>Dolares: 600</p>
                 </div>
             </div>
         </div>
-        <div class="auth-links col-md-4 mt-4 d-flex align-items-end justify-content-end">
-            <a href="/FAQ"><i class="feather icon-help-circle"></i> Ayuda</a>
-            <a href="/Contact"><i class="feather icon-headphones"></i> Contacto</a>
+
+    </div>
+    <div class="header-with-logo">
+        <div class="circle">
+            <div class="circle-logo">
+            </div>
         </div>
     </div>
 </div>
 
 @code {
     LoginModel Model = new();
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //var jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/maui.js");
-        //await jsModule.InvokeVoidAsync("GetExchangeRate", UriResolver.GetClientMobileAPIUri());
     }
 
     private async Task OnSubmit()
@@ -88,7 +69,8 @@
         }
         catch (Exception ex)
         {
-            
+
         }
     }
+
 }

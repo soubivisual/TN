@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using TN.Client.Mobile.Monis.Data;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace TN.Client.Mobile.Monis
 {
@@ -21,8 +21,10 @@ namespace TN.Client.Mobile.Monis
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 
-            builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddHttpClient<HttpClient>("TN.Client.Mobile.API", client => client.BaseAddress = new Uri("127.0.0.1"));
+            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("TN.Client.Mobile.API"));
 
             return builder.Build();
         }
