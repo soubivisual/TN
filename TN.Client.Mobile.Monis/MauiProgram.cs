@@ -24,6 +24,7 @@ namespace TN.Client.Mobile.Monis
 		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddMobileSharedServices("InstaMonis");
             builder.Services.AddRemittanceServices();
             builder.Services.AddMobileSharedServices();
 

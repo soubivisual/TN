@@ -95,17 +95,19 @@
     border-radius: 50%;
 }
 
+
 .circle-logo {
-    width: 138px;
+    width: 134px;
     height: 134px;
     background-color: var(--primary-color);
     border-radius: 50%;
     top: 3px;
     position: relative;
-    background-image: url('assets/images/logo-rounded.png');
+    background-image: var(--logo-rounded);
     background-position: center;
-    background-size: cover;
-    margin-left: 2px;
+    background-size: auto;
+    margin-left: 0px;
+    box-shadow: 0px 0px 10px white;
 }
 
 .info-container {

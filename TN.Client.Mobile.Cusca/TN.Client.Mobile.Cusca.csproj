@@ -33,12 +33,6 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
-        <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
-        <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
@@ -53,12 +47,39 @@
         <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
       <ProjectReference Include="..\TN.Client.Components.Remittance\TN.Client.Components.Remittance.csproj" />
       <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
+      <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="wwwroot\images\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="wwwroot\images\" />
+      <Folder Include="Resources\Splash\" />
+      <Folder Include="Resources\AppIcon\" />
+    </ItemGroup>
+    <ItemGroup>
+      <BundleResource Include="wwwroot\images\logo-rounded.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Resources\Splash\" />
+      <None Remove="Resources\Splash\splash.svg" />
+      <None Remove="Resources\Splash\splash.svg" />
+      <None Remove="Resources\AppIcon\" />
+      <None Remove="Resources\AppIcon\appicon.svg" />
+    </ItemGroup>
+    <ItemGroup>
+      <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFC900" BaseSize="128,128"/>
+    </ItemGroup>
+    <ItemGroup>
+      <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#FFC900"/>
+    </ItemGroup>
 </Project>

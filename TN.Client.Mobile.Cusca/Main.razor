@@ -1,13 +1,16 @@
-﻿<Router AppAssembly="@typeof(Main).Assembly"
+﻿@inject IHttpContextAccessor httpContextAccessor
+
+
+<Router AppAssembly="@typeof(Main).Assembly"
         AdditionalAssemblies="new[] { typeof(TN.Client.Components.Shared.Shared.EmptyLayout).Assembly,
                                       typeof(TN.Client.Components.Remittance.Shared.EmptyLayout).Assembly,
                                       typeof(TN.Client.Components.Authentication.Shared.EmptyLayout).Assembly }">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(TN.Client.Components.Shared.Shared.MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
+        <LayoutView Layout="@typeof(TN.Client.Components.Shared.Shared.EmptyLayout)">
             <p role="alert">Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>

@@ -15,6 +15,17 @@
     <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
     <ProjectReference Include="..\TN.Client.Components.Remittance\TN.Client.Components.Remittance.csproj" />
     <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
+    <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\css\" />
+    <Content Remove="wwwroot\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
 </Project>

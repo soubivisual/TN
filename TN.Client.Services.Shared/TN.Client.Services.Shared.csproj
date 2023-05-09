@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Implementations\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Implementations\Shared\" />
+  </ItemGroup>
 </Project>
