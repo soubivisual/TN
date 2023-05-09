@@ -1,6 +1,6 @@
 ﻿using TN.Client.Services.Remittance.Interfaces;
 
-namespace TN.Client.Services.Remittance.Implementations.General
+namespace TN.Client.Services.Remittance.Implementations.Shared
 {
     internal class RemittanceService : IRemittanceService
     {

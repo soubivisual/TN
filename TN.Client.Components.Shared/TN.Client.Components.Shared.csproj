@@ -106,7 +106,6 @@
     <Folder Include="wwwroot\assets\fonts\flag\flags\4x3\" />
     <Folder Include="Objects\" />
     <Folder Include="Objects\Misc\" />
-    <Folder Include="Models\Objects\" />
     <Folder Include="wwwroot\assets\plugins\easepick\" />
     <Folder Include="wwwroot\assets\plugins\choices\" />
     <Folder Include="wwwroot\assets\plugins\sweetalert2\" />

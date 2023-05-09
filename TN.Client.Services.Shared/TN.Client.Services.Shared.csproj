@@ -13,7 +13,4 @@
   <ItemGroup>
     <None Remove="Implementations\Shared\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementations\Shared\" />
-  </ItemGroup>
 </Project>

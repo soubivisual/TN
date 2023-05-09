@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using TN.Client.Services.Remittance.Implementations.General;
+using TN.Client.Services.Remittance.Implementations.Shared;
 using TN.Client.Services.Remittance.Interfaces;
 
 namespace TN.Client.Services.Remittance

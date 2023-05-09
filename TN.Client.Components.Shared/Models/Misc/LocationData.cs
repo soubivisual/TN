@@ -1,5 +1,4 @@
-﻿using System;
-namespace TN.Client.Components.Shared.Models.Misc
+﻿namespace TN.Client.Components.Shared.Models.Misc
 {
     public class LocationData
     {

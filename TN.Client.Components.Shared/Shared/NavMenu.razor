@@ -1,24 +1,39 @@
-﻿<CascadingValue Value="this">
+﻿@using TN.Client.Services.Shared.Interfaces;
+@using TN.Client.Services.Shared.Models;
+@using TN.Client.Services.Shared.Entities;
+
+<CascadingValue Value="this">
     <nav id="side-menu" class="navbar">
         <div class="navbar-wrapper">
-            <div class="navbar-brand">
-                <a href="/dashboard">
-                    <img src="https://teledolar.com/wp-content/uploads/2021/03/Logo-TD.svg" />
-                </a>
-                <a href="" class="close-menu" onclick="javascript:ToggleMenu()" @onclick:preventDefault><i class="feather icon-x"></i></a>
-            </div>
-
+            <TNNavTenant />
             <div class="navbar-content">
                 <ul class="inner-navbar">
                     <TNNavSeparator />
-                    <TNNavMenuItem Url="/dashboard" Icon="feather icon-home" Text="Home" />
+                    @foreach (var menuItem in MenuItems.OrderBy(q => q.Order))
+                    {
+                        if (menuItem.SubMenus.Any())
+                        {
+                            <TNNavMenuItem Url="@menuItem.Url" Icon="@menuItem.Icon" Text="@menuItem.Text">
+                                @foreach (var subMenuItem in menuItem.SubMenus.OrderBy(q => q.Order))
+                                {
+                                    <TNNavMenuItem Url="@subMenuItem.Url" Text="@subMenuItem.Text" />
+                                }
+                            </TNNavMenuItem>
+                        }
+                        else
+                        {
+                            <TNNavMenuItem Url="@menuItem.Url" Icon="@menuItem.Icon" Text="@menuItem.Text" />
+                        }
+                    }
+
+                    @*<TNNavMenuItem Url="/dashboard" Icon="feather icon-home" Text="Home" />
                     <TNNavMenuItem Url="/remittances" Icon="feather icon-credit-card" Text="Remesas">
-                        <TNNavMenuItem Url="/remittances/send" Text="Envíos" />
-                        <TNNavMenuItem Url="/remittances/receive" Text="Recepciones" />
+                    <TNNavMenuItem Url="/remittances/send" Text="Envíos" />
+                    <TNNavMenuItem Url="/remittances/receive" Text="Recepciones" />
                     </TNNavMenuItem>
                     <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones" />
                     <TNNavMenuItem Url="/login" Icon="feather icon-briefcase" Text="Promociones" />
-                    <TNNavMenuItem Url="/login" Icon="feather icon-settings" Text="Configuración" />
+                    <TNNavMenuItem Url="/login" Icon="feather icon-settings" Text="Configuración" />*@
                 </ul>
             </div>
         </div>
@@ -28,8 +43,16 @@
 @code {
     [Inject] protected IJSRuntime JSRuntime { get; set; }
     [Inject] protected NavigationManager NavigationManager { get; set; }
+    [Inject] protected IMenuService MenuService { get; set; }
 
     private List<TNNavMenuItem> NavMenuItems = new List<TNNavMenuItem>();
+    private List<MenuEntity> MenuItems = new List<MenuEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await MenuService.GetMenus(1, MenuType.Left);
+        MenuItems = response.Menus;
+    }
 
     internal void AddMenuItem(TNNavMenuItem navMenuItem)
     {

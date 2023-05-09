@@ -1,8 +1,9 @@
-﻿<li class="nav-item nav-item-customer nav-item-hasnotmenu">
-    <a class="nav-link">
-        <i class="fas fa-square-full text-center color-secondary mlr-10" style="width: 30px;"></i>
+﻿<div class="navbar-brand">
+    <a href="/dashboard">
+        <img src="https://teledolar.com/wp-content/uploads/2021/03/Logo-TD.svg" />
     </a>
-</li>
+    <a href="" class="close-menu" onclick="javascript:ToggleMenu()" @onclick:preventDefault><i class="feather icon-x"></i></a>
+</div>
 
 @code {
     [CascadingParameter] private NavMenu NavMenu { get; set; }

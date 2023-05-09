@@ -1,11 +1,10 @@
-﻿using System;
-using TN.Client.Services.Shared.Interfaces;
+﻿using TN.Client.Services.Shared.Interfaces;
 
 namespace TN.Client.Services.Shared.Implementations.Shared
 {
-	public class ApplicationInformationService : IApplicationInformation
+	public sealed class ApplicationInformationService : IApplicationInformation
 	{
-        protected string ApplicationName;
+        private readonly string ApplicationName;
 
 		public ApplicationInformationService(string applicationName)
 		{

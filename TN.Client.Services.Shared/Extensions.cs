@@ -10,12 +10,13 @@ namespace TN.Client.Services.Shared
     {
         public static IServiceCollection AddMobileSharedServices(this IServiceCollection services, string applicationName)
         {
-            ApplicationInformationService ApplicationInformation = new ApplicationInformationService(applicationName);
+            services.AddTransient<IVibrationService, Mobile.VibrationService>();
             services.AddTransient<IApplicationInformation>(serviceProvider =>
             {
                 return new ApplicationInformationService(applicationName);
             });
-            services.AddTransient<IVibrationService, Mobile.VibrationService>();
+
+            services.AddTransient<IMenuService, MenuService>();
 
             return services;
         }
@@ -32,6 +33,8 @@ namespace TN.Client.Services.Shared
             {
                 return new ApplicationInformationService(applicationName);
             });
+
+            services.AddTransient<IMenuService, MenuService>();
 
             return services;
         }
