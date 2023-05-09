@@ -32,6 +32,7 @@ namespace TN.Client.Services.Shared
             {
                 return new ApplicationInformationService(applicationName);
             });
+
             return services;
         }
 

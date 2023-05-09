@@ -25,7 +25,7 @@ namespace TN.Client.Mobile.Cusca
 #endif
 
             builder.Services.AddRemittanceServices();
-            builder.Services.AddMobileSharedServices();
+            builder.Services.AddMobileSharedServices("Cusca");
 
             builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 

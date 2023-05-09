@@ -24,9 +24,8 @@ namespace TN.Client.Mobile.Monis
 		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddMobileSharedServices("InstaMonis");
             builder.Services.AddRemittanceServices();
-            builder.Services.AddMobileSharedServices();
+            builder.Services.AddMobileSharedServices("InstaMonis");
 
             builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 

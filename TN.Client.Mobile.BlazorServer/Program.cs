@@ -7,7 +7,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddRemittanceServices();
-builder.Services.AddWebSharedServices();
+builder.Services.AddWebSharedServices("Soriana");
 
 var app = builder.Build();
 
