@@ -23,9 +23,6 @@
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/fonts/feather/css/feather.css">
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/fonts/flag/css/flag-icon.min.css">
 
-    <!-- custom site css -->
-    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/css/site.css">
-
     <!-- easepick css -->
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/easepick/base.css">
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/easepick/range.css">
@@ -33,18 +30,16 @@
     <!-- choices css -->
     <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/plugins/choices/choices.min.css">
 
+    <!-- custom site css -->
+    <link rel="stylesheet" href="_content/TN.Client.Components.Shared/assets/css/site.css">
+
     <!-- css isolation -->
     <link href="TN.Client.Mobile.BlazorServer.styles.css" rel="stylesheet" />
-    @*<link href="_content/TN.Client.Components.Shared.styles.css" rel="stylesheet" />*@
     
     @RenderSection("PageStyles", required: false)
 </head>
 <body>
-
     @RenderBody()
-
-    <!-- JQuery -->
-    @*<script src="_content/TN.Client.Components.Shared/assets/plugins/jquery/jquery-3.5.1.min.js"></script>*@
 
     <!-- Bootstrap -->
     <script src="_content/TN.Client.Components.Shared/assets/plugins/bootstrap/js/popper.min.js"></script>

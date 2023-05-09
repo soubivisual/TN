@@ -104,12 +104,6 @@ namespace TN.Client.Components.Shared.Helpers
         public static ValueTask ToggleMenu(this IJSRuntime js) =>
             js.InvokeVoidAsync(nameof(ToggleMenu));
 
-        public static ValueTask SlideToggleMenuItem(this IJSRuntime js, Guid id) =>
-            js.InvokeVoidAsync(nameof(SlideToggleMenuItem), id);
-
-        public static ValueTask ResetSlideToggleMenuItem(this IJSRuntime js) =>
-            js.InvokeVoidAsync(nameof(ResetSlideToggleMenuItem));
-
         public static ValueTask Vibrate(this IJSRuntime js, int seconds) =>
             js.InvokeVoidAsync(nameof(Vibrate),seconds);
 

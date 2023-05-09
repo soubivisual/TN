@@ -1,0 +1,17 @@
+﻿<li class="nav-item nav-item-customer nav-item-hasnotmenu">
+    <a class="nav-link">
+        <i class="fas fa-square-full text-center color-secondary mlr-10" style="width: 30px;"></i>
+    </a>
+</li>
+
+@code {
+    [CascadingParameter] private NavMenu NavMenu { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (NavMenu == null)
+            throw new ArgumentNullException(nameof(NavMenu), "TNNavTenant must exist within a NavMenu");
+
+        base.OnInitialized();
+    }
+}

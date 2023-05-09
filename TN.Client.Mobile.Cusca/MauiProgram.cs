@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using TN.Client.Services.Remittance;
+using TN.Client.Services.Shared;
 
 namespace TN.Client.Mobile.Cusca
 {
@@ -20,6 +23,14 @@ namespace TN.Client.Mobile.Cusca
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddRemittanceServices();
+            builder.Services.AddMobileSharedServices();
+
+            builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+
+            builder.Services.AddHttpClient<HttpClient>("TN.Client.Mobile.API", client => client.BaseAddress = new Uri("127.0.0.1"));
+            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("TN.Client.Mobile.API"));
 
             return builder.Build();
         }

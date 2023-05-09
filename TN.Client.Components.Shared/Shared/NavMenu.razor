@@ -11,24 +11,13 @@
             <div class="navbar-content">
                 <ul class="inner-navbar">
                     <TNNavSeparator />
-                    <TNNavMenuItem Url="" Icon="feather icon-home" Text="Home" />
-                    <TNNavMenuItem Url="dashboard" Icon="feather icon-credit-card" Text="Remesas" />
-               
-                    <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones">
-                        <TNNavMenuItem Url="/login" Text="Transferencias" />
-                        <TNNavMenuItem Url="/login" Text="Historial" />
-                        <TNNavMenuItem Url="/login" Text="Transferencias" />
-                        <TNNavMenuItem Url="/login" Text="Historial" />
-                        <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones">
-                            <TNNavMenuItem Url="/login" Text="Transferencias" />
-                            <TNNavMenuItem Url="/login" Text="Historial" />
-                            <TNNavMenuItem Url="/login" Text="Transferencias" />
-                            <TNNavMenuItem Url="/login" Text="Historial" />
-                        </TNNavMenuItem>
+                    <TNNavMenuItem Url="/dashboard" Icon="feather icon-home" Text="Home" />
+                    <TNNavMenuItem Url="/remittances" Icon="feather icon-credit-card" Text="Remesas">
+                        <TNNavMenuItem Url="/remittances/send" Text="Envíos" />
+                        <TNNavMenuItem Url="/remittances/receive" Text="Recepciones" />
                     </TNNavMenuItem>
-                    <TNNavMenuItem Url="/login" Icon="feather icon-briefcase" Text="Promociones">
-                        <TNNavMenuItem Url="/login" Text="Autorizaciones" />
-                    </TNNavMenuItem>
+                    <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones" />
+                    <TNNavMenuItem Url="/login" Icon="feather icon-briefcase" Text="Promociones" />
                     <TNNavMenuItem Url="/login" Icon="feather icon-settings" Text="Configuración" />
                 </ul>
             </div>
@@ -38,61 +27,25 @@
 
 @code {
     [Inject] protected IJSRuntime JSRuntime { get; set; }
-    private TNNavCustomer NavCustomer;
-    private List<TNNavMenuItem> NavMenuItems = new List<TNNavMenuItem>();
     [Inject] protected NavigationManager NavigationManager { get; set; }
 
-
-    protected override void OnInitialized()
-    {
-        NavCustomer = new ();
-        // Se agrega el siguiente delegate para que se pueda actualizar el menú desde otro componente (validar componente Shared/Redirect.razor)
-        //NotifyPropertyChanged.MenuChanged += async () =>
-        //{
-        //    foreach (var item in NavMenuItems)
-        //    {
-        //        item.SubMenuOpened = NavigationManager.IsSelected(item.Url);
-        //        item.Selected = NavigationManager.IsSelected(item.Url);
-        //    }
-
-        //    await JSRuntime.ResetSlideToggleMenuItem();
-        //    this.StateHasChanged();
-        //};
-    }
+    private List<TNNavMenuItem> NavMenuItems = new List<TNNavMenuItem>();
 
     internal void AddMenuItem(TNNavMenuItem navMenuItem)
     {
         NavMenuItems.Add(navMenuItem);
     }
 
-    public async Task OpenSubMenu(object navControl)
+    public Task OpenSubMenu(TNNavMenuItem navMenuItem)
     {
-        if (navControl is TNNavMenuItem)
-        {
-            var navMenuItem = navControl as TNNavMenuItem;
+        foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem) && !q.NavSubMenuItems.Any(p => p.Equals(navMenuItem))))
+            item.SubMenuOpened = false;
 
-            foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem) && !q.NavSubMenuItems.Any(p => p.Equals(navMenuItem))))
-                item.SubMenuOpened = false;
-
-            NavCustomer.SubMenuOpened = false;
-
-            navMenuItem.SubMenuOpened = !navMenuItem.SubMenuOpened;
-            await JSRuntime.SlideToggleMenuItem(navMenuItem.Id);
-        }
-        else if (navControl is TNNavCustomer)
-        {
-            var navCustomer = navControl as TNNavCustomer;
-
-            foreach (var item in NavMenuItems)
-                item.SubMenuOpened = false;
-
-            navCustomer.SubMenuOpened = !navCustomer.SubMenuOpened;
-            await JSRuntime.SlideToggleMenuItem(navCustomer.Id);
-        }
-        else
-            throw new ArgumentException(nameof(navControl), "navControl must be TNNavMenuItem or NavCustomer instance");
+        navMenuItem.SubMenuOpened = !navMenuItem.SubMenuOpened;
 
         this.StateHasChanged();
+
+        return Task.CompletedTask;
     }
 
     public async Task SelectMenuItem(TNNavMenuItem navMenuItem)
@@ -111,6 +64,6 @@
 
     private void RedirectToUrl(string url)
     {
-        NavigationManager.NavigateTo($"/{HttpUtility.UrlEncode(url)}");
+        NavigationManager.NavigateTo(url);
     }
 }

@@ -42,25 +42,20 @@
     </div>
 </body>
 
-
 @if (ShowBackdrop)
 {
     <div class="modal-backdrop fade show"></div>
 }
 
-
 @code {
-    [Parameter] public RenderFragment ChildContent { get; set; }
     [Inject] protected IVibrationService VibrationService { get; set; }
     [Inject] protected IJSRuntime JSRuntime { get; set; }
 
-
-    public Guid Guid = Guid.NewGuid();
-    public string ModalDisplay = "none;";
-    public string ModalClass = "";
-    public bool ShowBackdrop = false;
-    public bool Opened = false;
-    string animationClass = "no-animation";
+    private string ModalDisplay = "none;";
+    private string ModalClass = "";
+    private bool ShowBackdrop = false;
+    private bool Opened = false;
+    private string animationClass = "no-animation";
 
     public async Task Open()
     {
@@ -69,28 +64,22 @@
         ShowBackdrop = true;
         Opened = true;
         animationClass = "";
-        Animate();
-        StateHasChanged();
-    }
 
-    public void Close()
-    {
+        StateHasChanged();
+
+        await JS.InvokeVoidAsync("InitVisaSensoryBranding");
+        await Task.Delay(1800).ContinueWith((_) => animationClass = "no-animation");
+
+        var vibrate = await VibrationService.Vibrate(1);
+
+        if (!vibrate)
+            await JSRuntime.Vibrate(1);
+
         ModalDisplay = "none";
         ModalClass = "";
         ShowBackdrop = false;
         Opened = false;
-        StateHasChanged();
-    }
 
-    public async Task Animate()
-    {
-        await JS.InvokeVoidAsync("InitVisaSensoryBranding");
-        await Task.Delay(1800).ContinueWith((_) => animationClass = "no-animation");
-        var vibrate = await VibrationService.Vibrate(1);
-        if(!vibrate)
-        {
-            await JSRuntime.Vibrate(1);
-        }
-        Close();
+        StateHasChanged();
     }
 }

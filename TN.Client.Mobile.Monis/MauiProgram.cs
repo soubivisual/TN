@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using TN.Client.Services.Remittance;
 using TN.Client.Services.Shared;
 
 namespace TN.Client.Mobile.Monis
@@ -23,6 +24,7 @@ namespace TN.Client.Mobile.Monis
 		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddRemittanceServices();
             builder.Services.AddMobileSharedServices();
 
             builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();

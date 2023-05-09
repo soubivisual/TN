@@ -28,7 +28,7 @@ namespace TN.Modules.Identities.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserResponse>> Get(int id)
         {
-            var user = await _identitiesAccessModule.ExecuteQueryAsync(new GetAllUsersQuery(id));
+            var user = await _identitiesAccessModule.ExecuteQueryAsync(new GetUserQuery(id));
             if (user is not null)
             {
                 var response = _mapping.Map<UserResponse>(user);

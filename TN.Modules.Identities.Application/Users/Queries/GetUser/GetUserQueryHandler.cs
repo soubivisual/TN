@@ -6,7 +6,7 @@ using TN.Modules.Identities.Domain.Users.Repositories;
 
 namespace TN.Modules.Identities.Application.Users.Queries.GetUser
 {
-    internal class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, UserDto>
+    internal class GetAllUsersQueryHandler : IQueryHandler<GetUserQuery, UserDto>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapping _mapping;
@@ -19,7 +19,7 @@ namespace TN.Modules.Identities.Application.Users.Queries.GetUser
             _cacheDataAccess = cacheDataAccess;
         }
 
-        public async Task<UserDto> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var prueba = await _cacheDataAccess.GetCatalog("Currency");
             var user = await _userRepository.GetAsync(request.UserId);

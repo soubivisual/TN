@@ -80,8 +80,6 @@
         /* bottom: 50vh; */
     }
 
-
-
     50% {
         transform: translateY(300px);
         opacity: 0;

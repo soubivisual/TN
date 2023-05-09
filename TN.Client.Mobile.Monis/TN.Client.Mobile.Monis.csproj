@@ -66,6 +66,8 @@
       <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2E6C2F" BaseSize="128,128" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
+      <ProjectReference Include="..\TN.Client.Components.Remittance\TN.Client.Components.Remittance.csproj" />
       <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
     </ItemGroup>
 </Project>

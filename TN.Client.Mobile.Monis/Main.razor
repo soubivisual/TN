@@ -1,8 +1,7 @@
-﻿@inject IHttpContextAccessor httpContextAccessor
-
-
-<Router AppAssembly="@typeof(Main).Assembly"
-        AdditionalAssemblies="new[] { typeof(TN.Client.Components.Shared.Shared.MainLayout).Assembly }">
+﻿<Router AppAssembly="@typeof(Main).Assembly"
+        AdditionalAssemblies="new[] { typeof(TN.Client.Components.Shared.Shared.EmptyLayout).Assembly,
+                                      typeof(TN.Client.Components.Remittance.Shared.EmptyLayout).Assembly,
+                                      typeof(TN.Client.Components.Authentication.Shared.EmptyLayout).Assembly }">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />

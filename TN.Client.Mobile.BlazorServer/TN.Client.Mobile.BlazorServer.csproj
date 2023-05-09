@@ -9,7 +9,11 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
+    <ProjectReference Include="..\TN.Client.Components.Remittance\TN.Client.Components.Remittance.csproj" />
     <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

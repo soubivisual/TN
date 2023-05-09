@@ -1,3 +1,4 @@
+using TN.Client.Services.Remittance;
 using TN.Client.Services.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+builder.Services.AddRemittanceServices();
 builder.Services.AddWebSharedServices();
 
 var app = builder.Build();
@@ -16,14 +18,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-
+app.UseWebSharedServices();
+app.UseRemittanceServices();
 
 app.Run();

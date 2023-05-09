@@ -3,8 +3,6 @@
 // -----------------------------------------------------------------------
 
 function ToggleFullScreen() {
-    var a = window.innerHeight - 10;
-
     if (!document.fullscreenElement && // alternative standard method
         !document.mozFullScreenElement && !document.webkitFullscreenElement) { // current working methods
         if (document.documentElement.requestFullscreen) {
@@ -33,7 +31,6 @@ function ToggleFullScreen() {
 
 function ToggleMenu() {
     var navbar = document.querySelector('.navbar');
-    console.log('in toogle 0');
 
     if (navbar.classList.contains('show')) {
         navbar.classList.add('hide');
@@ -42,33 +39,6 @@ function ToggleMenu() {
         navbar.classList.add('show');
         navbar.classList.remove('hide');
     }
-}
-
-function SlideToggleMenuItem(id) {
-    document.querySelectorAll('.nav-item.nav-item-hasmenu').forEach(function (navItem, index) {
-
-        if (navItem.querySelector('#' + id)) {
-            navItem.querySelector('.nav-submenu').style.display = 'none';
-            setTimeout(function () {
-                navItem.querySelector('.nav-submenu').style.display = 'block';
-            }, 300);
-        } else {
-            if (!navItem.querySelector('.nav-submenu').querySelector('#' + id)) {
-                navItem.querySelector('.nav-submenu').style.display = 'block';
-                setTimeout(function () {
-                    navItem.querySelector('.nav-submenu').style.display = 'none';
-                }, 300);
-            }
-        }
-    });
-}
-
-function ResetSlideToggleMenuItem() {
-    console.log('in toogle2');
-
-    document.querySelectorAll('.nav-submenu').forEach(function (navSubmenu, index) {
-        navSubmenu.removeAttribute("style");  // Se quita el estilo de los submenus para evitar que cuando se redireccione a una página un submenú previo quede visible
-    });
 }
 
 // -----------------------------------------------------------------------
@@ -160,14 +130,13 @@ function LoadTNPopover(position) {
         popoverTriggerEl.setAttribute('title', title);
 
         popoverTriggerEl.setAttribute('data-bs-trigger', 'focus');
-        return new bootstrap.Popover(popoverTriggerEl, {trigger: 'focus'})
+        return new bootstrap.Popover(popoverTriggerEl, { trigger: 'focus' })
     })
 }
 
 // -----------------------------------------------------------------------
 // -- ETC
 // -----------------------------------------------------------------------
-
 
 function AddEventListener(id, eventName, script) {
     $('#' + id + ':not(.event-listener-attached)')
@@ -184,8 +153,6 @@ function ScrollPosition(x, y) {
 function IsMobile() {
     return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
 }
-
-
 
 // -----------------------------------------------------------------------
 // -- Easepick js 
@@ -264,7 +231,6 @@ function DateTimePickerMaxDate(selectedDate, date, format) {
     beginDate.renderAll();
 }
 
-
 //Crea el componente de calendario con rango de fechas en un mism componente
 function CreateDateRange(elementId) {
     let DateRangePicker = new easepick.create({
@@ -321,7 +287,6 @@ function DateFormat(date, dateFormat) {
     }
 }
 
-
 // -----------------------------------------------------------------------
 // -- Choises JS
 // -----------------------------------------------------------------------
@@ -346,7 +311,7 @@ function InitializeSelectChoices(id, isSearchEnabled, searchPlaceholder) {
 
 // Si es un dispositivo mobile realiza la accion de vibrar mediante javascript
 function Vibrate(seconds) {
-    window.navigator.vibrate(seconds*1000)
+    window.navigator.vibrate(seconds * 1000)
 }
 
 
@@ -662,7 +627,7 @@ function SetGoogleMapMarkers() {
             '<div id="bodyContent">' +
             `<p> ${item.content} </p>` +
             "</div>" +
-            "</div>";    
+            "</div>";
 
         const marker = new google.maps.Marker({
             position: { lat: item.latitude, lng: item.longitude },
