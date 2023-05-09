@@ -34,11 +34,11 @@
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
       <CreatePackage>false</CreatePackage>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+      <CreatePackage>false</CreatePackage>
+    </PropertyGroup>
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
-        <!-- Splash Screen -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
@@ -58,14 +58,26 @@
       <None Remove="Resources\Splash\" />
       <None Remove="Resources\Splash\splash.svg" />
       <None Remove="Resources\Splash\splash.svg" />
+      <None Remove="Resources\AppIcon\" />
+      <None Remove="Resources\AppIcon\appicon.svg" />
+      <None Remove="Resources\AppIcon\appicon.svg" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Resources\Splash\" />
+      <Folder Include="Resources\AppIcon\" />
+      <Folder Include="wwwroot\images\" />
     </ItemGroup>
     <ItemGroup>
       <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2E6C2F" BaseSize="128,128" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\TN.Client.Components.Shared\TN.Client.Components.Shared.csproj" />
+      <ProjectReference Include="..\TN.Client.Components.Authentication\TN.Client.Components.Authentication.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#2E6C2F" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Remove="wwwroot\images\" />
     </ItemGroup>
 </Project>

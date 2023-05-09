@@ -1,4 +1,10 @@
 ﻿:root {
     --primary-color: #2E6C2F;
     --secondary-color: black;
+    --logo-rounded: url(../images/logo-rounded.png);
 }
+
+.circle-logo {
+    background-image: var(--logo-rounded) !important;
+}
+
