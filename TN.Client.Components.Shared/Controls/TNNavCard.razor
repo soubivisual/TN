@@ -1,0 +1,11 @@
+﻿@using TN.Client.Services.Shared.Entities;
+
+@foreach (MenuEntity item in ListNavbarItems)
+{
+    <TNNavCardItem Title="@item.Text" Icon="@item.Icon" Url="@item.Url"></TNNavCardItem>
+}
+
+@code {
+    [Parameter] public List<MenuEntity> ListNavbarItems { get; set; }
+}
+

@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using TN.Client.Services.Shared.Interfaces;
+@using TN.Client.Services.Shared.Models;
+@using TN.Client.Services.Shared.Entities;
+@inherits LayoutComponentBase
 
 <NavMenu />
 
@@ -14,7 +17,7 @@
     </div>
 </main>
 
-<TNBottomNavbar ListNavbarItems="ListBottomNavbarItem"/>
+<TNNavBottom ListNavbarItems="MenuBottomItems" />
 
 <!-- Older IE warning message -->
 <!--[if lt IE 11]>
@@ -63,14 +66,23 @@
 <!-- Warning Section Ends -->
 
 @code {
-    public List<BottomNavbarItem> ListBottomNavbarItem = new();
+    //public List<BottomNavbarItem> ListBottomNavbarItem = new();
+    [Inject] protected IMenuService MenuService { get; set; }
+    private List<MenuEntity> MenuBottomItems = new List<MenuEntity>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await MenuService.GetMenus(1, MenuType.Botton);
+        MenuBottomItems = response.Menus;
+    }
+
     protected override void OnInitialized()
     {
         //AlertMessage = new AlertMessage();
-        ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Remesas", Icon = "icon-globe", Url = "dashboard" });
+        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Remesas", Icon = "icon-globe", Url = "dashboard" });
         //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Transferencias", Icon = "icon-home", URL = "" });
-        ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Servicios", Icon = "icon-briefcase", Url = "components" });
-        ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Información", Icon = "icon-credit-card", Url = "components2" });
+        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Servicios", Icon = "icon-briefcase", Url = "components" });
+        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Información", Icon = "icon-credit-card", Url = "InformationMenu" });
 
 
     }

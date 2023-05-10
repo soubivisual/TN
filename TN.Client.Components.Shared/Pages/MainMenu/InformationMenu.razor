@@ -1,0 +1,34 @@
+﻿@using TN.Client.Services.Shared.Interfaces;
+@using TN.Client.Services.Shared.Models;
+@using TN.Client.Services.Shared.Entities;
+
+@page "/Information"
+
+<div class="row pt-4">
+    <div class="col-md-4">
+        <TNNavCard ListNavbarItems="@MenuItems"></TNNavCard>
+    </div>
+</div>
+
+@code {
+    //private List<NavbarItem> ListItems { get; set; } = new List<NavbarItem>();
+
+    [Inject] protected IMenuService MenuService { get; set; }
+
+    private List<MenuEntity> MenuItems = new List<MenuEntity>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await MenuService.GetMenus(1, MenuType.Botton);
+        MenuItems = response.Menus;
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        //ListItems.Add(new NavbarItem() { Text = "Puntos de pago", Icon = "fa-map-marker-alt", Url = "dashboard" });
+        //ListItems.Add(new NavbarItem() { Text = "Servicios", Icon = "fa-info-circle", Url = "components" });
+        //ListItems.Add(new NavbarItem() { Text = "Información", Icon = "fa-phone-volume", Url = "components2" });
+    }
+}
