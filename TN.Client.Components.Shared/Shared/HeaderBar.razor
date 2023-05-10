@@ -7,12 +7,42 @@
         <ul class="navbar-nav">
             <li>
                 <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @*<i class="icon feather icon-user"></i>*@
+                        Nombre
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right profile">
+                        <!--<AuthorizeView>
+                    <Authorizing>
+                        <text>...</text>
+                    </Authorizing>
+                    <Authorized>
+                        <div class="profile-head">-->
+                        @*<img src="_content/FTPymes.Client.Web.BlazorShared/assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">*@
+                        <!--<span>@context.User.Identity.Name</span>-->
+                        @*<a href="/Logout" class="dud-logout" title="Logout">
+                        <i class="feather icon-log-out"></i>
+                    </a>*@
+                        <!--</div>
+                    </Authorized>
+                </AuthorizeView>-->
+                        <ul class="profile-body">
+                            <li><a href="/profile" class="dropdown-item"><i class="feather icon-user"></i> Mi Perfil</a></li>
+                            <li><a href="/Logout" class="dropdown-item"><i class="feather icon-log-out"></i> Cerrar Sesión</a></li>
+                            @*<li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
+                        <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="icon feather icon-bell"></i>
                         @*@if (Notifications.Where(q => !q.Read).Any())
-                        {
-                            <span class="blob red"></span>
-                        }*@
+                    {
+                        <span class="blob red"></span>
+                    }*@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right notification">
                         <div class="notification-head">
@@ -23,22 +53,22 @@
                         </div>
                         <ul class="notification-body">
                             @*@if (!Notifications.Where(q => !q.Read).Any())
+                        {
+                            <li class="p-3">
+                                <span class="text-muted">No hay notificaciones pendientes por revisar</span>
+                            </li>
+                        }
+                        else
+                        {
+                            @foreach (var notification in Notifications.Where(q => !q.Read).OrderByDescending(q => q.AddedDate).Take(10))
                             {
-                                <li class="p-3">
-                                    <span class="text-muted">No hay notificaciones pendientes por revisar</span>
+                                <li>
+                                    <a href="" class="dropdown-item d-flex align-items-center" @onclick="@(() => ReadNotification(notification))" @onclick:preventDefault>
+                                        <i class="fas fa-circle text-danger"></i> @notification.Text
+                                    </a>
                                 </li>
                             }
-                            else
-                            {
-                                @foreach (var notification in Notifications.Where(q => !q.Read).OrderByDescending(q => q.AddedDate).Take(10))
-                                {
-                                    <li>
-                                        <a href="" class="dropdown-item d-flex align-items-center" @onclick="@(() => ReadNotification(notification))" @onclick:preventDefault>
-                                            <i class="fas fa-circle text-danger"></i> @notification.Text
-                                        </a>
-                                    </li>
-                                }
-                            }*@
+                        }*@
                         </ul>
                         <div class="notification-footer">
                             <a href="/notifications">Mostrar Todas</a>
@@ -46,35 +76,7 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon feather icon-user"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right profile">
-                        <!--<AuthorizeView>
-                            <Authorizing>
-                                <text>...</text>
-                            </Authorizing>
-                            <Authorized>
-                                <div class="profile-head">-->
-                                    @*<img src="_content/FTPymes.Client.Web.BlazorShared/assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">*@
-                                    <!--<span>@context.User.Identity.Name</span>-->
-                                    @*<a href="/Logout" class="dud-logout" title="Logout">
-                                            <i class="feather icon-log-out"></i>
-                                        </a>*@
-                                <!--</div>
-                            </Authorized>
-                        </AuthorizeView>-->
-                        <ul class="profile-body">
-                            <li><a href="/profile" class="dropdown-item"><i class="feather icon-user"></i> Mi Perfil</a></li>
-                            <li><a href="/Logout" class="dropdown-item"><i class="feather icon-log-out"></i> Cerrar Sesión</a></li>
-                            @*<li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                                <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>*@
-                        </ul>
-                    </div>
-                </div>
-            </li>
+
         </ul>
     </div>
 </header>

@@ -68,12 +68,12 @@
 @code {
     //public List<BottomNavbarItem> ListBottomNavbarItem = new();
     [Inject] protected IMenuService MenuService { get; set; }
-    private List<MenuEntity> MenuBottomItems = new List<MenuEntity>();
+    private List<NavbarItemModel> MenuBottomItems = new List<NavbarItemModel>();
 
     protected override async Task OnInitializedAsync()
     {
         var response = await MenuService.GetMenus(1, MenuType.Botton);
-        MenuBottomItems = response.Menus;
+        response.Menus.ForEach(q=> MenuBottomItems.Add(new NavbarItemModel(q)));
     }
 
     protected override void OnInitialized()

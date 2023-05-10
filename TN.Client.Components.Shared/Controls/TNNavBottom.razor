@@ -4,12 +4,11 @@
 {
     <nav class="navbar fixed-bottom navbar-expand-sm">
         <div class="container-fluid">
-            @foreach (MenuEntity item in ListNavbarItems)
+            @foreach (NavbarItemModel item in ListNavbarItems)
             {
-                @*<a class="nav-link @( item.Active ? "active" : "" )" href="@item.Url" @onclick:preventDefault @onclick="@(() => ItemClicked(item))">*@
-                <a class="nav-link" href="@item.Url" @onclick:preventDefault @onclick="@(() => ItemClicked(item))">
-                    <span class="nav-icon"><i class="feather @item.Icon"></i></span>
-                    <span class="nav-text">@item.Text</span>
+                <a class="nav-link @( item.Selected ? "active" : "" )" href="@item.Url" @onclick:preventDefault @onclick="@(() => ItemClicked(item))">
+                    <span class="fs-3"><i class="feather @item.Icon"></i></span>
+                    <span>@item.Text</span>
                 </a>
             }
         </div>
@@ -17,7 +16,7 @@
 }
 
 @code {
-    [Parameter] public List<MenuEntity> ListNavbarItems { get; set; }
+    [Parameter] public List<NavbarItemModel> ListNavbarItems { get; set; }
     public string ElementActive { get; set; }
     [Inject] protected NavigationManager NavigationManager { get; set; }
 
@@ -25,16 +24,21 @@
     {
         if (firstRender && ListNavbarItems != null && string.IsNullOrEmpty(ElementActive))
         {
-            //ListNavbarItems.FirstOrDefault().Active = true;
+            string currentLocation = $"/{NavigationManager.ToBaseRelativePath(NavigationManager.Uri)}";
+            var navbarItem = ListNavbarItems.Where(q=>q.Url == currentLocation).FirstOrDefault();
+            if (navbarItem != null)
+            {
+                navbarItem.Selected = true;
+            }
             this.StateHasChanged();
         }
     }
 
-    private async Task ItemClicked(MenuEntity navMenuItem)
+    private async Task ItemClicked(NavbarItemModel navMenuItem)
     {
-        //foreach (var item in ListNavbarItems.Where(q => !q.Equals(navMenuItem)))
-        //    item.Active = false;
-        //navMenuItem.Active = true;
+        foreach (var item in ListNavbarItems.Where(q => !q.Equals(navMenuItem)))
+            item.Selected = false;
+        navMenuItem.Selected = true;
 
         RedirectToUrl(navMenuItem.Url);
     }
