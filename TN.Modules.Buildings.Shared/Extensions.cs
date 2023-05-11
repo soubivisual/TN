@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TN.Modules.Buildings.Shared.Events;
 using TN.Modules.Buildings.Shared.Exceptions;
+using TN.Modules.Buildings.Shared.HealthChecks;
 using TN.Modules.Buildings.Shared.Messaging;
 using TN.Modules.Buildings.Shared.Persistance.Caching;
 using TN.Modules.Buildings.Shared.Persistance.Database;
@@ -20,6 +21,7 @@ namespace TN.Modules.Buildings.Shared
             services.AddMessaging();
             services.AddCaching();
             services.DatabaseMigration();
+            services.AddModulesHealthChecks();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSingleton<IClock, UtcClock>();
@@ -38,6 +40,7 @@ namespace TN.Modules.Buildings.Shared
             app.UseSwaggerUI();
 #endif
             app.UseErrorHandling();
+            app.UseModulesHealthChecks();
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseAuthorization();
