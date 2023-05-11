@@ -1299,7 +1299,7 @@ main {
     }
 
         .navbar-header a i {
-            font-size: 16px;
+            font-size: 30px;
         }
 
     .navbar-header .navbar-collapse {
@@ -3012,5 +3012,5 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 
 .icon-xl {
-    font-size: calc(6rem + 4.5vw);
+    font-size: calc(4rem + 4.5vw);
 }

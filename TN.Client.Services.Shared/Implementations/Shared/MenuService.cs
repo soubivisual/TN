@@ -6,7 +6,7 @@ namespace TN.Client.Services.Shared.Implementations.Shared
 {
     public sealed class MenuService : IMenuService
     {
-        public Task<GetMenusResponse> GetMenus(int tenantId, Guid typeId)
+        public Task<GetMenusResponse> GetMenus(int tenantId, Guid typeId, int? serviceId = null)
         {
             var menus = new List<MenuEntity>
             {
@@ -34,6 +34,7 @@ namespace TN.Client.Services.Shared.Implementations.Shared
                 Menus = menus
                 .Where(q => q.TenantId == tenantId)
                 .Where(q => q.TypeId == typeId)
+                .Where(q => q.ServiceId == serviceId || serviceId == null)
                 .ToList()
             };
 

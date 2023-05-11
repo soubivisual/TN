@@ -22,25 +22,25 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && ListNavbarItems != null && string.IsNullOrEmpty(ElementActive))
-        {
-            string currentLocation = $"/{NavigationManager.ToBaseRelativePath(NavigationManager.Uri)}";
-            var navbarItem = ListNavbarItems.Where(q=>q.Url == currentLocation).FirstOrDefault();
-            if (navbarItem != null)
-            {
-                navbarItem.Selected = true;
-            }
-            this.StateHasChanged();
-        }
+        ValidateCurrentPath();
+        this.StateHasChanged();
     }
 
     private async Task ItemClicked(NavbarItemModel navMenuItem)
     {
-        foreach (var item in ListNavbarItems.Where(q => !q.Equals(navMenuItem)))
-            item.Selected = false;
-        navMenuItem.Selected = true;
-
         RedirectToUrl(navMenuItem.Url);
+    }
+
+    private void ValidateCurrentPath() {
+        foreach (var item in ListNavbarItems)
+            item.Selected = false;
+
+        string currentPath = $"/{NavigationManager.ToBaseRelativePath(NavigationManager.Uri)}";
+        var navbarItem = ListNavbarItems.Where(q => q.Url == currentPath).FirstOrDefault();
+        if (navbarItem != null)
+        {
+            navbarItem.Selected = true;
+        }
     }
 
     private void RedirectToUrl(string url)
