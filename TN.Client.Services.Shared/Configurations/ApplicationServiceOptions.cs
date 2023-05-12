@@ -10,6 +10,7 @@ namespace TN.Client.Services.Shared.Configurations
     public class ApplicationServiceOptions
     {
         public string ApplicationName { get; set; }
+        public string Language { get; set; }
         public string Culture { get; set; }
     }
 }

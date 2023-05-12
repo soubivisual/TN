@@ -10,7 +10,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddRemittanceServices();
 builder.Services.AddWebSharedServices(options => {
     options.ApplicationName = "Soriana";
-    options.Culture = "es-CR";  
+    options.Language = "es";
+    options.Culture = "CR";  
 });
 
 var app = builder.Build();
