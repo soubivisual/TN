@@ -1,5 +1,6 @@
 using TN.Client.Services.Remittance;
 using TN.Client.Services.Shared;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddRemittanceServices();
-builder.Services.AddWebSharedServices("Soriana");
+builder.Services.AddWebSharedServices(options => {
+    options.ApplicationName = "Soriana";
+    options.Culture = "es-CR";  
+});
 
 var app = builder.Build();
 
