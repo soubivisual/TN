@@ -7,6 +7,7 @@ using TN.Modules.Buildings.Shared.Exceptions;
 using TN.Modules.Buildings.Shared.Messaging;
 using TN.Modules.Buildings.Shared.Persistance.Caching;
 using TN.Modules.Buildings.Shared.Persistance.Database;
+using TN.Modules.Buildings.Shared.Tenants;
 using TN.Modules.Buildings.Shared.Time;
 
 namespace TN.Modules.Buildings.Shared
@@ -20,6 +21,7 @@ namespace TN.Modules.Buildings.Shared
             services.AddMessaging();
             services.AddCaching();
             services.DatabaseMigration();
+            services.AddTenantService();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSingleton<IClock, UtcClock>();

@@ -12,7 +12,7 @@ using TN.Modules.Loggers.Infrastructure.DataAccess;
 namespace TN.Modules.Loggers.Infrastructure.Migrations
 {
     [DbContext(typeof(LoggersDbContext))]
-    [Migration("20230405224824_Init")]
+    [Migration("20230515152241_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -60,6 +60,7 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
+                        .HasMaxLength(4096)
                         .HasColumnType("varchar");
 
                     b.Property<string>("MethodName")
@@ -85,6 +86,40 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationLog", "Loggers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Channel = "ApplicationLogModule",
+                            ClassName = "ClassName",
+                            CoreProcessId = new Guid("fc6263a3-3dc0-4fd5-b2e8-e5e72c3e227d"),
+                            Date = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Ip = "::1",
+                            Key = "Key",
+                            Message = "Test de ApplicationLog",
+                            MethodName = "MethodName",
+                            TenantId = 1,
+                            Type = "Info",
+                            UserId = 1,
+                            Value = "Value"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Channel = "ApplicationLogModule",
+                            ClassName = "ClassName",
+                            CoreProcessId = new Guid("1b05722d-e4df-424b-8a64-627acbf98fbe"),
+                            Date = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Ip = "::1",
+                            Key = "Key",
+                            Message = "Test de ApplicationLog",
+                            MethodName = "MethodName",
+                            TenantId = 2,
+                            Type = "Info",
+                            UserId = 1,
+                            Value = "Value"
+                        });
                 });
 
             modelBuilder.Entity("TN.Modules.Loggers.Domain.TraceLogs.Aggregates.TraceLog", b =>
