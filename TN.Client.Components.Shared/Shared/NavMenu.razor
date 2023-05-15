@@ -25,15 +25,16 @@
                             <TNNavMenuItem Url="@menuItem.Url" Icon="@menuItem.Icon" Text="@menuItem.Text" />
                         }
                     }
+                </ul>
 
-                    @*<TNNavMenuItem Url="/dashboard" Icon="feather icon-home" Text="Home" />
-                    <TNNavMenuItem Url="/remittances" Icon="feather icon-credit-card" Text="Remesas">
-                    <TNNavMenuItem Url="/remittances/send" Text="Envíos" />
-                    <TNNavMenuItem Url="/remittances/receive" Text="Recepciones" />
-                    </TNNavMenuItem>
-                    <TNNavMenuItem Url="/login" Icon="feather icon-globe" Text="Ubicaciones" />
-                    <TNNavMenuItem Url="/login" Icon="feather icon-briefcase" Text="Promociones" />
-                    <TNNavMenuItem Url="/login" Icon="feather icon-settings" Text="Configuración" />*@
+                <ul class="inner-navbar mavbar-bottom-items">
+                    @if (MenuNavbarBottom != null && MenuNavbarBottom.Count > 0)
+                    {
+                        @foreach (var menuItem in MenuNavbarBottom.OrderBy(q => q.Order))
+                        {
+                            <TNNavMenuItem Url="@menuItem.Url" Icon="@menuItem.Icon" Text="@menuItem.Text" />
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -41,18 +42,31 @@
 </CascadingValue>
 
 @code {
+    [Parameter] public List<MenuEntity> MenuNavbarBottom { get; set; }
+
     [Inject] protected IJSRuntime JSRuntime { get; set; }
     [Inject] protected NavigationManager NavigationManager { get; set; }
     [Inject] protected IMenuService MenuService { get; set; }
 
     private List<TNNavMenuItem> NavMenuItems = new List<TNNavMenuItem>();
     private List<MenuEntity> MenuItems = new List<MenuEntity>();
+    private bool ShowBottomNavbarData = false;
 
     protected override async Task OnInitializedAsync()
     {
         var response = await MenuService.GetMenus(1, MenuType.Left);
         MenuItems = response.Menus;
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            ShowBottomNavbarData = !await JSRuntime.IsMobile();
+            this.StateHasChanged();
+        }
+    }
+
 
     internal void AddMenuItem(TNNavMenuItem navMenuItem)
     {
