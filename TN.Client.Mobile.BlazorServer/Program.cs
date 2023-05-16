@@ -11,7 +11,7 @@ builder.Services.AddRemittanceServices();
 builder.Services.AddWebSharedServices(options => {
     options.ApplicationName = "Soriana";
     options.Language = "es";
-    options.Culture = "NI";  
+    options.Culture = "MX";  
 });
 
 var app = builder.Build();

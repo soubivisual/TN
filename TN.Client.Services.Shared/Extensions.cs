@@ -10,14 +10,17 @@ namespace TN.Client.Services.Shared
 {
     public static class Extensions
     {
-        public static IServiceCollection AddMobileSharedServices(this IServiceCollection services, IOptions<ApplicationServiceOptions> options)
+        public static IServiceCollection AddMobileSharedServices(this IServiceCollection services, Action<ApplicationServiceOptions> options)
         {
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options),
+                    @"Please provide options for AddMobileSharedServices.");
+            }
+            services.Configure(options);
             services.AddSingleton<ILocalizerService, LocalizerService>();
             services.AddTransient<IVibrationService, Mobile.VibrationService>();
-            services.AddTransient<IApplicationInformation>(serviceProvider =>
-            {
-                return new ApplicationInformationService(options);
-            });
+            services.AddTransient<IApplicationInformation, ApplicationInformationService>();
 
             services.AddTransient<IMenuService, MenuService>();
 

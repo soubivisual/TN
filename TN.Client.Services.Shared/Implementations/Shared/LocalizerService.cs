@@ -32,12 +32,8 @@ namespace TN.Client.Services.Shared.Implementations.Shared
         public string GetResourceValue(string key,[CallerFilePathAttribute]string @namespace = null)
         {
             var method = new StackTrace().GetFrame(1).GetMethod();
-            //string className = method.DeclaringType.Name; 
-            //string namespaceName = method.DeclaringType.Namespace;
-            //string namespaceNameBase = method.DeclaringType.BaseType.ToString();
-
             var assembly = Assembly.GetCallingAssembly();
-            var baseName = method.DeclaringType.BaseType.ToString();
+            var baseName = method.DeclaringType.BaseType.FullName;
 
             _resourceManager = new ResourceManager(baseName, assembly);
             return _resourceManager.GetString(key, _culture) ?? "Resource Not Found!";
