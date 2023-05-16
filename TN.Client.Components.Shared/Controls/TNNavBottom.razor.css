@@ -14,20 +14,6 @@
     flex-wrap: initial;
 }
 
-.nav-link {
-    justify-items: center;
-    display: grid;
-    color: var(--text-color);
-    width: 100%;
-    border-bottom: 4px solid var(--white-color);
-}
-
-    .nav-link.active {
-        color: var(--primary-color) !important;
-        text-decoration: none;
-        border-bottom: 4px solid var(--primary-color);
-    }
-
 /* Menú Mobile & Tablet */
 @media (min-width: 768px) {
     .navbar{
