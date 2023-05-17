@@ -14,12 +14,12 @@ namespace TN.Modules.Buildings.Shared.Persistance.Caching
 
         public static IServiceCollection AddCaching(this IServiceCollection services)
         {
+            var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            var connectionString = configuration[$"{nameof(ConnectionStrings)}:{ConnectionStrings.Caching}"];
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
             services.AddStackExchangeRedisCache(options =>
             {
-                var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-                var connectionString = configuration[$"{nameof(ConnectionStrings)}:{ConnectionStrings.Caching}"];
-                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
                 options.Configuration = connectionString;
                 options.InstanceName = $"{InstanceName}_{environment}_";
             });

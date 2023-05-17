@@ -54,33 +54,40 @@ namespace TN.Modules.Buildings.Shared.Messaging
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            stoppingToken.ThrowIfCancellationRequested();
-
-            var consumer = new EventingBasicConsumer(_channel);
-
-            consumer.Received += async (ch, ea) =>
+            try
             {
-                _logger.LogInformation("Event Received!");
+                stoppingToken.ThrowIfCancellationRequested();
 
-                var message = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var payload = JsonSerializer.Deserialize<EventBase>(message);
-                var type = Type.GetType(payload.Event);
+                var consumer = new EventingBasicConsumer(_channel);
 
-                if (type == null)
-                    return;
+                consumer.Received += async (ch, ea) =>
+                {
+                    _logger.LogInformation("Event Received!");
 
-                using MemoryStream stream = new(Encoding.UTF8.GetBytes(payload.Data));
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var @event = (IEvent)JsonSerializer.Deserialize(stream, type, options);
+                    var message = Encoding.UTF8.GetString(ea.Body.ToArray());
+                    var payload = JsonSerializer.Deserialize<EventBase>(message);
+                    var type = Type.GetType(payload.Event);
 
-                var result = await _eventDispatcher.PublishAsync(@event, stoppingToken);
+                    if (type == null)
+                        return;
 
-                if (result)
-                    _channel.BasicAck(ea.DeliveryTag, multiple: false);
-            };
+                    using MemoryStream stream = new(Encoding.UTF8.GetBytes(payload.Data));
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    var @event = (IEvent)JsonSerializer.Deserialize(stream, type, options);
 
-            var consumerTag = _channel.BasicConsume(queue: QueueName, autoAck: false, consumer: consumer);
-            //_channel.BasicCancel(consumerTag);
+                    var result = await _eventDispatcher.PublishAsync(@event, stoppingToken);
+
+                    if (result)
+                        _channel.BasicAck(ea.DeliveryTag, multiple: false);
+                };
+
+                var consumerTag = _channel.BasicConsume(queue: QueueName, autoAck: false, consumer: consumer);
+                //_channel.BasicCancel(consumerTag);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Could not execute Message Bus: {ex.Message}");
+            }
 
             return Task.CompletedTask;
         }
