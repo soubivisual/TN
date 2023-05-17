@@ -8,7 +8,6 @@ using TN.Modules.Loggers.Application.ApplicationLogs.Queries.GetApplicationLog;
 
 namespace TN.Modules.Loggers.API.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
     public class ApplicationLogController : AuthBaseController
     {

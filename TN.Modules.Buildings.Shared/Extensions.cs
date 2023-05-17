@@ -8,7 +8,9 @@ using TN.Modules.Buildings.Shared.HealthChecks;
 using TN.Modules.Buildings.Shared.Messaging;
 using TN.Modules.Buildings.Shared.Persistance.Caching;
 using TN.Modules.Buildings.Shared.Persistance.Database;
+using TN.Modules.Buildings.Shared.MultiTenants;
 using TN.Modules.Buildings.Shared.Time;
+using TN.Modules.Buildings.Shared.Authentication;
 
 namespace TN.Modules.Buildings.Shared
 {
@@ -20,10 +22,13 @@ namespace TN.Modules.Buildings.Shared
             services.AddEvents();
             services.AddMessaging();
             services.AddCaching();
+            services.AddMultitenants();
             services.DatabaseMigration();
             services.AddModulesHealthChecks();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+            services.AddAPIAuthentication(configuration);
+
             services.AddSingleton<IClock, UtcClock>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 #if DEBUG
@@ -40,6 +45,8 @@ namespace TN.Modules.Buildings.Shared
             app.UseSwaggerUI();
 #endif
             app.UseErrorHandling();
+            app.UseMultitenants();
+            app.UseAPIAuthentication();
             app.UseModulesHealthChecks();
             app.UseRouting();
             app.UseHttpsRedirection();

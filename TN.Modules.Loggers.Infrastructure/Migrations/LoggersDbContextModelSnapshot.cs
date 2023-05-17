@@ -57,6 +57,7 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
+                        .HasMaxLength(4096)
                         .HasColumnType("varchar");
 
                     b.Property<string>("MethodName")
@@ -82,6 +83,40 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationLog", "Loggers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Channel = "ApplicationLogModule",
+                            ClassName = "ClassName",
+                            CoreProcessId = new Guid("76f8dee1-9277-4e7d-9c0a-6240de2266e2"),
+                            Date = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Ip = "::1",
+                            Key = "Key",
+                            Message = "Test de ApplicationLog",
+                            MethodName = "MethodName",
+                            TenantId = 1,
+                            Type = "Info",
+                            UserId = 1,
+                            Value = "Value"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Channel = "ApplicationLogModule",
+                            ClassName = "ClassName",
+                            CoreProcessId = new Guid("de796a3b-e35b-4587-9bba-0a91158fb1f1"),
+                            Date = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Ip = "::1",
+                            Key = "Key",
+                            Message = "Test de ApplicationLog",
+                            MethodName = "MethodName",
+                            TenantId = 2,
+                            Type = "Info",
+                            UserId = 1,
+                            Value = "Value"
+                        });
                 });
 
             modelBuilder.Entity("TN.Modules.Loggers.Domain.TraceLogs.Aggregates.TraceLog", b =>

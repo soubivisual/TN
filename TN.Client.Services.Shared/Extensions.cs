@@ -3,18 +3,24 @@ using Mobile = TN.Client.Services.Shared.Implementations.Mobile;
 using Web = TN.Client.Services.Shared.Implementations.Web;
 using TN.Client.Services.Shared.Interfaces;
 using TN.Client.Services.Shared.Implementations.Shared;
+using Microsoft.Extensions.Options;
+using TN.Client.Services.Shared.Configurations;
 
 namespace TN.Client.Services.Shared
 {
     public static class Extensions
     {
-        public static IServiceCollection AddMobileSharedServices(this IServiceCollection services, string applicationName)
+        public static IServiceCollection AddMobileSharedServices(this IServiceCollection services, Action<ApplicationServiceOptions> options)
         {
-            services.AddTransient<IVibrationService, Mobile.VibrationService>();
-            services.AddTransient<IApplicationInformation>(serviceProvider =>
+            if (options == null)
             {
-                return new ApplicationInformationService(applicationName);
-            });
+                throw new ArgumentNullException(nameof(options),
+                    @"Please provide options for AddMobileSharedServices.");
+            }
+            services.Configure(options);
+            services.AddSingleton<ILocalizerService, LocalizerService>();
+            services.AddTransient<IVibrationService, Mobile.VibrationService>();
+            services.AddTransient<IApplicationInformation, ApplicationInformationService>();
 
             services.AddTransient<IMenuService, MenuService>();
 
@@ -26,13 +32,17 @@ namespace TN.Client.Services.Shared
             return app;
         }
 
-        public static IServiceCollection AddWebSharedServices(this IServiceCollection services, string applicationName)
+        public static IServiceCollection AddWebSharedServices(this IServiceCollection services, Action<ApplicationServiceOptions> options)
         {
-            services.AddTransient<IVibrationService, Web.VibrationService>();
-            services.AddTransient<IApplicationInformation>(serviceProvider =>
+            if (options == null)
             {
-                return new ApplicationInformationService(applicationName);
-            });
+                throw new ArgumentNullException(nameof(options),
+                    @"Please provide options for AddWebSharedServices.");
+            }
+            services.Configure(options);
+            services.AddSingleton<ILocalizerService, LocalizerService>();
+            services.AddTransient<IVibrationService, Web.VibrationService>();
+            services.AddTransient<IApplicationInformation, ApplicationInformationService>();
 
             services.AddTransient<IMenuService, MenuService>();
 

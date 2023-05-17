@@ -8,7 +8,6 @@ using TN.Modules.Notifications.Application.Notifications.Queries.GetNotification
 
 namespace TN.Modules.Notifications.API.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
     public sealed class NotificationController : AuthBaseController
     {

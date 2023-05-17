@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates;
+using TN.Modules.Loggers.Domain.ApplicationLogs.ValueObjects;
 
 namespace TN.Modules.Loggers.Infrastructure.DataAccess.ApplicationLogs
 {
@@ -24,7 +25,36 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess.ApplicationLogs
             builder.Property(x => x.Date).IsRequired();
             builder.Property(x => x.Ip).HasMaxLength(32);
             builder.Property(x => x.CoreProcessId);
-            builder.Property(x => x.Message).IsRequired();
+            builder.Property(x => x.Message).HasMaxLength(4096).IsRequired();
+
+            builder.HasData(new ApplicationLog(
+                1,
+                1, 
+                1, 
+                "ApplicationLogModule", 
+                ApplicationLogType.Info, 
+                "ClassName", 
+                "MethodName", 
+                "Key", 
+                "Value",
+                new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), 
+                "::1", 
+                Guid.NewGuid(), 
+                "Test de ApplicationLog"),
+                new ApplicationLog(
+                2,
+                2,
+                1,
+                "ApplicationLogModule",
+                ApplicationLogType.Info,
+                "ClassName",
+                "MethodName",
+                "Key",
+                "Value",
+                new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                "::1",
+                Guid.NewGuid(),
+                "Test de ApplicationLog"));
         }
     }
 }

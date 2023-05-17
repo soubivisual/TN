@@ -2,7 +2,7 @@
     padding-top: 0;
     padding-bottom: 0;
     background-color: var(--white-color);
-    border-top: 0.1px ridge var(--dark-gray-color);
+    border-top: 1px solid var(--primary-color);
     font-weight: bold;
     font-size: smaller;
 }
@@ -12,18 +12,6 @@
     display: flex;
     padding: 0;
     flex-wrap: initial;
-}
-
-.nav-link {
-    justify-items: center;
-    display: grid;
-    color: var(--secondary-color);
-    width: 100%;
-}
-
-.nav-link.active {
-    color: var(--secondary-hover-color) !important;
-    text-decoration: none;
 }
 
 /* Menú Mobile & Tablet */

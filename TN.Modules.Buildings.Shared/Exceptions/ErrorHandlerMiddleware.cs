@@ -5,6 +5,7 @@ using TN.Modules.Buildings.Shared.Time;
 
 namespace TN.Modules.Buildings.Shared.Exceptions
 {
+    // RFC 7807: https://www.rfc-editor.org/rfc/rfc7807.html
     internal sealed class ErrorHandlerMiddleware : IMiddleware
     {
         private readonly ILogger<ErrorHandlerMiddleware> _logger;

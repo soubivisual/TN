@@ -1,0 +1,27 @@
+﻿<a class="nav-link @( Selected ? "active" : "" )" href="@Url" @onclick:preventDefault @onclick="@(() => NavMenuBottom.ItemClicked(this))">
+    <span class="fs-3"><i class="feather @Icon"></i></span>
+    <span>@Text</span>
+</a>
+
+@code {
+    [CascadingParameter] private TNNavBottom NavMenuBottom { get; set; }
+
+    [Parameter] public string Url { get; set; }
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public string Text { get; set; }
+
+    [Inject] public NavigationManager NavigationManager { get; set; }
+
+    public bool Selected { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (NavMenuBottom == null)
+            throw new ArgumentNullException(nameof(TNNavBottom), "NavMenuItem must exist within a NavMenu");
+
+        Selected = NavigationManager.IsSelected(Url);
+
+        NavMenuBottom.AddMenuItem(this);
+    }
+}
+

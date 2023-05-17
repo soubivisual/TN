@@ -1,49 +1,62 @@
 ﻿@using TN.Client.Services.Shared.Entities;
 
-@if (ListNavbarItems != null && ListNavbarItems.Count > 0)
-{
-    <nav class="navbar fixed-bottom navbar-expand-sm">
-        <div class="container-fluid">
-            @foreach (MenuEntity item in ListNavbarItems)
-            {
-                @*<a class="nav-link @( item.Active ? "active" : "" )" href="@item.Url" @onclick:preventDefault @onclick="@(() => ItemClicked(item))">*@
-                <a class="nav-link" href="@item.Url" @onclick:preventDefault @onclick="@(() => ItemClicked(item))">
-                    <span class="nav-icon"><i class="feather @item.Icon"></i></span>
-                    <span class="nav-text">@item.Text</span>
-                </a>
-            }
-        </div>
-    </nav>
-}
-
-@code {
-    [Parameter] public List<MenuEntity> ListNavbarItems { get; set; }
-    public string ElementActive { get; set; }
-    [Inject] protected NavigationManager NavigationManager { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+<CascadingValue Value="this">
+    @if (MenuItems != null && MenuItems.Count > 0)
     {
-        if (firstRender && ListNavbarItems != null && string.IsNullOrEmpty(ElementActive))
+        <nav class="navbar fixed-bottom navbar-expand-sm">
+            <div class="container-fluid">
+                @foreach (var menuItem in MenuItems)
+                {
+                    <TNNavBottomItem Url="@menuItem.Url" Text="@menuItem.Text" Icon="@menuItem.Icon"></TNNavBottomItem>
+                }
+            </div>
+        </nav>
+    }
+</CascadingValue>
+
+
+
+    @code {
+        [Parameter] public List<MenuEntity> MenuItems { get; set; }
+        public string ElementActive { get; set; }
+        [Inject] protected NavigationManager NavigationManager { get; set; }
+
+        private List<TNNavBottomItem> NavMenuItems = new List<TNNavBottomItem>();
+
+
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            //ListNavbarItems.FirstOrDefault().Active = true;
             this.StateHasChanged();
+        }
+
+        internal void AddMenuItem(TNNavBottomItem navMenuItem)
+        {
+            NavMenuItems.Add(navMenuItem);
+        }
+
+        public async Task ItemClicked(TNNavBottomItem navMenuItem)
+        {
+            RedirectToUrl(navMenuItem.Url);
+        }
+
+        public async Task SelectMenuItem(TNNavBottomItem navMenuItem)
+        {
+            foreach (var item in NavMenuItems.Where(q => !q.Equals(navMenuItem)))
+                item.Selected = false;
+
+            navMenuItem.Selected = true;
+
+            RedirectToUrl(navMenuItem.Url);
+
+            this.StateHasChanged();
+        }
+
+        private void RedirectToUrl(string url)
+        {
+            NavigationManager.NavigateTo($"{url}");
         }
     }
 
-    private async Task ItemClicked(MenuEntity navMenuItem)
-    {
-        //foreach (var item in ListNavbarItems.Where(q => !q.Equals(navMenuItem)))
-        //    item.Active = false;
-        //navMenuItem.Active = true;
-
-        RedirectToUrl(navMenuItem.Url);
     }
-
-    private void RedirectToUrl(string url)
-    {
-        NavigationManager.NavigateTo($"{url}");
-    }
-}
-
-}
 

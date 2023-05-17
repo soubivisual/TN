@@ -3,7 +3,7 @@
 @using TN.Client.Services.Shared.Entities;
 @inherits LayoutComponentBase
 
-<NavMenu />
+<NavMenu MenuNavbarBottom="MenuBottomItems"/>
 
 <HeaderBar />
 
@@ -17,7 +17,7 @@
     </div>
 </main>
 
-<TNNavBottom ListNavbarItems="MenuBottomItems" />
+<TNNavBottom MenuItems="MenuBottomItems" />
 
 <!-- Older IE warning message -->
 <!--[if lt IE 11]>
@@ -66,7 +66,6 @@
 <!-- Warning Section Ends -->
 
 @code {
-    //public List<BottomNavbarItem> ListBottomNavbarItem = new();
     [Inject] protected IMenuService MenuService { get; set; }
     private List<MenuEntity> MenuBottomItems = new List<MenuEntity>();
 
@@ -74,17 +73,6 @@
     {
         var response = await MenuService.GetMenus(1, MenuType.Botton);
         MenuBottomItems = response.Menus;
-    }
-
-    protected override void OnInitialized()
-    {
-        //AlertMessage = new AlertMessage();
-        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Remesas", Icon = "icon-globe", Url = "dashboard" });
-        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Transferencias", Icon = "icon-home", URL = "" });
-        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Servicios", Icon = "icon-briefcase", Url = "components" });
-        //ListBottomNavbarItem.Add(new BottomNavbarItem() { Text = "Información", Icon = "icon-credit-card", Url = "InformationMenu" });
-
-
     }
 
     //public AlertMessage AlertMessage { get; set; } = new AlertMessage();

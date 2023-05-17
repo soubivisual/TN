@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace TN.Modules.Loggers.Infrastructure.Migrations
 {
@@ -31,7 +34,7 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ip = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true),
                     CoreProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Message = table.Column<string>(type: "varchar", nullable: false)
+                    Message = table.Column<string>(type: "varchar(4096)", maxLength: 4096, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,6 +86,16 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserActivity", x => x.UserActivityId);
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Loggers",
+                table: "ApplicationLog",
+                columns: new[] { "ApplicationLogId", "Channel", "ClassName", "CoreProcessId", "Date", "Ip", "Key", "Message", "MethodName", "TenantId", "Type", "UserId", "Value" },
+                values: new object[,]
+                {
+                    { 1L, "ApplicationLogModule", "ClassName", new Guid("76f8dee1-9277-4e7d-9c0a-6240de2266e2"), new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), "::1", "Key", "Test de ApplicationLog", "MethodName", 1, "Info", 1, "Value" },
+                    { 2L, "ApplicationLogModule", "ClassName", new Guid("de796a3b-e35b-4587-9bba-0a91158fb1f1"), new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), "::1", "Key", "Test de ApplicationLog", "MethodName", 2, "Info", 1, "Value" }
                 });
         }
 

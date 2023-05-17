@@ -11,7 +11,6 @@ using TN.Modules.Configurations.Application.Contracts;
 
 namespace TN.Modules.Configurations.API.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
     public sealed class CatalogController : AuthBaseController
     {

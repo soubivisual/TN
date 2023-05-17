@@ -8,7 +8,6 @@ using TN.Modules.Remittances.Application.Remittances.Queries.GetRemittance;
 
 namespace TN.Modules.Remittances.API.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
     public sealed class RemittanceController : AuthBaseController
     {

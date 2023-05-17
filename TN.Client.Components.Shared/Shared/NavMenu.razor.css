@@ -1,4 +1,9 @@
-﻿
+﻿/* Menú Mobile & Tablet */
+@media (max-width: 768px) {
+    .mavbar-bottom-items {
+        display: none !important;
+    }
+}
 
 
 /* Menú */
@@ -303,4 +308,5 @@
             display: inherit !important; 
         }
 }*/
+
 
