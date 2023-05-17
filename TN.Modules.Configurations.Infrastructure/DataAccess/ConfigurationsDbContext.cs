@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Finbuckle.MultiTenant;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Configurations.Domain.Catalogs.Aggregates;
 using TN.Modules.Configurations.Domain.Catalogs.Entities;
 using TN.Modules.Configurations.Domain.Menus.Aggregates;
@@ -9,7 +13,7 @@ using TN.Modules.Configurations.Domain.Tenants.Entities;
 
 namespace TN.Modules.Configurations.Infrastructure.DataAccess
 {
-    internal class ConfigurationsDbContext : DbContext
+    internal class ConfigurationsDbContext : DbContextBase
     {
         internal DbSet<Catalog> Catalogs { get; set; }
 
@@ -25,18 +29,11 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess
 
         internal DbSet<Company> Companies { get; set; }
 
-        private readonly string _schemaName;
-
-        public ConfigurationsDbContext(DbContextOptions<ConfigurationsDbContext> options) : base(options) 
-        {
-            _schemaName = this.GetType().Name.Replace(nameof(DbContext), string.Empty);
-        }
+        public ConfigurationsDbContext(DbContextOptions<ConfigurationsDbContext> options, IMultiTenantContextAccessor multiTenantContextAccessor, IConfiguration configuration, IWebHostEnvironment env) : base(options, multiTenantContextAccessor, configuration, env) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
-            optionsBuilder.UseSqlServer(x => x.MigrationsHistoryTable("__MigrationsHistory", _schemaName));
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -48,14 +45,7 @@ namespace TN.Modules.Configurations.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema(_schemaName);
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-
-            // Solución del Error: Introducing FOREIGN KEY constraint 'FK_XXXXX' on table 'XXX' may cause cycles or multiple cascade paths. Specify ON DELETE NO ACTION or ON UPDATE NO ACTION, or modify other FOREIGN KEY constraints.
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
         }
     }
 }

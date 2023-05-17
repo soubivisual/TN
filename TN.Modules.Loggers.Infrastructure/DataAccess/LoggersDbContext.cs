@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Finbuckle.MultiTenant;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TN.Modules.Buildings.Shared.Persistance.Database;
-using TN.Modules.Buildings.Shared.Tenants;
 using TN.Modules.Loggers.Domain.ApplicationLogs.Aggregates;
 using TN.Modules.Loggers.Domain.TraceLogs.Aggregates;
 using TN.Modules.Loggers.Domain.UserActivities.Aggregates;
@@ -15,18 +17,11 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess
 
         internal DbSet<UserActivity> UserActivities { get; set; }
 
-        private readonly string _schemaName;
-
-        public LoggersDbContext(DbContextOptions<LoggersDbContext> options, ITenantService tenantService) : base(options, tenantService)
-        {
-            _schemaName = this.GetType().Name.Replace(nameof(DbContext), string.Empty);
-        }
+        public LoggersDbContext(DbContextOptions<LoggersDbContext> options, IMultiTenantContextAccessor multiTenantContextAccessor, IConfiguration configuration, IWebHostEnvironment env) : base(options, multiTenantContextAccessor, configuration, env) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
-            optionsBuilder.UseSqlServer(x => x.MigrationsHistoryTable("__MigrationsHistory", _schemaName));
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -38,7 +33,6 @@ namespace TN.Modules.Loggers.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema(_schemaName);
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

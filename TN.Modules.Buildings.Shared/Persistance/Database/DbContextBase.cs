@@ -1,23 +1,53 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using Finbuckle.MultiTenant;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
 using TN.Modules.Buildings.Shared.SharedKernel;
-using TN.Modules.Buildings.Shared.Tenants;
 
 namespace TN.Modules.Buildings.Shared.Persistance.Database
 {
     public class DbContextBase : DbContext
     {
-        private int? _tenantId;
+        private ITenantInfo _tenant;
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
 
-        public DbContextBase(DbContextOptions options, ITenantService tenantService) : base(options) 
-        { 
-            _tenantId = tenantService.GetTenantId();
+        public string Schema { get; }
+
+        public DbContextBase(DbContextOptions options, IMultiTenantContextAccessor multiTenantContextAccessor, IConfiguration configuration, IWebHostEnvironment env) : base(options) 
+        {
+            _tenant = multiTenantContextAccessor.MultiTenantContext?.TenantInfo;
+            _configuration = configuration;
+            _env = env;
+        }
+
+        public void SetCurrentTenant(ITenantInfo tenant)
+        {
+            _tenant = tenant;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+
+            string connectionString;
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+            var schema = className.Replace(nameof(DbContext), string.Empty);
+
+            if (_tenant is null && _env.IsDevelopment())
+            {
+                connectionString = _configuration.GetConnectionString(ConnectionStrings.Database);
+            }
+            else
+            {
+                connectionString = _tenant.ConnectionString;
+            }
+
+            optionsBuilder.UseSqlServer(connectionString, x => x.MigrationsHistoryTable("__MigrationsHistory", schema));
 
 #if DEBUG
             optionsBuilder.EnableSensitiveDataLogging(true);
@@ -36,39 +66,17 @@ namespace TN.Modules.Buildings.Shared.Persistance.Database
         {
             base.OnModelCreating(modelBuilder);
 
-            foreach(var entity in modelBuilder.Model.GetEntityTypes())
+            var methodInfo = new StackTrace().GetFrame(1).GetMethod();
+            var className = methodInfo.ReflectedType.Name;
+            var schema = className.Replace(nameof(DbContext), string.Empty);
+
+            modelBuilder.HasDefaultSchema(schema);
+
+            // Solución del Error: Introducing FOREIGN KEY constraint 'FK_XXXXX' on table 'XXX' may cause cycles or multiple cascade paths. Specify ON DELETE NO ACTION or ON UPDATE NO ACTION, or modify other FOREIGN KEY constraints.
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                var type = entity.ClrType;
-
-                if (typeof(ITenantEntity).IsAssignableFrom(type))
-                {
-                    var method = typeof(DbContextBase).GetMethod(nameof(GlobalTenantFilter),BindingFlags.NonPublic | BindingFlags.Static)?.MakeGenericMethod(type);
-                    var filter = method.Invoke(null, new object[] { this });
-                    entity.SetQueryFilter((LambdaExpression)filter);
-                }
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            foreach(var item in ChangeTracker.Entries().Where(x => x.State == EntityState.Added && x.Entity is ITenantEntity))
-            {
-                if (_tenantId == default)
-                {
-                    throw new Exception("TenantId no encontrado al momento de crear el registro");
-                }
-                    
-                var entity = item.Entity as ITenantEntity;
-                entity.TenantId = _tenantId;
-            }
-            
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
-        private static LambdaExpression GlobalTenantFilter<TEntity>(DbContextBase context) where TEntity : class, ITenantEntity
-        {
-            Expression<Func<TEntity, bool>> filter = x => x.TenantId == context._tenantId;
-            return filter;
         }
     }
 }

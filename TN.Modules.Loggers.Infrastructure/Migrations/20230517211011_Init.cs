@@ -94,8 +94,8 @@ namespace TN.Modules.Loggers.Infrastructure.Migrations
                 columns: new[] { "ApplicationLogId", "Channel", "ClassName", "CoreProcessId", "Date", "Ip", "Key", "Message", "MethodName", "TenantId", "Type", "UserId", "Value" },
                 values: new object[,]
                 {
-                    { 1L, "ApplicationLogModule", "ClassName", new Guid("fc6263a3-3dc0-4fd5-b2e8-e5e72c3e227d"), new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), "::1", "Key", "Test de ApplicationLog", "MethodName", 1, "Info", 1, "Value" },
-                    { 2L, "ApplicationLogModule", "ClassName", new Guid("1b05722d-e4df-424b-8a64-627acbf98fbe"), new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), "::1", "Key", "Test de ApplicationLog", "MethodName", 2, "Info", 1, "Value" }
+                    { 1L, "ApplicationLogModule", "ClassName", new Guid("76f8dee1-9277-4e7d-9c0a-6240de2266e2"), new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), "::1", "Key", "Test de ApplicationLog", "MethodName", 1, "Info", 1, "Value" },
+                    { 2L, "ApplicationLogModule", "ClassName", new Guid("de796a3b-e35b-4587-9bba-0a91158fb1f1"), new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), "::1", "Key", "Test de ApplicationLog", "MethodName", 2, "Info", 1, "Value" }
                 });
         }
 

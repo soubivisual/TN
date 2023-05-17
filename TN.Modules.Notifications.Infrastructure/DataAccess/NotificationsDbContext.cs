@@ -1,24 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Finbuckle.MultiTenant;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Notifications.Domain.Notifications.Aggregates;
 
 namespace TN.Modules.Notifications.Infrastructure.DataAccess
 {
-    internal class NotificationsDbContext : DbContext
+    internal class NotificationsDbContext : DbContextBase
     {
         internal DbSet<Notification> Notifications { get; set; }
 
-        private readonly string _schemaName;
-
-        public NotificationsDbContext(DbContextOptions<NotificationsDbContext> options) : base(options)
-        {
-            _schemaName = this.GetType().Name.Replace(nameof(DbContext), string.Empty);
-        }
+        public NotificationsDbContext(DbContextOptions<NotificationsDbContext> options, IMultiTenantContextAccessor multiTenantContextAccessor, IConfiguration configuration, IWebHostEnvironment env) : base(options, multiTenantContextAccessor, configuration, env) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
-            optionsBuilder.UseSqlServer(x => x.MigrationsHistoryTable("__MigrationsHistory", _schemaName));
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -30,7 +27,6 @@ namespace TN.Modules.Notifications.Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.HasDefaultSchema(_schemaName);
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
