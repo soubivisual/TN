@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Finbuckle.MultiTenant;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
@@ -9,12 +10,12 @@ namespace TN.Modules.Buildings.Shared.HealthChecks
     internal class DatabaseHealthCheck : IHealthCheck
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<DbContextMigration> _logger;
+        private readonly IMultiTenantStore<TenantInfo> _multiTenantStore;
 
-        public DatabaseHealthCheck(IServiceProvider serviceProvider, ILogger<DbContextMigration> logger)
+        public DatabaseHealthCheck(IServiceProvider serviceProvider, IMultiTenantStore<TenantInfo> multiTenantStore)
         {
             _serviceProvider = serviceProvider;
-            _logger = logger;
+            _multiTenantStore = multiTenantStore;
         }
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
@@ -29,14 +30,21 @@ namespace TN.Modules.Buildings.Shared.HealthChecks
                 using var scope = _serviceProvider.CreateScope();
                 foreach (var dbContextType in dbContextTypes)
                 {
-                    var dbContext = scope.ServiceProvider.GetService(dbContextType) as DbContext;
-                    if (dbContext is null)
-                    {
-                        continue;
-                    }
+                    var tenants = await _multiTenantStore.GetAllAsync();
 
-                    await dbContext.Database.OpenConnectionAsync();
-                    await dbContext.Database.CloseConnectionAsync();
+                    foreach(var tenant in tenants)
+                    {
+                        var dbContext = scope.ServiceProvider.GetService(dbContextType) as DbContextBase;
+                        if (dbContext is null)
+                        {
+                            continue;
+                        }
+
+                        dbContext.SetCurrentTenant(tenant);
+
+                        await dbContext.Database.OpenConnectionAsync();
+                        await dbContext.Database.CloseConnectionAsync();
+                    }
                 }
 
                 return HealthCheckResult.Healthy();

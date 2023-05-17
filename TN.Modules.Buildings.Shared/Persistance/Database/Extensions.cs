@@ -8,7 +8,7 @@ namespace TN.Modules.Buildings.Shared.Persistance.Database
     {
         public static IServiceCollection AddDatabase<T>(this IServiceCollection services) where T : DbContext
         {
-            services.AddDbContext<T>();
+            services.AddDbContext<T>(ServiceLifetime.Transient);
 
             return services;
         }

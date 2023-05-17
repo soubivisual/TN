@@ -42,7 +42,7 @@ namespace TN.Modules.Buildings.Shared.Persistance.Database
 
                     dbContext.SetCurrentTenant(tenant);
 
-                    _logger.LogInformation("Running DB context: {dbContextTypeName}...", dbContext.GetType().Name);
+                    _logger.LogInformation("Running DB context: {dbContextTypeName} for tenant: {tenant}...", dbContext.GetType().Name, tenant.Name);
                     await dbContext.Database.MigrateAsync(cancellationToken);
                 }
             }

@@ -9,7 +9,11 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddRemittanceServices();
-builder.Services.AddWebSharedServices("Soriana");
+builder.Services.AddWebSharedServices(options => {
+    options.ApplicationName = "Soriana";
+    options.Language = "es";
+    options.Culture = "MX";
+});
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
