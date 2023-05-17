@@ -25,7 +25,11 @@ namespace TN.Client.Mobile.Monis
 #endif
 
             builder.Services.AddRemittanceServices();
-            builder.Services.AddMobileSharedServices("InstaMonis");
+            builder.Services.AddMobileSharedServices(options => {
+                options.ApplicationName = "InstaMonis";
+                options.Language = "es";
+                options.Culture = "CR";
+            });
 
             builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
 
