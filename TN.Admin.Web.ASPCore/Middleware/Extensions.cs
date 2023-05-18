@@ -44,7 +44,6 @@ namespace TN.Admin.Web.ASPCore.Middleware
 				});
 			});
 		}
-
 		public static void ConfigureNotFoundHandler(this IApplicationBuilder app)
 		{
 			app.Use(async (context, next) =>
@@ -57,5 +56,22 @@ namespace TN.Admin.Web.ASPCore.Middleware
 				}
 			});
 		}
+		public static IServiceCollection ConfigureSameSiteNoneCookies(this IServiceCollection services)
+        {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+                options.OnAppendCookie = cookieContext => CheckSameSite(cookieContext.CookieOptions);
+                options.OnDeleteCookie = cookieContext => CheckSameSite(cookieContext.CookieOptions);
+            });
+
+            return services;
+        }
+        private static void CheckSameSite(CookieOptions options)
+        {
+            if (options.SameSite == SameSiteMode.None && options.Secure == false) 
+                options.SameSite = SameSiteMode.Unspecified;
+            
+        }
 	}
 }
