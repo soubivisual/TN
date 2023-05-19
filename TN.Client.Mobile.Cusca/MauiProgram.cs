@@ -28,7 +28,7 @@ namespace TN.Client.Mobile.Cusca
             builder.Services.AddMobileSharedServices(options => {
                 options.ApplicationName = "Cusca";
                 options.Language = "es";
-                options.Culture = "CR";
+                options.Culture = "SV";
             });
 
             builder.Services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();

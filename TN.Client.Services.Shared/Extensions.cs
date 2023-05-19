@@ -20,6 +20,7 @@ namespace TN.Client.Services.Shared
             services.Configure(options);
             services.AddSingleton<ILocalizerService, LocalizerService>();
             services.AddTransient<IVibrationService, Mobile.VibrationService>();
+            services.AddTransient<IGeolocationService, Mobile.GeolocationService>();
             services.AddTransient<IApplicationInformation, ApplicationInformationService>();
 
             services.AddTransient<IMenuService, MenuService>();
@@ -42,6 +43,7 @@ namespace TN.Client.Services.Shared
             services.Configure(options);
             services.AddSingleton<ILocalizerService, LocalizerService>();
             services.AddTransient<IVibrationService, Web.VibrationService>();
+            services.AddTransient<IGeolocationService, Web.GeolocationService>();
             services.AddTransient<IApplicationInformation, ApplicationInformationService>();
 
             services.AddTransient<IMenuService, MenuService>();

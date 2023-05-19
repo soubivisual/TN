@@ -200,5 +200,12 @@ namespace TN.Client.Components.Shared.Helpers
         public static ValueTask SetGoogleMapMarkers(this IJSRuntime js, string key) =>
             js.InvokeVoidAsync(nameof(SetGoogleMapMarkers), key);
 
+        public static ValueTask AddMarkersGoogleMaps(this IJSRuntime js, List<LocationData> locations) =>
+            js.InvokeVoidAsync(nameof(AddMarkersGoogleMaps), locations);
+
+        public static ValueTask RemoveMarkersGoogleMaps(this IJSRuntime js) =>
+            js.InvokeVoidAsync(nameof(RemoveMarkersGoogleMaps));
+
+
     }
 }

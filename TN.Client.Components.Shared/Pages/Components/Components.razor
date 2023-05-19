@@ -8,6 +8,8 @@
 @code {
     public LocationData CurrentLocation { get; set; }
     public List<LocationData> Locations { get; set; }
+    [Inject] protected IGeolocationService GeolocationService { get; set; }
+
 
     protected override void OnInitialized()
     {
