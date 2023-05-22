@@ -10,7 +10,8 @@ using TN.Modules.Identities.API.Responses;
 
 namespace TN.Modules.Identities.API.Controllers
 {
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class UserController : AuthBaseController
     {
         private readonly IIdentitiesAccessModule _identitiesAccessModule;

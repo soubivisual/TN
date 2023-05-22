@@ -11,6 +11,7 @@ using TN.Modules.Buildings.Shared.Persistance.Database;
 using TN.Modules.Buildings.Shared.MultiTenants;
 using TN.Modules.Buildings.Shared.Time;
 using TN.Modules.Buildings.Shared.Authentication;
+using TN.Modules.Buildings.Shared.ApiDocs;
 
 namespace TN.Modules.Buildings.Shared
 {
@@ -28,22 +29,18 @@ namespace TN.Modules.Buildings.Shared
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddAPIAuthentication(configuration);
+            services.AddApiDocs();
 
             services.AddSingleton<IClock, UtcClock>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-#if DEBUG
-            services.AddSwaggerGen();
-#endif
 
             return services;
         }
 
         public static IApplicationBuilder UseSharedFramework(this IApplicationBuilder app)
         {
-#if DEBUG
-            app.UseSwagger();
+            app.UseApiDocs();
             app.UseSwaggerUI();
-#endif
             app.UseErrorHandling();
             app.UseMultitenants();
             app.UseAPIAuthentication();
