@@ -1,6 +1,7 @@
 ﻿@using System.Globalization;
 @{
 	ViewData["Title"] = "Página de inicio";
+	var userName = User?.Claims?.FirstOrDefault(q=>q.Type == "nickname").Value ?? "";
 }
 
 <div class="container">
@@ -14,7 +15,7 @@
 						</a>
 						<div class="pl-10 d-none d-md-block">
 							<span>Bienvenido </span>
-							<h4 class="mb-0"><a class="hover-primary" href="#">Roben Clark</a></h4>
+							<h4 class="mb-0"><a class="hover-primary" href="#">@userName</a></h4>
 						</div>
 					</div>
 

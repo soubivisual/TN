@@ -2,7 +2,7 @@
 
 namespace TN.Admin.Web.ASPCore.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AuthBaseController
     {
         private readonly ILogger<HomeController> _logger;
 
