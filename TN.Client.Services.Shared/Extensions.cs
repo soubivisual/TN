@@ -5,6 +5,7 @@ using TN.Client.Services.Shared.Interfaces;
 using TN.Client.Services.Shared.Implementations.Shared;
 using Microsoft.Extensions.Options;
 using TN.Client.Services.Shared.Configurations;
+using Microsoft.JSInterop;
 
 namespace TN.Client.Services.Shared
 {
@@ -55,5 +56,11 @@ namespace TN.Client.Services.Shared
         {
             return app;
         }
+
+        public static ValueTask<bool> ValidateGeolocationPermission(this IJSRuntime js) =>
+            js.InvokeAsync<bool>(nameof(ValidateGeolocationPermission));
+
+        public static ValueTask<double[]> RequestGeolocationPermission(this IJSRuntime js) =>
+           js.InvokeAsync<double[]>(nameof(RequestGeolocationPermission));
     }
 }

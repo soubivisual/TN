@@ -206,6 +206,7 @@ namespace TN.Client.Components.Shared.Helpers
         public static ValueTask RemoveMarkersGoogleMaps(this IJSRuntime js) =>
             js.InvokeVoidAsync(nameof(RemoveMarkersGoogleMaps));
 
-
+        public static ValueTask CenterGoogleMaps(this IJSRuntime js) =>
+            js.InvokeVoidAsync(nameof(CenterGoogleMaps));
     }
 }

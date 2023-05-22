@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.JSInterop;
 using Microsoft.Maui.ApplicationModel.Communication;
 using TN.Client.Services.Shared.Interfaces;
 
@@ -6,7 +7,7 @@ namespace TN.Client.Services.Shared.Implementations.Mobile
 {
     public class GeolocationService : IGeolocationService
     {
-        public async Task<Tuple<double, double>> RequestGeolocation()
+        public async Task<Tuple<double, double>> RequestGeolocation(IJSRuntime jSRuntime = null)
         {
             CancellationTokenSource _cancelTokenSource;
 
@@ -19,7 +20,7 @@ namespace TN.Client.Services.Shared.Implementations.Mobile
             return Tuple.Create(location.Latitude, location.Longitude);
         }
 
-        public async Task<bool> ValidatePermission()
+        public async Task<bool> ValidatePermission(IJSRuntime jSRuntime = null)
         {
             PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
             if (status != PermissionStatus.Granted)

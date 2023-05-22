@@ -198,25 +198,20 @@ function CreateDatePicker(elementId, format, minimumDate, maximumDate, isRangeDa
 
 //Asigna la fecha minima del componente de calendario con rango de fechas
 function DateTimePickerMinDate(selectedDate, date, format) {
-    console.log('DateTimePickerMinDate', selectedDate);
-
     let selectedDateFormat = new easepick.DateTime(selectedDate, format);
     let dateFormat = new easepick.DateTime(date, format);
 
     const lockPlugin = beginDate.PluginManager.getInstance('LockPlugin');
     lockPlugin.options.maxDate = dateFormat;
-    console.log(lockPlugin);
     beginDate.renderAll();
 
     const lockPluginEnd = endDate;
-    console.log(lockPluginEnd);
     lockPluginEnd.options.date = dateFormat;
     endDate.renderAll();
 }
 
 //Asigna la fecha maxima del componente de calendario con rango de fechas
 function DateTimePickerMaxDate(selectedDate, date, format) {
-    console.log('DateTimePickerMaxDate', selectedDate);
     let selectedDateFormat = new easepick.DateTime(selectedDate, format);
     let dateFormat = new easepick.DateTime(date, format);
 
@@ -225,8 +220,6 @@ function DateTimePickerMaxDate(selectedDate, date, format) {
     endDate.renderAll();
 
     const lockPluginBegin = beginDate;
-    console.log(lockPluginBegin);
-
     lockPluginBegin.options.date = dateFormat;
     beginDate.renderAll();
 }
@@ -568,6 +561,7 @@ function SwalLogout(title, text, confirmButtonText) {
 let map;
 let script = document.createElement('script');
 let currentLocation;
+let currentLocationMarker;
 let locationMarkers;
 let markersInMap = [];
 
@@ -584,7 +578,6 @@ function CreateGoogleMap(key, location, locations) {
 }
 
 function InitGoogleMap() {
-    console.log(map);
     map = new google.maps.Map(document.getElementById("GoogleMap"), {
         center: currentLocation,
         zoom: 16,
@@ -598,7 +591,7 @@ function InitGoogleMap() {
 function SetGoogleMapMarkers() {
     const infoWindow = new google.maps.InfoWindow();
 
-    const currentLocationMarker = new google.maps.Marker({
+     currentLocationMarker = new google.maps.Marker({
         position: currentLocation,
         map,
         title: 'Ubicación actual',
@@ -677,8 +670,6 @@ function AddMarkersGoogleMaps(locations) {
 
 function RemoveMarkersGoogleMaps() {
     for (var i = 0; i < markersInMap.length; i++) {
-        console.log(markersInMap[i]);
-
         markersInMap[i].setMap(null);
     }
     markersInMap = [];
@@ -714,4 +705,82 @@ function openModal(contentData) {
     });
 
     modal.show();
+}
+
+function ChangeCenterGoogleMaps(latitude, longitude) {
+    let newLocation = { lat: latitude, lng: longitude };
+    currentLocationMarker.setMap(null);
+    currentLocationMarker = new google.maps.Marker({
+        position: newLocation,
+        map,
+        title: 'Ubicación actual',
+        icon: {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            scale: 8,
+            strokeColor: '#OOOOFF',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#0000FF',
+            fillOpacity: 0.5
+        },
+        optimized: false,
+    });
+
+    currentLocationMarker.addListener("click", () => {
+        infoWindow.close();
+        infoWindow.setContent(`<h4 id="firstHeading" class="firstHeading">Ubicación actual</h4>`);
+        infoWindow.open(currentLocationMarker.getMap(), currentLocationMarker);
+    });
+
+    currentLocation = newLocation;
+    CenterGoogleMaps();
+}
+
+function CenterGoogleMaps() {
+    map.setCenter(currentLocation);
+}
+
+async function ValidateGeolocationPermission() {
+    var result;
+    await navigator.permissions.query({ name: 'geolocation' })
+        .then(function (permissionStatus) {
+            if (permissionStatus.state === 'granted') {
+                result = true;
+            }
+            else {
+                RequestGeolocationPermission();
+                result = false;
+            }
+            permissionStatus.onchange = async () => {
+                if (permissionStatus.state == "granted") {
+                    var currentLocation = await RequestGeolocationPermission();
+                    ChangeCenterGoogleMaps(currentLocation[0], currentLocation[1]);
+                }
+            };
+        })
+        .catch(function (error) {
+            result = false;
+        });
+    return result;
+}
+
+async function RequestGeolocationPermission() {
+    if ('geolocation' in navigator) {
+        var geolocation;
+        await new Promise(async (resolve, reject) => {
+            await navigator.geolocation.getCurrentPosition(function (position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                resolve([ latitude, longitude]);
+            }, function (error) {
+                    reject(error);
+            });
+        }).then((location) => {
+            geolocation = location;
+        });
+        return geolocation;
+    }
+    else {
+        return null;
+    }
 }

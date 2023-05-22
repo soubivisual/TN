@@ -12,7 +12,6 @@ namespace TN.Client.Components.Shared.Models.Authentication
 
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]

@@ -30,7 +30,7 @@ namespace TN.Client.Components.Authentication.Pages.FirstPage
 
         protected async Task NavigationToLogin()
         {
-            NavigationManager.NavigateTo("/login", true);
+            NavigationManager.NavigateTo("/MapPage", true);
         }
 
         protected async Task ChangeTextToEnglish()
