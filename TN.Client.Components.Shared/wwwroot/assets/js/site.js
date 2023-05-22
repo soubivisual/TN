@@ -569,6 +569,7 @@ let map;
 let script = document.createElement('script');
 let currentLocation;
 let locationMarkers;
+let markersInMap = [];
 
 function InitGoogleMaps(key) {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=InitGoogleMap`;
@@ -583,6 +584,7 @@ function CreateGoogleMap(key, location, locations) {
 }
 
 function InitGoogleMap() {
+    console.log(map);
     map = new google.maps.Map(document.getElementById("GoogleMap"), {
         center: currentLocation,
         zoom: 16,
@@ -626,21 +628,90 @@ function SetGoogleMapMarkers() {
             `<h4 id="firstHeading" class="firstHeading">${item.title}</h4>` +
             '<div id="bodyContent">' +
             `<p> ${item.content} </p>` +
+            `<a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}">Navegar con Google Maps</a>` +
+            `<a href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes">Navegar con Waze</a>` +
             "</div>" +
             "</div>";
-
-        const marker = new google.maps.Marker({
+            
+        let marker = new google.maps.Marker({
             position: { lat: item.latitude, lng: item.longitude },
-            map,
-            title: `${i + 1}. ${item.title}`,
-            optimized: false,
+            map,    
+            title: `${i + 1}. ${item.title}`,   
         });
 
         marker.addListener("click", () => {
-            infoWindow.close();
-            infoWindow.setContent(contentString);
-            infoWindow.open(marker.getMap(), marker);
+            openModal(contentString);
         });
+
+        markersInMap.push(marker);
     });
 }
 
+function AddMarkersGoogleMaps(locations) {
+    locations.forEach((item, i) => {
+        const contentString =
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            "</div>" +
+            `<h4 id="firstHeading" class="firstHeading">${item.title}</h4>` +
+            '<div id="bodyContent">' +
+            `<p> ${item.content} </p>` +
+            `<a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}">Navegar con Google Maps</a>` +
+            `<a href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes">Navegar con Waze</a>` +
+            "</div>" +
+            "</div>";
+
+        let marker = new google.maps.Marker({
+            position: { lat: item.latitude, lng: item.longitude },
+            map,
+            title: `${i + 1}. ${item.title}`,
+        });
+
+        marker.addListener("click", () => {
+            openModal(contentString);
+        });
+
+        markersInMap.push(marker);
+    });
+}
+
+function RemoveMarkersGoogleMaps() {
+    for (var i = 0; i < markersInMap.length; i++) {
+        console.log(markersInMap[i]);
+
+        markersInMap[i].setMap(null);
+    }
+    markersInMap = [];
+}
+
+function openModal(contentData) {
+    // Contenido HTML para la modal
+    var contenidoModal = `
+      <div id="modal-map" class="modal modal-dialog-bottom" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+                ${contentData}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    var modalContainer = document.createElement('div');
+
+    modalContainer.innerHTML = contenidoModal;
+
+    document.body.appendChild(modalContainer);
+
+    var modal = new bootstrap.Modal(modalContainer.querySelector('#modal-map'));
+
+    modalContainer.addEventListener('hidden.bs.modal', function () {
+        modalContainer.remove();
+    });
+
+    modal.show();
+}

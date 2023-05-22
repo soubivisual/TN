@@ -1,24 +1,50 @@
 ﻿<div id="GoogleMap">
 </div>
+<TNButton OnClick="@AddMarkers" Type="ButtonType.Button" Class="btn btn-primary shadow-2 col-lg-3 col-sm-12">
+    Agregar Ubicaciones
+</TNButton>
+
+<TNButton OnClick="@RemoveMarkers" Type="ButtonType.Button" Class="btn btn-secondary shadow-2 col-lg-3 col-sm-12">
+    Eliminar Ubicaciones
+</TNButton>
 
 @code {
     [Parameter] public LocationData CurrentLocation { get; set; }
     [Parameter] public List<LocationData> Locations { get; set; }
 
     [Inject] protected IJSRuntime JSRuntime { get; set; }
+    [Inject] protected IGeolocationService GeolocationService { get; set; }
 
 
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            var status = await GeolocationService.ValidatePermission();
+            if (status)
+            {
+                var location = await GeolocationService.RequestGeolocation();
+                CurrentLocation = new LocationData
+                {
+                    Latitude = location.Item1,
+                    Longitude = location.Item2
+                };
+            }
+
             string googleMapKey = "AIzaSyD7jxPn_u_emfynvkjw7-aKDq22kcv376I";
-            JSRuntime.CreateGoogleMap(googleMapKey, CurrentLocation, Locations);
+            await JSRuntime.CreateGoogleMap(googleMapKey, CurrentLocation, Locations);
             StateHasChanged();
         }
-        return base.OnAfterRenderAsync(firstRender);
     }
 
+    private async Task AddMarkers()
+    {
+        await JSRuntime.AddMarkersGoogleMaps(Locations);
+    }
 
+    private async Task RemoveMarkers()
+    {
+        await JSRuntime.RemoveMarkersGoogleMaps();
+    }
 }
 
